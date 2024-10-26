@@ -1,0 +1,217 @@
+┌── automod
+│   ├── antibotadd: Enable or disable the antibot feature.
+│   ├── antiraid: Automatically bans new users and users with no profile picture
+│   ├── chatfilter: Manage the chat filter
+┌── autopost
+│   ├── autopfp: Automatically sends pfps to a channel
+│   ├── autoanime: Automatically sends anime icons
+│   ├── autobanner: Automatically sends pfps to a channel
+│   ├── autobird: Automatically sends pfps to a channel
+│   ├── autocat: Automatically sends pfps to a channel
+│   ├── autogif: Automatically sends gif pfps to a channel
+│   ├── autowallpaper: Automatically sends pfps to a channel
+│   ├── foryoupage: Set a channel to send random tiktoks in
+│   ├── tracker: Set or reset the tracker channel.
+│   ├── vanities: Set or reset the tracker channel.
+┌── configuration
+│   ├── autorole: Manage autoroles for the server
+│   ├── chatbot: Set or reset the chatbot channel.
+│   ├── filterinvites: Enable or disable filtering of invite links in the server.
+│   ├── goodbye: Manage goodbye settings for the server.
+│   ├── imageonly: Make channels image only
+│   ├── joindm: Greet new members via DMs
+│   ├── messagelogger: Logs deleted or edited messages
+│   ├── modlogs: Set up logging for the server
+│   ├── pingonjoin: Configure ping on join settings
+│   ├── prefix: Set or reset the bot's prefix for this server.
+│   ├── reskin: Reskin the bot
+│   ├── selfprefix: Customize the bots prefix for yourself
+│   ├── ticket: Set up ticketing system in a specific channel.
+│   ├── welcome: Manage welcome settings for the server.
+┌── moderation
+│   ├── setupmod: Sets up the jail for the server
+│   ├── stickymessage: Set a sticky message for a specific channel
+│   ├── autoresponder: Set up automatic replies to messages that match a trigger
+│   ├── ban: Bans mentioned user.
+│   ├── channel: Manipulate channels
+│   ├── chunkban: Bulk bans users with default avatars.
+│   ├── cleanup: Purge messages from bots and common prefixes.
+│   ├── clearfiles: Clear all files in the channel.
+│   ├── clearguildhistory: Clear all your guilds history
+│   ├── clearsnipe: Clears the snipes for the current channel
+│   ├── drag: Drags users from a mentioned voice channel to your voice channel or all users if "all" is specified.
+│   ├── hide: Hide the channel from @everyone or specific users/roles
+│   ├── jail: Jails the specified member (sets up upon first use)
+│   ├── kick: Kicks mentioned user.
+│   ├── lock: Locks the channel from everyone
+│   ├── mute: Mute a user in the text channel
+│   ├── nickname: Set or reset the nickname for a user.
+│   ├── nuke: Deletes and recreates the current channel.
+│   ├── pinmessage: Pin a message by its ID
+│   ├── purge: Mass delete messages
+│   ├── reposter: Manage if the bot reposts social media videos
+│   ├── role: Manage server roles
+│   ├── setbanner: Sets the server banner
+│   ├── seticon: Sets the server icon
+│   ├── setnsfw: Mark a channel as NSFW
+│   ├── setsplash: Sets the server splash
+│   ├── slowmode: Set the slowmode of a channel
+│   ├── softban: Bans a user then unbans instantly
+│   ├── steal: Steal an emoji
+│   ├── stfu: Silence a user
+│   ├── tempnsfw: Mark the channel as NSFW for 60 seconds.
+│   ├── timeout: Temporary timeout a member from the server.
+│   ├── topic: Set the topic of a channel
+│   ├── unban: Unban a user by ID or username
+│   ├── unbanall: Unban all banned users
+│   ├── unhide: Unhide the channel previously hidden from @everyone or specific users/roles.
+│   ├── unjail: Release a user from the shackles
+│   ├── unjailrole: Set the jail role for unjailing users
+│   ├── unlock: Unlocks the channel for everyone
+│   ├── unmute: Unmute a user in the text channel
+│   ├── unpinmessage: Unpin a pinned message by its ID
+│   ├── unsetnsfw: Remove NSFW setting from a channel
+│   ├── unstfu: Unsilence a user
+│   ├── untimeout: Lift the timeout from a member
+│   ├── warn: Warn a user.
+┌── information
+│   ├── faq: Get the support server link
+│   ├── avatar: Show the avatar of a specified user.
+│   ├── avatarhistory: Displays the avatar history of a user.
+│   ├── userbanner: View a user's banner.
+│   ├── boost: Shows server boost information.
+│   ├── botinfo: Shows information about the bot.
+│   ├── botlist: Displays the bot list of the server.
+│   ├── clearnames: Clear your past usernames from the database
+│   ├── commandcount: Check how many commands the bot has
+│   ├── commandsused: Check the total usage of all commands.
+│   ├── botcredits: Show the credits for the bot.
+│   ├── defaultavatars: Show how many users have no profile picture
+│   ├── docs: Sends the documentation link for lain.
+│   ├── editsnipe: View recently edited messages in the current channel.
+│   ├── enlarge: Enlarge an emoji.
+│   ├── firstmessage: Provides the first message of a channel.
+│   ├── guildicons: Displays the guild icon history.
+│   ├── guildnames: Shows all guild names.
+│   ├── help: Displays a list of available commands.
+│   ├── invite: Invite the bot to your server
+│   ├── membercount: Shows member count.
+│   ├── namehistory: View the name history of a user.
+│   ├── oldest: Shows the oldest member in the server.
+│   ├── ping: Check the bot's latency to Discord API.
+│   ├── recentmember: Shows the most recent member to join the server.
+│   ├── roleinfo: N/A
+│   ├── rolelist: Shows all roles in the server.
+│   ├── serverbanner: Show the server banner.
+│   ├── servericon: Show the server icon.
+│   ├── serverinfo: Shows server information.
+│   ├── snipe: Snipe a recently deleted message
+│   ├── supportserver: Shows bot support.
+│   ├── uptime: Shows bot uptime.
+│   ├── userinfo: View a server member's information
+│   ├── vanityuses: Check how many uses your vanity has
+│   ├── youngest: Shows the youngest member in the server.
+│   ├── lyrics: Search for song lyrics
+│   ├── roblox: Get Roblox user information
+│   ├── emoji: Manage your server emojis.
+│   ├── quickpoll: Poll yes/no question.
+┌── donator
+│   ├── forcemarry: Force a user to marry you.
+│   ├── me: Delete your own messages in the channel
+┌── porn
+│   ├── 4k: Sends a 4k image in NSFW channels
+│   ├── anal: Sends a anal image in NSFW channels
+│   ├── ass: Sends a ass image in NSFW channels
+│   ├── autonsfw: Set or reset the auto roleplay channel for NSFW roles.
+│   ├── boobs: Sends a boobs image in NSFW channels
+│   ├── fuck: Get naughty with a server member
+│   ├── hentai: Sends a hentai image in NSFW channels
+│   ├── pussy: Sends a pussy image in NSFW channels
+┌── fun
+│   ├── 8ball: Ask the 8ball a question
+│   ├── birthday: See how far your birthday is
+│   ├── blacktea: Sends a random black tea image
+│   ├── divorce: Divorce your partner.
+│   ├── gossipify: Gossipify text
+│   ├── howgay: See how gay a server member is
+│   ├── iq: View the IQ of a member
+│   ├── marriage: Display information about your marriage or someone else's marriage.
+│   ├── marry: Marry a server member.
+│   ├── penis: Check the size of a mentioned user's imaginary penis.
+│   ├── randombird: Get a random bird image
+│   ├── randomcat: Get a random bird image
+│   ├── randomcolor: Generates a random hexadecimal color code.
+│   ├── rockpaperscissors: Play rock paper scissors with another user
+│   ├── shame: Shame a user
+│   ├── gamestats: View a user's game stats
+│   ├── uwuify: UwUify text.
+│   ├── waifu: Sends a waifu image
+│   ├── wallpaper: Sends a wallpaper image
+┌── economy
+│   ├── balance: Check your balance and bank account.
+│   ├── coinflip: Flip a coin for a chance to win or lose.
+│   ├── deposit: Deposit money from your balance to your bank account.
+│   ├── fish: Go fishing and catch some fish!
+│   ├── gamble: Gamble your coins for a chance to win or lose
+│   ├── hunt: Go hunting and catch some animals!
+│   ├── inventory: Check your inventory!
+│   ├── sell: Sell your caught fish or hunted animals for money!
+│   ├── withdrawal: Withdraw money from your bank account to your balance.
+│   ├── work: Work to earn coins.
+┌── roleplay
+│   ├── cuddle: cuddle a server member
+│   ├── hug: hug a server member
+│   ├── kiss: Kiss a server member
+│   ├── pat: pat a server member
+│   ├── slap: slap a server member
+│   ├── tickle: tickle a server member
+┌── miscellaneous
+│   ├── joinposition: View the join position of a member.
+│   ├── appstore: Search for an app on the App Store.
+│   ├── bitcoin: Get the current Bitcoin price (USD default).
+│   ├── cashapp: View a CashApp profile
+│   ├── clearavatars: Clear your avatar history
+│   ├── clever: Chat with an AI
+│   ├── convert: Convert a video to an MP3
+│   ├── createembed: Create and send a custom embed message.
+│   ├── dictionary: Show the definition of a word
+│   ├── ethereum: Get the current Ethereum price (USD default).
+│   ├── fortnite: Fortnite cosmetic-related commands
+│   ├── generate: Generate an image based on a prompt
+│   ├── giphy: Search Giphy for a GIF.
+│   ├── github: Gets profile information on the given Github user
+│   ├── google: Search Google and display the top results
+│   ├── image: snipe a recently deleted message
+│   ├── imdb: Get the information about a movie or series.
+│   ├── itunes: Search iTunes for a song
+│   ├── litecoin: Get the current Litecoin price (USD default).
+│   ├── makegif: Convert a video file to a GIF
+│   ├── ocr: Extract text from an image
+│   ├── pinterest: Search pins or view a users pins on pinterest
+│   ├── screenshot: Takes a screenshot of a website.
+│   ├── snapchat: Search snapchat for a profile
+│   ├── spotify: Search spotify for a song
+│   ├── steam: Search Steam for a game
+│   ├── tags: Manage tags
+│   ├── tiktok: Get information on a TikTok profile
+│   ├── timezone: View a location's timezone
+│   ├── translate: Translate text between languages
+│   ├── twitch: Get Twitch user information
+│   ├── twitter: View a twitter profile
+│   ├── urban: Shows the definition of a word from Urban Dictionary
+│   ├── valorant: Get information on a Valorant profile
+│   ├── vanitycheck: Checks if a vanity URL is available for a server.
+│   ├── vouch: Vouch for a user with a reason.
+│   ├── vouches: View the vouches for a user.
+│   ├── weather: Gets simple weather using openweathermap API
+│   ├── wikipedia: Search wiki for a query
+│   ├── wolfram: Get math answers
+│   ├── xbox: Gets profile information on the given Xbox gamertag
+│   ├── youtube: Searches youtube for video query
+┌── lastfm
+│   ├── lastfm: Interact with your music
+│   ├── nowplaying: Shows your most recent track
+│   ├── recent: Shows your most recent tracks
+│   ├── topalbums: View your top albums on LastFM
+│   ├── topartists: View your top artists on LastFM
+│   ├── toptracks: View your top tracks on LastFM

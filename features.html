@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=0.7, minimal-ui, viewport-fit=cover, width=device-width">
+    <meta name="theme-color" content="#000001">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="lains.win">
+    <meta property="og:title" content="Lain Bot">
+    <meta property="og:color" content="#000001">
+    <meta property="og:image" content="https://cdn.discordapp.com/avatars/1110011733382287411/c5cb39ce7c9727cadce0a628892855f6.png?size=2048">
+    <meta property="og:url" content="https://lains.win">
+    <meta property="og:description" content="A free auto-posting bot with administrative features">
+
+    <link rel="icon" href="https://cdn.discordapp.com/avatars/1110011733382287411/c5cb39ce7c9727cadce0a628892855f6.png?size=2048">
+
+    <title>Lain Bot Features</title>
+
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Work+Sans&display=swap");
+        @import url("https://fonts.googleapis.com/css2?family=Rubik:wght@300&family=Work+Sans:wght@100;400&display=swap");
+
+        @keyframes appear {
+            0% {
+                opacity: 0;
+            }
+        }
+
+        body {
+            animation: appear 3s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            background: #000000; /* Set background color to black */
+            height: 100vh; /* Set full height */
+            margin: 0; /* Remove default margin */
+        }
+
+        .avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%; 
+            overflow: hidden;
+        }
+
+        .avatar img {
+            width: 100%; 
+            height: auto;
+        }
+
+        h1 {
+            font-family: Work Sans, sans-serif;
+            font-size: 15mm;
+            color: #92918f;
+            text-align: center;
+            margin-bottom: 5px;
+        }
+
+        h2 {
+            font-family: Work Sans, sans-serif;
+            font-size: 1.5em;
+            color: #4c5c6c;
+            text-align: center;
+            margin-bottom: 5px;
+        }
+
+        highlight {
+            color: #4c5c6c;
+        }
+
+        footer {
+            background-color: #2c3e50;
+            color: #fff;
+            font-family: Rubik, sans-serif;
+            text-align: center;
+            padding: 20px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .redirects {
+            text-align: center; 
+        }
+
+        ul.horz-list li {
+            display: inline;
+            padding: 2px;
+        }
+
+        ul.horz-list li a {
+            padding: 0.3em 1.2em;
+            border-radius: 8px;
+            color: white;
+            text-decoration: none;
+            font-family: Work Sans, sans-serif;
+            font-size: 6mm;
+            background-color: rgba(0, 0, 0, 0.2);
+            padding: 0.5em 1.5em;
+        }
+
+        ul.horz-list li a:hover {
+            color: #b8b8b8;
+            background-color: rgba(0, 0, 0, 0.3);
+        }
+
+        ul.horz-list {
+            margin: 0;
+            padding: 0;
+            list-style-type: none;
+            text-align: center;
+        }
+        .features {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .feature-box {
+            flex: 1 1 300px;
+            padding: 20px;
+            background-color: #18191c;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .feature-box .logo {
+            margin-bottom: 20px;
+        }
+
+        .feature-box .logo img {
+            width: 80px;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        .feature-box h3 {
+            color: #92918f;
+            font-size: 1.5em;
+            font-family: 'Work Sans', sans-serif;
+            margin-bottom: 10px;
+        }
+
+        .feature-box p {
+            color: #92918f;
+            font-family: 'Work Sans', sans-serif; 
+            font-size: 1.2em;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="features">
+    <div class="feature-box">
+        <div class="logo">
+            <img src="https://media.discordapp.net/attachments/1216779149440716880/1221235557515132929/image.png?ex=6611d73e&is=65ff623e&hm=da5db2de830841177d71ff98a9332aca7949e438c209bcc0df368e4b2294e890&=&format=webp&quality=lossless&width=1024&height=1024" alt="Logo">
+        </div>
+        <h3>Voice message transcription</h3>
+        <p>Automatically transcribes voice messages when a user sends them</p>
+    </div>
+    <div class="feature-box">
+        <div class="logo">
+            <img src="https://media.discordapp.net/attachments/1216779149440716880/1221235440036610078/image.png?ex=6611d722&is=65ff6222&hm=6ebc3781380156deb5ade4d2beaa8a3c64dc52aa798151fb0e488918957abca3&=&format=webp&quality=lossless&width=1024&height=1024" alt="Logo">
+        </div>
+        <h3>Social media reposting</h3>
+        <p>Reposts social media posts such as TikTok, YouTube, etc.</p>
+    </div>
+    <div class="feature-box">
+        <div class="logo">
+            <img src="https://media.discordapp.net/attachments/1216779149440716880/1221235319244849304/image.png?ex=6611d705&is=65ff6205&hm=193c6a89fe671aee4792241b3bc02e54b77cc85b699cb7fb37191d758ed91b35&=&format=webp&quality=lossless&width=1024&height=1024" alt="Logo">
+        </div>
+        <h3>Auto-posting</h3>
+        <p>This bot has a total of 11+ autoposting features including autopfp, autobanner, autonsfw, and more</p>
+    </div>
+    <div class="feature-box">
+        <div class="logo">
+            <img src="https://media.discordapp.net/attachments/1216779149440716880/1221235178148597851/image.png?ex=6611d6e3&is=65ff61e3&hm=1ababf39688c698f1f74ab1b85e44b942eb187c7f82a9421702674066121d033&=&format=webp&quality=lossless&width=1024&height=1024" alt="Logo">
+        </div>
+        <h3>Music</h3>
+        <p>This bot has a music integration that plays YouTube and SoundCloud songs/videos in your voice channel</p>
+    </div>
+    <div class="feature-box">
+        <div class="logo">
+            <img src="https://media.discordapp.net/attachments/1216779149440716880/1221236620641046558/image.png?ex=6611d83b&is=65ff633b&hm=4d645a53565913785b267f9ef1316cbb57d98ae4f61488fb48c195fe2b4bc1ea&=&format=webp&quality=lossless&width=1024&height=1024" alt="Logo">
+        </div>
+        <h3>Ticket system</h3>
+        <p>Create an utilize tickets in your discord server. This feature can be used for numerous and countless things in your community</p>
+    </div>
+    <div class="feature-box">
+        <div class="logo">
+            <img src="https://media.discordapp.net/attachments/1216779149440716880/1221236987328069673/image.png?ex=6611d893&is=65ff6393&hm=79e8127c0064cdfb521edb9df17ae5a58d886067bae93c8cf4cbed2accc4d3a3&=&format=webp&quality=lossless&width=1024&height=1024" alt="Logo">
+        </div>
+        <h3>Last.fm Integration</h3>
+        <p>Track your music using Last.FM and view your recent tracks, albums, artists, and scrobbles.</p>
+    </div>
+</div>
+
