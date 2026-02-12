@@ -29,7 +29,6 @@
             overflow: hidden;
         }
 
-        /* Swirly Liquid Background Layer */
         .background-layer {
             position: fixed;
             top: -50%; left: -50%; width: 200%; height: 200%;
@@ -57,7 +56,6 @@
             z-index: 1;
         }
 
-        /* Sidebar Inputs */
         .inputs-panel {
             width: 420px;
             background: var(--bg-panel);
@@ -103,7 +101,6 @@
 
         .btn-copy:hover { opacity: 0.9; transform: translateY(-1px); }
 
-        /* Preview Panel */
         .preview-panel {
             flex: 1;
             display: flex;
@@ -116,7 +113,6 @@
 
         .preview-label { margin-bottom: 25px; color: var(--text-muted); font-size: 12px; font-weight: 600; }
 
-        /* Discord UI Mockup */
         .discord-msg-wrap { width: 100%; max-width: 550px; }
         .msg-content { color: #dbdee1; font-size: 15px; margin-bottom: 8px; white-space: pre-wrap; word-break: break-word; }
         
@@ -217,13 +213,11 @@
     const ids = ['message', 'author', 'title', 'desc', 'color', 'thumb', 'image', 'footer'];
 
     function update() {
-        // Text Content
         document.getElementById('p-message').textContent = document.getElementById('f-message').value;
         document.getElementById('p-title').textContent = document.getElementById('f-title').value;
         document.getElementById('p-desc').textContent = document.getElementById('f-desc').value;
         document.getElementById('p-footer').textContent = document.getElementById('f-footer').value;
 
-        // Author logic
         const authorVal = document.getElementById('f-author').value;
         const pAuthor = document.getElementById('p-author');
         if (authorVal.includes('&&')) {
@@ -237,11 +231,9 @@
             pAuthor.style.display = 'none';
         }
 
-        // Color
         const color = document.getElementById('f-color').value;
         document.getElementById('p-border').style.borderColor = color ? (color.startsWith('#') ? color : '#' + color) : '#1e1f22';
 
-        // Images
         const img = document.getElementById('f-image').value;
         const pImg = document.getElementById('p-image');
         pImg.src = img;
@@ -254,7 +246,7 @@
     }
 
     function copyToClipboard() {
-        let output = "";
+        let outputArr = [];
         const mapping = {
             'message': 'message',
             'author': 'author',
@@ -266,16 +258,28 @@
             'footer': 'footer'
         };
 
+        // Collect all active fields
         Object.keys(mapping).forEach(id => {
             const val = document.getElementById('f-' + id).value.trim();
-            if (val) output += `$v(${mapping[id]}:${val}) `;
+            if (val) {
+                outputArr.push({ key: mapping[id], value: val });
+            }
         });
 
-        const final = output.trim();
-        
-        // Reliable Fallback Copy
+        if (outputArr.length === 0) return;
+
+        // Build string: First is "key: value", others are "$v(key:value)"
+        let finalStr = "";
+        outputArr.forEach((item, index) => {
+            if (index === 0) {
+                finalStr += `${item.key}: ${item.value}`;
+            } else {
+                finalStr += ` $v(${item.key}:${item.value})`;
+            }
+        });
+
         const el = document.createElement('textarea');
-        el.value = final;
+        el.value = finalStr;
         document.body.appendChild(el);
         el.select();
         try {
@@ -285,14 +289,14 @@
             btn.style.background = "#eeeeee";
             setTimeout(() => {
                 btn.textContent = "Copy Parser String";
+                btn.style.background = "#ffffff";
             }, 2000);
         } catch (err) {
-            alert('Manual copy needed: ' + final);
+            alert('Manual copy needed: ' + finalStr);
         }
         document.body.removeChild(el);
     }
 
-    // Listen for every keystroke
     document.querySelectorAll('input, textarea').forEach(el => {
         el.addEventListener('input', update);
     });
