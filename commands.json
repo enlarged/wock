@@ -9,7 +9,29 @@
             "syntax": "(subcommands) (args)",
             "example": "add hammer ban",
             "permissions": "manage_guild",
-            "subcommands": []
+            "subcommands": [
+                {
+                    "name": "alias add",
+                    "description": "Alias any command",
+                    "syntax": "add (name) (target)",
+                    "example": "add hammer ban",
+                    "permissions": "manage_guild"
+                },
+                {
+                    "name": "alias remove",
+                    "description": "Remove a custom alias",
+                    "syntax": "remove (alias)",
+                    "example": "remove hammer",
+                    "permissions": "manage_guild"
+                },
+                {
+                    "name": "alias list",
+                    "description": "List all custom aliases",
+                    "syntax": null,
+                    "example": null,
+                    "permissions": "manage_guild"
+                }
+            ]
         },
         {
             "name": "backup",
@@ -20,7 +42,36 @@
             "syntax": "(subcommands) (args) ",
             "example": "create",
             "permissions": "administrator",
-            "subcommands": []
+            "subcommands": [
+                {
+                    "name": "backup create",
+                    "description": "Save server layout",
+                    "syntax": null,
+                    "example": "none",
+                    "permissions": "administrator"
+                },
+                {
+                    "name": "backup list",
+                    "description": "Show saved backups",
+                    "syntax": null,
+                    "example": "none",
+                    "permissions": "administrator"
+                },
+                {
+                    "name": "backup remove",
+                    "description": "Delete a backup",
+                    "syntax": "(id)",
+                    "example": "ABCD123",
+                    "permissions": "administrator"
+                },
+                {
+                    "name": "backup load",
+                    "description": "Restore a server layout",
+                    "syntax": "(id)",
+                    "example": "ABCD123",
+                    "permissions": "administrator"
+                }
+            ]
         },
         {
             "name": "customize",
@@ -31,7 +82,57 @@
             "syntax": "(subcommands) (args)",
             "example": "nickname wocky",
             "permissions": "manage_guild",
-            "subcommands": []
+            "subcommands": [
+                {
+                    "name": "customize nickname",
+                    "description": "Set the bot nickname in your server",
+                    "syntax": "<name>",
+                    "example": "wocky",
+                    "permissions": "manage_guild"
+                },
+                {
+                    "name": "customize avatar",
+                    "description": "Set the bot avatar with an image attachment",
+                    "syntax": "(attachment)",
+                    "example": "image.png",
+                    "permissions": "manage_guild"
+                },
+                {
+                    "name": "customize banner",
+                    "description": "Set the bot banner with an image attachment",
+                    "syntax": "(attachment)",
+                    "example": "banner.png",
+                    "permissions": "manage_guild"
+                },
+                {
+                    "name": "customize bio",
+                    "description": "Set the bot bio in your server",
+                    "syntax": "(bio)",
+                    "example": "Your friendly bot assistant",
+                    "permissions": "manage_guild"
+                },
+                {
+                    "name": "customize view",
+                    "description": "View current customizations",
+                    "syntax": null,
+                    "example": "none",
+                    "permissions": "manage_guild"
+                },
+                {
+                    "name": "customize reset",
+                    "description": "Reset all customizations to default",
+                    "syntax": null,
+                    "example": "none",
+                    "permissions": "manage_guild"
+                },
+                {
+                    "name": "customize accents",
+                    "description": "View available accent colors",
+                    "syntax": null,
+                    "example": "none",
+                    "permissions": "manage_guild"
+                }
+            ]
         },
         {
             "name": "disable",
@@ -42,7 +143,29 @@
             "syntax": "(subcommands) (args)",
             "example": "add ping everyone",
             "permissions": "manage_guild",
-            "subcommands": []
+            "subcommands": [
+                {
+                    "name": "disable add",
+                    "description": "Disable a command for role/user/everyone",
+                    "syntax": "<command> <target>",
+                    "example": "ping everyone",
+                    "permissions": "manage_guild"
+                },
+                {
+                    "name": "disable remove",
+                    "description": "Re-enable a command for role/user/everyone",
+                    "syntax": "<command> <target>",
+                    "example": "ping everyone",
+                    "permissions": "manage_guild"
+                },
+                {
+                    "name": "disable view",
+                    "description": "View all disabled commands",
+                    "syntax": null,
+                    "example": "none",
+                    "permissions": "manage_guild"
+                }
+            ]
         },
         {
             "name": "enable",
@@ -53,7 +176,29 @@
             "syntax": "(subcommands) (args)",
             "example": "remove ping everyone",
             "permissions": "manage_guild",
-            "subcommands": []
+            "subcommands": [
+                {
+                    "name": "enable remove",
+                    "description": "Re-enable a command for role/user/everyone",
+                    "syntax": "<command> <target>",
+                    "example": "ping everyone",
+                    "permissions": "manage_guild"
+                },
+                {
+                    "name": "enable all",
+                    "description": "Re-enable all commands globally",
+                    "syntax": null,
+                    "example": "none",
+                    "permissions": "manage_guild"
+                },
+                {
+                    "name": "enable view",
+                    "description": "View all disabled commands",
+                    "syntax": null,
+                    "example": "none",
+                    "permissions": "manage_guild"
+                }
+            ]
         },
         {
             "name": "goodbye",
@@ -64,7 +209,77 @@
             "syntax": "<subcommand> (args)",
             "example": "view #exit",
             "permissions": "manage_guild",
-            "subcommands": []
+            "subcommands": [
+                {
+                    "name": "goodbye add",
+                    "description": "Add a goodbye message to a channel",
+                    "syntax": " <#channel> [message|embed script]",
+                    "example": "#exit {user.name} just left us.",
+                    "permissions": "manage_guild"
+                },
+                {
+                    "name": "goodbye remove",
+                    "description": "Remove a goodbye message from a channel",
+                    "syntax": "<channel>",
+                    "example": "#exit",
+                    "permissions": "manage_guild"
+                },
+                {
+                    "name": "goodbye list",
+                    "description": "List all goodbye messages",
+                    "syntax": null,
+                    "example": null,
+                    "permissions": "manage_guild"
+                },
+                {
+                    "name": "goodbye clear",
+                    "description": "Clear all goodbye messages",
+                    "syntax": null,
+                    "example": null,
+                    "permissions": "manage_guild"
+                },
+                {
+                    "name": "goodbye view",
+                    "description": "View a goodbye channel's set message",
+                    "syntax": "<#channel>",
+                    "example": "#exit",
+                    "permissions": "manage_guild"
+                }
+            ]
+        },
+        {
+            "name": "set",
+            "aliases": [
+                "guildset",
+                "serverset"
+            ],
+            "description": "Update the server appearance and settings",
+            "syntax": "(subcommands) (args)",
+            "example": "icon (attachment)",
+            "permissions": "manage_guild",
+            "subcommands": [
+                {
+                    "name": "set icon",
+                    "description": "Set the server icon",
+                    "syntax": "<url/attachment>",
+                    "example": "image.png",
+                    "permissions": "manage_guild"
+                },
+                {
+                    "name": "set banner",
+                    "description": "Set the server banner (Level 2 Boosts required)",
+                    "syntax": "<url/attachment>",
+                    "example": "banner.png",
+                    "permissions": "manage_guild"
+                },
+                {
+                    "name": "set splash",
+                    "description": "Set the server invite splash (Level 1 Boosts required)",
+                    "syntax": "<url/attachment>",
+                    "example": "splash.png",
+                    "permissions": "manage_guild"
+                }
+            ]
         },
         {
             "name": "setup",
@@ -87,7 +302,43 @@
             "syntax": "<subcommand> (args)",
             "example": "channel #starboard",
             "permissions": "ManageGuild",
-            "subcommands": []
+            "subcommands": [
+                {
+                    "name": "starboard channel",
+                    "description": "Set the channel for the starboard",
+                    "syntax": "<channel>",
+                    "example": "#starboard",
+                    "permissions": "ManageGuild"
+                },
+                {
+                    "name": "starboard emoji",
+                    "description": "Set the emoji for the starboard",
+                    "syntax": "<emoji>",
+                    "example": "⭐",
+                    "permissions": "ManageGuild"
+                },
+                {
+                    "name": "starboard threshold",
+                    "description": "Set the threshold for the starboard",
+                    "syntax": "<number>",
+                    "example": "3",
+                    "permissions": "ManageGuild"
+                },
+                {
+                    "name": "starboard view",
+                    "description": "View the starboard settings",
+                    "syntax": null,
+                    "example": null,
+                    "permissions": "ManageGuild"
+                },
+                {
+                    "name": "starboard remove",
+                    "description": "Remove the starboard settings",
+                    "syntax": null,
+                    "example": null,
+                    "permissions": "ManageGuild"
+                }
+            ]
         },
         {
             "name": "tickets",
@@ -99,7 +350,57 @@
             "syntax": "<subcommand> (args)",
             "example": "setup",
             "permissions": "manage_guild",
-            "subcommands": []
+            "subcommands": [
+                {
+                    "name": "tickets setup",
+                    "description": "Initialize the ticket system",
+                    "syntax": null,
+                    "example": "none",
+                    "permissions": "manage_guild"
+                },
+                {
+                    "name": "tickets message",
+                    "description": "Set custom ticket embeds",
+                    "syntax": "<panel | create> <embed string>",
+                    "example": "panel {title: Support}",
+                    "permissions": "manage_guild"
+                },
+                {
+                    "name": "tickets create",
+                    "description": "Open a ticket for a member",
+                    "syntax": "<user>",
+                    "example": "@x6l",
+                    "permissions": "manage_guild"
+                },
+                {
+                    "name": "tickets add",
+                    "description": "Add a user to a ticket",
+                    "syntax": "<user>",
+                    "example": "@x6l",
+                    "permissions": "manage_guild"
+                },
+                {
+                    "name": "tickets remove",
+                    "description": "Remove a user from a ticket",
+                    "syntax": "<user>",
+                    "example": "@x6l",
+                    "permissions": "manage_guild"
+                },
+                {
+                    "name": "tickets transcript",
+                    "description": "Set the log channel for ticket transcripts",
+                    "syntax": "<channel>",
+                    "example": "#logs",
+                    "permissions": "manage_guild"
+                },
+                {
+                    "name": "tickets reset",
+                    "description": "Reset ticket settings to allow a new setup",
+                    "syntax": null,
+                    "example": "none",
+                    "permissions": "manage_guild"
+                }
+            ]
         },
         {
             "name": "vanityrole",
@@ -111,7 +412,50 @@
             "syntax": "<subcommand> (args)",
             "example": "{message: thanks {user.name} for repping us!}",
             "permissions": "manage_guild",
-            "subcommands": []
+            "subcommands": [
+                {
+                    "name": "vanityrole channel",
+                    "description": "Set the channel for vanity role logs",
+                    "syntax": "<#channel>",
+                    "example": "#vanity-logs",
+                    "permissions": "manage_guild"
+                },
+                {
+                    "name": "vanityrole message",
+                    "description": "Set the message for vanity role logs",
+                    "syntax": "<message>",
+                    "example": "{message: thanks {user.name} for repping us!}",
+                    "permissions": "manage_guild"
+                },
+                {
+                    "name": "vanityrole role",
+                    "description": "Set the role to be given to vanity users",
+                    "syntax": "<@role>",
+                    "example": "@pic",
+                    "permissions": "manage_guild"
+                },
+                {
+                    "name": "vanityrole view",
+                    "description": "View current vanity role settings",
+                    "syntax": null,
+                    "example": null,
+                    "permissions": "manage_guild"
+                },
+                {
+                    "name": "vanityrole reset",
+                    "description": "Reset all vanity role settings",
+                    "syntax": null,
+                    "example": null,
+                    "permissions": "manage_guild"
+                },
+                {
+                    "name": "vanityrole set",
+                    "description": "Set the servers vanity string",
+                    "syntax": "<vanity>",
+                    "example": "wockbot",
+                    "permissions": "manage_guild"
+                }
+            ]
         },
         {
             "name": "voicemaster",
@@ -122,7 +466,50 @@
             "syntax": "<subcommands> (args)",
             "example": "setup",
             "permissions": "manage_guild",
-            "subcommands": []
+            "subcommands": [
+                {
+                    "name": "voicemaster setup",
+                    "description": "Set up the VoiceMaster system",
+                    "syntax": null,
+                    "example": null,
+                    "permissions": "manage_guild"
+                },
+                {
+                    "name": "voicemaster rename",
+                    "description": "Rename your voice channel",
+                    "syntax": "<name>",
+                    "example": "rename Lounge",
+                    "permissions": "none"
+                },
+                {
+                    "name": "voicemaster limit",
+                    "description": "Set a user limit",
+                    "syntax": "<number>",
+                    "example": "limit 5",
+                    "permissions": "none"
+                },
+                {
+                    "name": "voicemaster transfer",
+                    "description": "Transfer ownership",
+                    "syntax": "<@user>",
+                    "example": "transfer @user",
+                    "permissions": "none"
+                },
+                {
+                    "name": "voicemaster claim",
+                    "description": "Claim an empty owner slot",
+                    "syntax": null,
+                    "example": "claim",
+                    "permissions": "none"
+                },
+                {
+                    "name": "voicemaster remove",
+                    "description": "Delete configuration",
+                    "syntax": null,
+                    "example": null,
+                    "permissions": "manage_guild"
+                }
+            ]
         },
         {
             "name": "welcome",
@@ -133,7 +520,43 @@
             "syntax": "<subcommand> (args)",
             "example": "view #gate",
             "permissions": "manage_guild",
-            "subcommands": []
+            "subcommands": [
+                {
+                    "name": "welcome add",
+                    "description": "Add a welcome message to a channel",
+                    "syntax": " <#channel> [message|embed script]",
+                    "example": "#gate hi {user.mention}",
+                    "permissions": "manage_guild"
+                },
+                {
+                    "name": "welcome remove",
+                    "description": "Remove a welcome message from a channel",
+                    "syntax": "<channel>",
+                    "example": "#gate",
+                    "permissions": "manage_guild"
+                },
+                {
+                    "name": "welcome list",
+                    "description": "List all welcome messages",
+                    "syntax": null,
+                    "example": null,
+                    "permissions": "manage_guild"
+                },
+                {
+                    "name": "welcome clear",
+                    "description": "Clear all welcome messages",
+                    "syntax": null,
+                    "example": null,
+                    "permissions": "manage_guild"
+                },
+                {
+                    "name": "welcome view",
+                    "description": "View a welcome channel's set message",
+                    "syntax": "<#channel>",
+                    "example": "#gate",
+                    "permissions": "manage_guild"
+                }
+            ]
         }
     ],
     "crypto": [
@@ -225,7 +648,29 @@
             "syntax": "<subcommand> (args)",
             "example": "add 6f9...8a1",
             "permissions": "none",
-            "subcommands": []
+            "subcommands": [
+                {
+                    "name": "transaction transaction lookup",
+                    "description": "Search for a transaction hash directly",
+                    "syntax": "<hash>",
+                    "example": "6f9...8a1",
+                    "permissions": "none"
+                },
+                {
+                    "name": "transaction transaction add",
+                    "description": "Get a notification when a transaction confirms",
+                    "syntax": "<hash>",
+                    "example": "6f9...8a1",
+                    "permissions": "none"
+                },
+                {
+                    "name": "transaction transaction cancel",
+                    "description": "Stop tracking a specific transaction",
+                    "syntax": "<hash>",
+                    "example": "6f9...8a1",
+                    "permissions": "none"
+                }
+            ]
         }
     ],
     "entertainment": [
@@ -251,6 +696,25 @@
             "syntax": "(subcommands) (arguments)",
             "example": "developer chicago",
             "permissions": "None",
+            "subcommands": [
+                {
+                    "name": "jobs jobs search",
+                    "description": "Search for jobs by title and location",
+                    "syntax": "job [location]",
+                    "example": "developer chicago",
+                    "permissions": "None"
+                }
+            ]
+        },
+        {
+            "name": "resume",
+            "aliases": [
+                "r"
+            ],
+            "description": "Resume the current song",
+            "syntax": null,
+            "example": "resume",
+            "permissions": null,
             "subcommands": []
         },
         {
@@ -273,7 +737,15 @@
             "syntax": "play",
             "example": "play",
             "permissions": null,
-            "subcommands": []
+            "subcommands": [
+                {
+                    "name": "snake snake play",
+                    "description": "Start a game of Snake",
+                    "syntax": null,
+                    "example": "none",
+                    "permissions": null
+                }
+            ]
         },
         {
             "name": "statistics",
@@ -285,6 +757,17 @@
             "description": "View global gaming records and totals",
             "syntax": "gamestats",
             "example": "gamestats",
+            "permissions": null,
+            "subcommands": []
+        },
+        {
+            "name": "stop",
+            "aliases": [
+                "leave"
+            ],
+            "description": "Stop the music and leave the voice channel",
+            "syntax": null,
+            "example": "stop",
             "permissions": null,
             "subcommands": []
         },
@@ -309,6 +792,20 @@
             "description": "Detects text in an image",
             "syntax": "<attachment>",
             "example": "ocr image.png",
+            "permissions": null,
+            "subcommands": []
+        }
+    ],
+    "info": [
+        {
+            "name": "boosters",
+            "aliases": [
+                "premium",
+                "subs"
+            ],
+            "description": "View a paginated list of all server boosters",
+            "syntax": null,
+            "example": "boosters",
             "permissions": null,
             "subcommands": []
         }
@@ -456,7 +953,106 @@
             "syntax": "lastfm <subcommand> [args]",
             "example": "lastfm nowplaying",
             "permissions": null,
-            "subcommands": []
+            "subcommands": [
+                {
+                    "name": "lastfm lastfm set",
+                    "description": "Link your username",
+                    "syntax": "<user>",
+                    "example": "twix",
+                    "permissions": null
+                },
+                {
+                    "name": "lastfm lastfm reset",
+                    "description": "Unlink your account",
+                    "syntax": null,
+                    "example": "none",
+                    "permissions": null
+                },
+                {
+                    "name": "lastfm lastfm profile",
+                    "description": "View a Last.fm profile",
+                    "syntax": "[user]",
+                    "example": "none",
+                    "permissions": null
+                },
+                {
+                    "name": "lastfm lastfm nowplaying",
+                    "description": "Show current song",
+                    "syntax": null,
+                    "example": "none",
+                    "permissions": null
+                },
+                {
+                    "name": "lastfm lastfm recent",
+                    "description": "View 10 recent tracks",
+                    "syntax": null,
+                    "example": "none",
+                    "permissions": null
+                },
+                {
+                    "name": "lastfm lastfm topartists",
+                    "description": "Your top 10 artists",
+                    "syntax": null,
+                    "example": "none",
+                    "permissions": null
+                },
+                {
+                    "name": "lastfm lastfm topalbums",
+                    "description": "Your top 10 albums",
+                    "syntax": null,
+                    "example": "none",
+                    "permissions": null
+                },
+                {
+                    "name": "lastfm lastfm toptracks",
+                    "description": "Your top 10 tracks",
+                    "syntax": null,
+                    "example": "none",
+                    "permissions": null
+                },
+                {
+                    "name": "lastfm lastfm taste",
+                    "description": "Compare taste with a user",
+                    "syntax": "<user>",
+                    "example": "@Gemini",
+                    "permissions": null
+                },
+                {
+                    "name": "lastfm lastfm whoknows",
+                    "description": "Who listens to the current artist",
+                    "syntax": null,
+                    "example": "none",
+                    "permissions": null
+                },
+                {
+                    "name": "lastfm lastfm plays",
+                    "description": "Playcount for an artist",
+                    "syntax": "<artist>",
+                    "example": "Drake",
+                    "permissions": null
+                },
+                {
+                    "name": "lastfm lastfm streak",
+                    "description": "Your daily listening streak",
+                    "syntax": null,
+                    "example": "none",
+                    "permissions": null
+                },
+                {
+                    "name": "lastfm lastfm recommend",
+                    "description": "Get a track recommendation",
+                    "syntax": null,
+                    "example": "none",
+                    "permissions": null
+                },
+                {
+                    "name": "lastfm lastfm update",
+                    "description": "Refresh your cached data",
+                    "syntax": null,
+                    "example": "lastfm update",
+                    "permissions": null
+                }
+            ]
         },
         {
             "name": "nowplaying",
@@ -494,7 +1090,36 @@
             "syntax": "<subcommand> (args)",
             "example": "lookup Renegade Raider",
             "permissions": null,
-            "subcommands": []
+            "subcommands": [
+                {
+                    "name": "fortnite fortnite lookup",
+                    "description": "Lookup Fortnite cosmetics",
+                    "syntax": "<cosmetic>",
+                    "example": "Renegade Raider",
+                    "permissions": null
+                },
+                {
+                    "name": "fortnite fortnite shop",
+                    "description": "View the Fortnite item shop",
+                    "syntax": null,
+                    "example": "none",
+                    "permissions": null
+                },
+                {
+                    "name": "fortnite fortnite map",
+                    "description": "View the Fortnite map",
+                    "syntax": null,
+                    "example": "none",
+                    "permissions": null
+                },
+                {
+                    "name": "fortnite fortnite news",
+                    "description": "View the latest Fortnite news",
+                    "syntax": null,
+                    "example": "none",
+                    "permissions": null
+                }
+            ]
         },
         {
             "name": "highlight",
@@ -506,7 +1131,36 @@
             "syntax": "(subcommands) (args)",
             "example": "add wock",
             "permissions": "None",
-            "subcommands": []
+            "subcommands": [
+                {
+                    "name": "highlight highlight add",
+                    "description": "Add a keyword to highlight",
+                    "syntax": "(keyword)",
+                    "example": "myname",
+                    "permissions": "None"
+                },
+                {
+                    "name": "highlight highlight remove",
+                    "description": "Remove a keyword from highlights",
+                    "syntax": "(keyword)",
+                    "example": "wock",
+                    "permissions": "None"
+                },
+                {
+                    "name": "highlight highlight view",
+                    "description": "View all your highlight keywords",
+                    "syntax": null,
+                    "example": "none",
+                    "permissions": "None"
+                },
+                {
+                    "name": "highlight highlight clear",
+                    "description": "Clear all highlight keywords",
+                    "syntax": null,
+                    "example": "none",
+                    "permissions": "None"
+                }
+            ]
         },
         {
             "name": "iplookup",
@@ -529,7 +1183,29 @@
             "syntax": "weather <subcommand> (args)",
             "example": "weather set clearwater",
             "permissions": null,
-            "subcommands": []
+            "subcommands": [
+                {
+                    "name": "weather weather set",
+                    "description": "Set your default city for weather",
+                    "syntax": "<city>",
+                    "example": "clearwater",
+                    "permissions": null
+                },
+                {
+                    "name": "weather weather view",
+                    "description": "View your set city for weather",
+                    "syntax": null,
+                    "example": "none",
+                    "permissions": null
+                },
+                {
+                    "name": "weather weather reset",
+                    "description": "Reset your default city for weather",
+                    "syntax": null,
+                    "example": "none",
+                    "permissions": null
+                }
+            ]
         }
     ],
     "moderation": [
@@ -551,7 +1227,29 @@
             "syntax": "<subcommand> <args>",
             "example": "create Staff",
             "permissions": "manage_channels",
-            "subcommands": []
+            "subcommands": [
+                {
+                    "name": "category category create",
+                    "description": "Create a new category",
+                    "syntax": "<name>",
+                    "example": "Tickets",
+                    "permissions": "manage_channels"
+                },
+                {
+                    "name": "category category rename",
+                    "description": "Rename an existing category",
+                    "syntax": "<name/id> <new name>",
+                    "example": "Staff Admin",
+                    "permissions": "manage_channels"
+                },
+                {
+                    "name": "category category delete",
+                    "description": "Delete a category",
+                    "syntax": "<name/id>",
+                    "example": "Old",
+                    "permissions": "manage_channels"
+                }
+            ]
         },
         {
             "name": "channel",
@@ -560,7 +1258,29 @@
             "syntax": "<subcommand> <args>",
             "example": "create general-chat Lounge",
             "permissions": "manage_channels",
-            "subcommands": []
+            "subcommands": [
+                {
+                    "name": "channel channel create",
+                    "description": "Create a new text channel",
+                    "syntax": "<name> (category)",
+                    "example": "chat Lounge",
+                    "permissions": "manage_channels"
+                },
+                {
+                    "name": "channel channel rename",
+                    "description": "Rename an existing channel",
+                    "syntax": "<channel> <new name>",
+                    "example": "#general lounge",
+                    "permissions": "manage_channels"
+                },
+                {
+                    "name": "channel channel delete",
+                    "description": "Delete a channel",
+                    "syntax": "<channel>",
+                    "example": "#junk",
+                    "permissions": "manage_channels"
+                }
+            ]
         },
         {
             "name": "emoji",
@@ -571,7 +1291,43 @@
             "syntax": "<subcommand> (args)",
             "example": "add :smile:",
             "permissions": "manage_emojis",
-            "subcommands": []
+            "subcommands": [
+                {
+                    "name": "emoji add",
+                    "description": "Add a new emoji to the server",
+                    "syntax": "<emoji> [name]",
+                    "example": "emoji add :smile: happy",
+                    "permissions": "manage_emojis"
+                },
+                {
+                    "name": "emoji remove",
+                    "description": "Remove an emoji from the server",
+                    "syntax": "<emoji>",
+                    "example": "emoji remove :smile:",
+                    "permissions": "manage_emojis"
+                },
+                {
+                    "name": "emoji info",
+                    "description": "Get information about a specific emoji",
+                    "syntax": "<emoji>",
+                    "example": "emoji info :smile:",
+                    "permissions": "manage_emojis"
+                },
+                {
+                    "name": "emoji list",
+                    "description": "List all emojis in the server",
+                    "syntax": null,
+                    "example": "emoji list",
+                    "permissions": "manage_emojis"
+                },
+                {
+                    "name": "emoji addmany",
+                    "description": "Add multiple emojis at once (up to 10)",
+                    "syntax": "<emoji1> <emoji2> ...",
+                    "example": "emoji addmany :smile: :laughing: :thumbsup:",
+                    "permissions": "manage_emojis"
+                }
+            ]
         },
         {
             "name": "emojimute",
@@ -583,6 +1339,19 @@
             "syntax": "emojimute <member> [reason]",
             "example": "emojimute @user emoji spam",
             "permissions": "manage_roles",
+            "subcommands": []
+        },
+        {
+            "name": "hardban",
+            "aliases": [
+                "hban"
+            ],
+            "description": "Permanently ban a user and auto-reban if unbanned",
+            "syntax": "<user> (reason)",
+            "example": "hardban nonemajor Dork",
+            "permissions": [
+                "BanMembers"
+            ],
             "subcommands": []
         },
         {
@@ -663,7 +1432,29 @@
             "syntax": "(subcommands) (args)",
             "example": "set $",
             "permissions": "manage_guild",
-            "subcommands": []
+            "subcommands": [
+                {
+                    "name": "prefix prefix set",
+                    "description": "Set a single prefix",
+                    "syntax": "(prefix)",
+                    "example": "$",
+                    "permissions": "manage_guild"
+                },
+                {
+                    "name": "prefix prefix reset",
+                    "description": "Reset to default prefix",
+                    "syntax": null,
+                    "example": "none",
+                    "permissions": "manage_guild"
+                },
+                {
+                    "name": "prefix prefix view",
+                    "description": "View current prefix",
+                    "syntax": null,
+                    "example": "none",
+                    "permissions": "manage_guild"
+                }
+            ]
         },
         {
             "name": "purge",
@@ -675,7 +1466,43 @@
             "syntax": "<user> <number>",
             "example": "x6l 10",
             "permissions": "manage_messages",
-            "subcommands": []
+            "subcommands": [
+                {
+                    "name": "purge bots",
+                    "description": "Purge messages sent by bots",
+                    "syntax": "<number>",
+                    "example": "20",
+                    "permissions": "manage_messages"
+                },
+                {
+                    "name": "purge images",
+                    "description": "Purge messages containing images",
+                    "syntax": "<number>",
+                    "example": "15",
+                    "permissions": "manage_messages"
+                },
+                {
+                    "name": "purge embeds",
+                    "description": "Purge messages containing embeds",
+                    "syntax": "<number>",
+                    "example": "25",
+                    "permissions": "manage_messages"
+                },
+                {
+                    "name": "purge reactions",
+                    "description": "Remove reactions from messages",
+                    "syntax": "<number>",
+                    "example": "30",
+                    "permissions": "manage_messages"
+                },
+                {
+                    "name": "purge emojis",
+                    "description": "Purge messages containing custom emojis",
+                    "syntax": "<number>",
+                    "example": "10",
+                    "permissions": "manage_messages"
+                }
+            ]
         },
         {
             "name": "role",
@@ -686,7 +1513,71 @@
             "syntax": "<user> <role>",
             "example": "@x6l goat",
             "permissions": "manage_roles",
-            "subcommands": []
+            "subcommands": [
+                {
+                    "name": "role role info",
+                    "description": "View information about a role",
+                    "syntax": "<role>",
+                    "example": "goat",
+                    "permissions": "manage_roles"
+                },
+                {
+                    "name": "role role create",
+                    "description": "Create a role",
+                    "syntax": "<name>",
+                    "example": "goat",
+                    "permissions": "manage_roles"
+                },
+                {
+                    "name": "role role delete",
+                    "description": "Delete a role",
+                    "syntax": "<name/id>",
+                    "example": "goat",
+                    "permissions": "manage_roles"
+                },
+                {
+                    "name": "role role rename",
+                    "description": "Rename a role",
+                    "syntax": "<name/id> <new name>",
+                    "example": "goat goated",
+                    "permissions": "manage_roles"
+                },
+                {
+                    "name": "role role list",
+                    "description": "List all roles",
+                    "syntax": null,
+                    "example": "list",
+                    "permissions": "manage_roles"
+                },
+                {
+                    "name": "role role inrole",
+                    "description": "List members in role",
+                    "syntax": "<name/id>",
+                    "example": "goat",
+                    "permissions": "manage_roles"
+                },
+                {
+                    "name": "role role humans",
+                    "description": "Give all humans a role",
+                    "syntax": "<name/id>",
+                    "example": null,
+                    "permissions": "manage_roles"
+                },
+                {
+                    "name": "role role bots",
+                    "description": "Give all bots a role",
+                    "syntax": "<name/id>",
+                    "example": null,
+                    "permissions": "manage_roles"
+                },
+                {
+                    "name": "role role color",
+                    "description": "Change role color",
+                    "syntax": "<name/id> <hex>",
+                    "example": null,
+                    "permissions": "manage_roles"
+                }
+            ]
         },
         {
             "name": "softban",
@@ -709,6 +1600,19 @@
             "syntax": "<user> <duration> [reason]",
             "example": "timeout @x6l 10m spamming",
             "permissions": "moderate_members",
+            "subcommands": []
+        },
+        {
+            "name": "unhardban",
+            "aliases": [
+                "unhban"
+            ],
+            "description": "Remove a user from the hardban blacklist and unban them",
+            "syntax": "<ID>",
+            "example": "123456789012345678",
+            "permissions": [
+                "BanMembers"
+            ],
             "subcommands": []
         },
         {
@@ -795,7 +1699,43 @@
             "syntax": "aboutme (subcommands) (args)",
             "example": "aboutme @x6l",
             "permissions": null,
-            "subcommands": []
+            "subcommands": [
+                {
+                    "name": "aboutme aboutme view",
+                    "description": "View your linked accounts",
+                    "syntax": null,
+                    "example": null,
+                    "permissions": null
+                },
+                {
+                    "name": "aboutme aboutme reset",
+                    "description": "Reset all linked accounts",
+                    "syntax": null,
+                    "example": null,
+                    "permissions": null
+                },
+                {
+                    "name": "aboutme aboutme remove",
+                    "description": "Remove a specific account",
+                    "syntax": "<platform>",
+                    "example": null,
+                    "permissions": null
+                },
+                {
+                    "name": "aboutme aboutme block",
+                    "description": "Block a user from viewing your about me",
+                    "syntax": "<user>",
+                    "example": null,
+                    "permissions": null
+                },
+                {
+                    "name": "aboutme aboutme unblock",
+                    "description": "Unblock a user",
+                    "syntax": "<user>",
+                    "example": null,
+                    "permissions": null
+                }
+            ]
         },
         {
             "name": "github",
@@ -807,7 +1747,29 @@
             "syntax": "<user>",
             "example": "github enlarged",
             "permissions": null,
-            "subcommands": []
+            "subcommands": [
+                {
+                    "name": "github github set",
+                    "description": "Link your GitHub username",
+                    "syntax": "<username>",
+                    "example": "enlarged",
+                    "permissions": null
+                },
+                {
+                    "name": "github github reset",
+                    "description": "Unlink your GitHub account",
+                    "syntax": null,
+                    "example": "none",
+                    "permissions": null
+                },
+                {
+                    "name": "github github view",
+                    "description": "View your linked GitHub username",
+                    "syntax": null,
+                    "example": "none",
+                    "permissions": null
+                }
+            ]
         },
         {
             "name": "tiktok",
@@ -818,7 +1780,29 @@
             "syntax": "<username>",
             "example": "tiktok charlidamelio",
             "permissions": null,
-            "subcommands": []
+            "subcommands": [
+                {
+                    "name": "tiktok tiktok set",
+                    "description": "Link your TikTok username",
+                    "syntax": "(username)",
+                    "example": "charlidamelio",
+                    "permissions": null
+                },
+                {
+                    "name": "tiktok tiktok reset",
+                    "description": "Unlink your TikTok account",
+                    "syntax": null,
+                    "example": "none",
+                    "permissions": null
+                },
+                {
+                    "name": "tiktok tiktok view",
+                    "description": "View your linked TikTok username",
+                    "syntax": null,
+                    "example": "none",
+                    "permissions": null
+                }
+            ]
         },
         {
             "name": "xbox",
@@ -830,7 +1814,29 @@
             "syntax": "c9ce",
             "example": "xbox c9ce",
             "permissions": null,
-            "subcommands": []
+            "subcommands": [
+                {
+                    "name": "xbox xbox set",
+                    "description": "Set your Xbox gamertag",
+                    "syntax": "<gamertag>",
+                    "example": "c9ce",
+                    "permissions": null
+                },
+                {
+                    "name": "xbox xbox reset",
+                    "description": "Reset your Xbox gamertag",
+                    "syntax": null,
+                    "example": "none",
+                    "permissions": null
+                },
+                {
+                    "name": "xbox xbox view",
+                    "description": "View your linked Xbox gamertag",
+                    "syntax": null,
+                    "example": "none",
+                    "permissions": null
+                }
+            ]
         }
     ],
     "utility": [
@@ -854,7 +1860,57 @@
             "syntax": "(subcommand) (args)",
             "example": "enable",
             "permissions": "ManageRoles",
-            "subcommands": []
+            "subcommands": [
+                {
+                    "name": "boosterrole enable",
+                    "description": "Enable booster role system",
+                    "syntax": null,
+                    "example": null,
+                    "permissions": "ManageRoles"
+                },
+                {
+                    "name": "boosterrole base",
+                    "description": "Set a base role for boosters to be placed under",
+                    "syntax": "(role or id)",
+                    "example": "gang",
+                    "permissions": "ManageRoles"
+                },
+                {
+                    "name": "boosterrole create",
+                    "description": "Create a custom booster role",
+                    "syntax": "<role_name>",
+                    "example": "My Booster Role",
+                    "permissions": "ManageRoles"
+                },
+                {
+                    "name": "boosterrole color",
+                    "description": "Change the color of your booster role",
+                    "syntax": "<hex_color>",
+                    "example": "ff0000",
+                    "permissions": "ManageRoles"
+                },
+                {
+                    "name": "boosterrole icon",
+                    "description": "Set an icon for your booster role (requires Level 2 Boost)",
+                    "syntax": "<image_url|attachment>",
+                    "example": "icon.png",
+                    "permissions": "ManageRoles"
+                },
+                {
+                    "name": "boosterrole remove",
+                    "description": "Remove your booster role",
+                    "syntax": null,
+                    "example": null,
+                    "permissions": "ManageRoles"
+                },
+                {
+                    "name": "boosterrole list",
+                    "description": "List all current booster roles",
+                    "syntax": null,
+                    "example": null,
+                    "permissions": "ManageRoles"
+                }
+            ]
         },
         {
             "name": "crypto",
