@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wock | Embed Builder</title>
+    <style>
+        :root {
+            --bg-dark: #050505;
+            --bg-panel: rgba(10, 10, 10, 0.85);
+            --border-grey: #1a1a1a;
+            --text-main: #eeeeee;
+            --text-muted: #666666;
+            --accent: #ffffff;
+            --discord-bg: #313338;
+            --discord-embed-bg: #2b2d31;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+            color: var(--text-main);
+            height: 100vh;
+            display: flex;
+            background-color: var(--bg-dark);
+            overflow: hidden;
+        }
+
+        /* Swirly Liquid Background Layer */
+        .background-layer {
+            position: fixed;
+            top: -50%; left: -50%; width: 200%; height: 200%;
+            z-index: -1;
+            background: 
+                radial-gradient(circle at 50% 50%, #1a1a1a 0%, transparent 50%),
+                radial-gradient(circle at 20% 30%, #0d0d0d 0%, transparent 40%),
+                radial-gradient(circle at 80% 70%, #222222 0%, transparent 40%),
+                radial-gradient(circle at 10% 80%, #080808 0%, transparent 30%);
+            background-blend-mode: screen;
+            filter: blur(80px);
+            animation: ultraSlowSwirl 120s linear infinite;
+        }
+
+        @keyframes ultraSlowSwirl {
+            0% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(1.1); }
+            100% { transform: rotate(360deg) scale(1); }
+        }
+
+        .editor-wrapper {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        /* Sidebar Inputs */
+        .inputs-panel {
+            width: 420px;
+            background: var(--bg-panel);
+            border-right: 1px solid var(--border-grey);
+            padding: 40px 30px;
+            overflow-y: auto;
+            backdrop-filter: blur(20px);
+        }
+
+        h2 { font-size: 24px; font-weight: 800; margin: 0 0 30px 0; letter-spacing: -1px; }
+
+        .field { margin-bottom: 20px; }
+        label { display: block; font-size: 10px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px; letter-spacing: 1.5px; font-weight: 700; }
+        
+        input, textarea {
+            width: 100%;
+            background: #000;
+            border: 1px solid #222;
+            border-radius: 8px;
+            padding: 12px;
+            color: #fff;
+            font-size: 14px;
+            font-family: inherit;
+            outline: none;
+            transition: border 0.2s;
+        }
+
+        input:focus, textarea:focus { border-color: #444; }
+
+        .btn-copy {
+            width: 100%;
+            padding: 15px;
+            background: var(--accent);
+            color: #000;
+            border: none;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: all 0.2s;
+        }
+
+        .btn-copy:hover { opacity: 0.9; transform: translateY(-1px); }
+
+        /* Preview Panel */
+        .preview-panel {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            background: rgba(0,0,0,0.2);
+        }
+
+        .preview-label { margin-bottom: 25px; color: var(--text-muted); font-size: 12px; font-weight: 600; }
+
+        /* Discord UI Mockup */
+        .discord-msg-wrap { width: 100%; max-width: 550px; }
+        .msg-content { color: #dbdee1; font-size: 15px; margin-bottom: 8px; white-space: pre-wrap; word-break: break-word; }
+        
+        .embed-container {
+            display: flex;
+            background: var(--discord-embed-bg);
+            border-left: 4px solid #1e1f22;
+            border-radius: 4px;
+            padding: 12px 16px;
+            max-width: fit-content;
+            min-width: 300px;
+        }
+
+        .embed-main { flex: 1; }
+        .author { display: flex; align-items: center; margin-bottom: 8px; font-weight: 600; font-size: 13px; color: #fff; }
+        .author img { width: 22px; height: 22px; border-radius: 50%; margin-right: 8px; }
+        .title { color: #fff; font-weight: 700; font-size: 16px; margin-bottom: 4px; }
+        .desc { color: #dbdee1; font-size: 14px; line-height: 1.35; white-space: pre-wrap; }
+        .footer { font-size: 11px; color: #b5bac1; margin-top: 10px; font-weight: 500; }
+        .img-large { margin-top: 12px; max-width: 100%; border-radius: 4px; max-height: 300px; }
+        .thumbnail { width: 80px; height: 80px; border-radius: 4px; margin-left: 16px; object-fit: cover; flex-shrink: 0; }
+
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-thumb { background: #222; border-radius: 10px; }
+    </style>
+</head>
+<body>
+
+<div class="background-layer"></div>
+
+<div class="editor-wrapper">
+    <div class="inputs-panel">
+        <h2>Embed Builder</h2>
+        
+        <div class="field">
+            <label>Message (Above Embed)</label>
+            <textarea id="f-message" placeholder="Plain text..."></textarea>
+        </div>
+
+        <div class="field">
+            <label>Author (Name && IconURL)</label>
+            <input id="f-author" placeholder="Wock && https://...">
+        </div>
+
+        <div class="field">
+            <label>Title</label>
+            <input id="f-title" placeholder="Something catchy">
+        </div>
+
+        <div class="field">
+            <label>Description</label>
+            <textarea id="f-desc" rows="4" placeholder="Describe the command..."></textarea>
+        </div>
+
+        <div class="field">
+            <label>Color (Hex)</label>
+            <input id="f-color" placeholder="000000">
+        </div>
+
+        <div class="field">
+            <label>Thumbnail URL</label>
+            <input id="f-thumb" placeholder="https://...">
+        </div>
+
+        <div class="field">
+            <label>Large Image URL</label>
+            <input id="f-image" placeholder="https://...">
+        </div>
+
+        <div class="field">
+            <label>Footer</label>
+            <input id="f-footer" placeholder="Bot version | User ID">
+        </div>
+
+        <button class="btn-copy" onclick="copyToClipboard()">Copy Parser String</button>
+    </div>
+
+    <div class="preview-panel">
+        <div class="preview-label">LIVE PREVIEW</div>
+        
+        <div class="discord-msg-wrap">
+            <div id="p-message" class="msg-content"></div>
+            <div class="embed-container" id="p-border">
+                <div class="embed-main">
+                    <div id="p-author" class="author" style="display:none;"></div>
+                    <div id="p-title" class="title"></div>
+                    <div id="p-desc" class="desc"></div>
+                    <img id="p-image" class="img-large" style="display:none;">
+                    <div id="p-footer" class="footer"></div>
+                </div>
+                <img id="p-thumb" class="thumbnail" style="display:none;">
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const ids = ['message', 'author', 'title', 'desc', 'color', 'thumb', 'image', 'footer'];
+
+    function update() {
+        // Text Content
+        document.getElementById('p-message').textContent = document.getElementById('f-message').value;
+        document.getElementById('p-title').textContent = document.getElementById('f-title').value;
+        document.getElementById('p-desc').textContent = document.getElementById('f-desc').value;
+        document.getElementById('p-footer').textContent = document.getElementById('f-footer').value;
+
+        // Author logic
+        const authorVal = document.getElementById('f-author').value;
+        const pAuthor = document.getElementById('p-author');
+        if (authorVal.includes('&&')) {
+            const [n, i] = authorVal.split('&&').map(s => s.trim());
+            pAuthor.innerHTML = `<img src="${i}"><span>${n}</span>`;
+            pAuthor.style.display = 'flex';
+        } else if (authorVal) {
+            pAuthor.textContent = authorVal;
+            pAuthor.style.display = 'flex';
+        } else {
+            pAuthor.style.display = 'none';
+        }
+
+        // Color
+        const color = document.getElementById('f-color').value;
+        document.getElementById('p-border').style.borderColor = color ? (color.startsWith('#') ? color : '#' + color) : '#1e1f22';
+
+        // Images
+        const img = document.getElementById('f-image').value;
+        const pImg = document.getElementById('p-image');
+        pImg.src = img;
+        pImg.style.display = img ? 'block' : 'none';
+
+        const thumb = document.getElementById('f-thumb').value;
+        const pThumb = document.getElementById('p-thumb');
+        pThumb.src = thumb;
+        pThumb.style.display = thumb ? 'block' : 'none';
+    }
+
+    function copyToClipboard() {
+        let output = "";
+        const mapping = {
+            'message': 'message',
+            'author': 'author',
+            'title': 'title',
+            'desc': 'description',
+            'color': 'color',
+            'thumb': 'thumbnail',
+            'image': 'image',
+            'footer': 'footer'
+        };
+
+        Object.keys(mapping).forEach(id => {
+            const val = document.getElementById('f-' + id).value.trim();
+            if (val) output += `$v(${mapping[id]}:${val}) `;
+        });
+
+        const final = output.trim();
+        
+        // Reliable Fallback Copy
+        const el = document.createElement('textarea');
+        el.value = final;
+        document.body.appendChild(el);
+        el.select();
+        try {
+            document.execCommand('copy');
+            const btn = document.querySelector('.btn-copy');
+            btn.textContent = "Copied!";
+            btn.style.background = "#eeeeee";
+            setTimeout(() => {
+                btn.textContent = "Copy Parser String";
+            }, 2000);
+        } catch (err) {
+            alert('Manual copy needed: ' + final);
+        }
+        document.body.removeChild(el);
+    }
+
+    // Listen for every keystroke
+    document.querySelectorAll('input, textarea').forEach(el => {
+        el.addEventListener('input', update);
+    });
+</script>
+
+</body>
+</html>
