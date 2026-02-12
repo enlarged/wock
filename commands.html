@@ -6,10 +6,10 @@
     <title>Bot Commands</title>
     <style>
         :root {
-            --bg-main: #0a0a0a;
-            --bg-sidebar: #0d0d0d;
-            --bg-card: #141414;
-            --bg-card-hover: #1a1a1a;
+            --bg-main: transparent; /* Changed to let gradient show */
+            --bg-sidebar: rgba(13, 13, 13, 0.8); /* Semi-transparent */
+            --bg-card: rgba(20, 20, 20, 0.7); /* Semi-transparent */
+            --bg-card-hover: rgba(26, 26, 26, 0.9);
             --border-grey: #222222;
             --text-main: #eeeeee;
             --text-muted: #888888;
@@ -20,13 +20,37 @@
 
         body {
             margin: 0;
-            background-color: var(--bg-main);
+            background-color: #050505; /* Fallback base color */
             font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
             color: var(--text-main);
             display: flex;
             height: 100vh;
             overflow: hidden;
-            flex-direction: row; /* Default Desktop */
+            flex-direction: row; 
+        }
+
+        /* Swirly Liquid Background Layer */
+        .background-layer {
+            position: fixed;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            z-index: -1;
+            background: 
+                radial-gradient(circle at 50% 50%, #1a1a1a 0%, transparent 50%),
+                radial-gradient(circle at 20% 30%, #0d0d0d 0%, transparent 40%),
+                radial-gradient(circle at 80% 70%, #222222 0%, transparent 40%),
+                radial-gradient(circle at 10% 80%, #080808 0%, transparent 30%);
+            background-blend-mode: screen;
+            filter: blur(80px);
+            animation: ultraSlowSwirl 120s linear infinite;
+        }
+
+        @keyframes ultraSlowSwirl {
+            0% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(1.2); }
+            100% { transform: rotate(360deg) scale(1); }
         }
 
         /* Sidebar Styling */
@@ -39,6 +63,7 @@
             padding: 40px 20px;
             overflow-y: auto;
             flex-shrink: 0;
+            backdrop-filter: blur(10px); /* Frosted glass effect */
         }
 
         .sidebar h2 {
@@ -90,6 +115,7 @@
             padding: 60px 5vw;
             overflow-y: auto;
             scroll-behavior: smooth;
+            z-index: 1;
         }
 
         .header { max-width: 800px; margin-bottom: 40px; }
@@ -107,6 +133,7 @@
             color: white;
             font-size: 15px;
             outline: none;
+            backdrop-filter: blur(5px);
         }
         .search-icon { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--text-muted); }
 
@@ -117,6 +144,12 @@
             border: 1px solid var(--border-grey);
             border-radius: 10px;
             padding: 18px;
+            backdrop-filter: blur(5px);
+            transition: all 0.3s ease;
+        }
+        .command-item:hover {
+            background: var(--bg-card-hover);
+            transform: translateY(-2px);
         }
         .cmd-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
         .cmd-name { font-weight: 700; font-size: 16px; color: var(--text-main); }
@@ -147,7 +180,7 @@
                 border-bottom: 1px solid var(--border-grey);
             }
 
-            .sidebar h2 { display: none; } /* Hide "Categories" text on mobile to save space */
+            .sidebar h2 { display: none; }
 
             .category-list {
                 flex-direction: row;
@@ -156,13 +189,8 @@
                 -webkit-overflow-scrolling: touch;
             }
 
-            .cat-btn {
-                padding: 8px 14px;
-                font-size: 13px;
-            }
-
+            .cat-btn { padding: 8px 14px; font-size: 13px; }
             .cat-btn .count { margin-left: 6px; }
-
             .main-content { padding: 30px 20px; }
             h1 { font-size: 24px; }
             .command-item { padding: 15px; }
@@ -170,10 +198,12 @@
 
         /* Custom Scrollbar */
         ::-webkit-scrollbar { width: 5px; height: 5px; }
-        ::-webkit-scrollbar-thumb { background: #222; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
     </style>
 </head>
 <body>
+
+<div class="background-layer"></div>
 
 <aside class="sidebar">
     <h2>Categories</h2>
@@ -225,54 +255,4 @@
                 currentCategory = name;
                 renderSidebar();
                 renderCommands();
-                document.querySelector('.main-content').scrollTop = 0;
-            };
-            categoryList.appendChild(btn);
-        }
-
-        function renderCommands() {
-            const query = searchBox.value.toLowerCase();
-            commandList.innerHTML = '';
-            let pool = [];
-            if (currentCategory === 'All') {
-                modules.forEach(m => pool = pool.concat(commandsJSON[m]));
-            } else {
-                pool = commandsJSON[currentCategory] || [];
-            }
-
-            const filtered = pool.filter(cmd => 
-                cmd.name.toLowerCase().includes(query) || 
-                (cmd.description && cmd.description.toLowerCase().includes(query))
-            );
-
-            filtered.forEach(cmd => {
-                const card = document.createElement('div');
-                card.className = 'command-item';
-                let subContent = '';
-                if (cmd.subcommands && cmd.subcommands.length > 0) {
-                    subContent = `<div class="subcommands-container">`;
-                    cmd.subcommands.forEach(sub => {
-                        subContent += `<div class="sub-item"><span class="sub-name">${cmd.name} ${sub.name}</span><span class="sub-desc">${sub.description || ''}</span></div>`;
-                    });
-                    subContent += `</div>`;
-                }
-                card.innerHTML = `
-                    <div class="cmd-top">
-                        <span class="cmd-name">/${cmd.name}</span>
-                        <span class="cmd-aliases">${cmd.aliases && cmd.aliases.length ? cmd.aliases.join(' ') : ''}</span>
-                    </div>
-                    <div class="cmd-desc">${cmd.description || 'No description provided.'}</div>
-                    ${subContent}
-                `;
-                commandList.appendChild(card);
-            });
-        }
-
-        searchBox.addEventListener('input', renderCommands);
-        renderSidebar();
-        renderCommands();
-    })();
-</script>
-
-</body>
-</html>
+                document.
