@@ -56,6 +56,7 @@
             z-index: 1;
         }
 
+        /* Responsive Panel Logic */
         .inputs-panel {
             width: 420px;
             background: var(--bg-panel);
@@ -63,6 +64,7 @@
             padding: 40px 30px;
             overflow-y: auto;
             backdrop-filter: blur(20px);
+            flex-shrink: 0;
         }
 
         h2 { font-size: 24px; font-weight: 800; margin: 0 0 30px 0; letter-spacing: -1px; }
@@ -109,6 +111,7 @@
             justify-content: center;
             padding: 40px;
             background: rgba(0,0,0,0.2);
+            overflow-y: auto;
         }
 
         .preview-label { margin-bottom: 25px; color: var(--text-muted); font-size: 12px; font-weight: 600; }
@@ -122,7 +125,6 @@
             border-left: 4px solid #1e1f22;
             border-radius: 4px;
             padding: 12px 16px;
-            max-width: fit-content;
             min-width: 300px;
         }
 
@@ -134,6 +136,25 @@
         .footer { font-size: 11px; color: #b5bac1; margin-top: 10px; font-weight: 500; }
         .img-large { margin-top: 12px; max-width: 100%; border-radius: 4px; max-height: 300px; }
         .thumbnail { width: 80px; height: 80px; border-radius: 4px; margin-left: 16px; object-fit: cover; flex-shrink: 0; }
+
+        /* MOBILE ADJUSTMENTS */
+        @media (max-width: 850px) {
+            body { overflow-y: auto; height: auto; }
+            .editor-wrapper { flex-direction: column; height: auto; }
+            .inputs-panel { 
+                width: 100%; 
+                border-right: none; 
+                border-bottom: 1px solid var(--border-grey); 
+                padding: 30px 20px;
+            }
+            .preview-panel { 
+                padding: 50px 15px;
+                min-height: 400px; 
+            }
+            .discord-msg-wrap { width: 100%; }
+            .embed-container { min-width: 100%; }
+            .thumbnail { width: 60px; height: 60px; }
+        }
 
         ::-webkit-scrollbar { width: 4px; }
         ::-webkit-scrollbar-thumb { background: #222; border-radius: 10px; }
@@ -258,7 +279,6 @@
             'footer': 'footer'
         };
 
-        // Collect all active fields
         Object.keys(mapping).forEach(id => {
             const val = document.getElementById('f-' + id).value.trim();
             if (val) {
@@ -268,7 +288,6 @@
 
         if (outputArr.length === 0) return;
 
-        // Build string: First is "key: value", others are "$v(key:value)"
         let finalStr = "";
         outputArr.forEach((item, index) => {
             if (index === 0) {
