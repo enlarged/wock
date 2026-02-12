@@ -1,284 +1,347 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Commands</title>
-<style>
-  /* Global Reset & Grey Palette */
-  *, *::before, *::after { box-sizing: border-box; }
-  
-  :root {
-    --bg-main: #0d0d0d;
-    --bg-side: #161616;
-    --bg-card: #1a1a1a;
-    --bg-card-hover: #222222;
-    --text-primary: #eeeeee;
-    --text-secondary: #999999;
-    --accent-grey: #333333;
-    --border-grey: #2a2a2a;
-  }
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bot Commands</title>
+    <style>
+        /* Modern Grey Palette */
+        :root {
+            --bg-main: #0a0a0a;
+            --bg-sidebar: #0d0d0d;
+            --bg-card: #141414;
+            --bg-card-hover: #1a1a1a;
+            --border-grey: #222222;
+            --text-main: #eeeeee;
+            --text-muted: #888888;
+            --accent-grey: #2a2a2a;
+        }
 
-  body {
-    margin: 0;
-    background-color: var(--bg-main);
-    font-family: 'Inter', 'Segoe UI', Roboto, sans-serif;
-    color: var(--text-primary);
-    display: flex;
-    height: 100vh;
-    overflow: hidden;
-  }
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
 
-  /* Sidebar Navigation */
-  .sidebar {
-    width: 300px;
-    background-color: var(--bg-main);
-    padding: 40px 20px;
-    border-right: 1px solid var(--border-grey);
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    overflow-y: auto;
-  }
+        body {
+            margin: 0;
+            background-color: var(--bg-main);
+            font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+            color: var(--text-main);
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
 
-  .sidebar h2 {
-    font-size: 14px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    color: var(--text-secondary);
-    margin: 0 0 10px 10px;
-  }
+        /* Sidebar Styling */
+        .sidebar {
+            width: 280px;
+            background-color: var(--bg-sidebar);
+            border-right: 1px solid var(--border-grey);
+            display: flex;
+            flex-direction: column;
+            padding: 40px 20px;
+            overflow-y: auto;
+        }
 
-  .category-list {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-  }
+        .sidebar h2 {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            padding-left: 10px;
+        }
 
-  .cat-btn {
-    background: transparent;
-    border: none;
-    color: var(--text-secondary);
-    padding: 12px 15px;
-    border-radius: 8px;
-    text-align: left;
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: 500;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    transition: all 0.2s;
-  }
+        .category-list {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
 
-  .cat-btn:hover {
-    background: var(--bg-side);
-    color: var(--text-primary);
-  }
+        .cat-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            padding: 12px 15px;
+            border-radius: 8px;
+            text-align: left;
+            cursor: pointer;
+            font-size: 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.2s ease;
+        }
 
-  .cat-btn.active {
-    background: var(--bg-card);
-    color: var(--text-primary);
-  }
+        .cat-btn:hover {
+            background: var(--bg-card);
+            color: var(--text-main);
+        }
 
-  .cat-btn .count {
-    font-size: 12px;
-    opacity: 0.6;
-  }
+        .cat-btn.active {
+            background: var(--bg-card);
+            color: var(--text-main);
+            font-weight: 600;
+        }
 
-  /* Main Content Area */
-  .main-content {
-    flex: 1;
-    padding: 60px 5vw;
-    overflow-y: auto;
-    background: linear-gradient(180deg, #111 0%, #0d0d0d 100%);
-  }
+        .cat-btn .count {
+            font-size: 11px;
+            background: var(--accent-grey);
+            padding: 2px 8px;
+            border-radius: 10px;
+            color: var(--text-muted);
+        }
 
-  .header-section {
-    max-width: 800px;
-    margin-bottom: 40px;
-  }
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            padding: 60px 8vw;
+            overflow-y: auto;
+            scroll-behavior: smooth;
+        }
 
-  h1 { font-size: 32px; margin: 0 0 8px 0; }
-  .subtitle { color: var(--text-secondary); margin-bottom: 30px; }
+        .header {
+            max-width: 900px;
+            margin-bottom: 50px;
+        }
 
-  /* Search Bar */
-  .search-wrapper {
-    position: relative;
-    max-width: 500px;
-    margin-bottom: 40px;
-  }
+        h1 { font-size: 36px; margin: 0 0 10px 0; font-weight: 800; }
+        .subtitle { color: var(--text-muted); font-size: 16px; margin-bottom: 35px; }
 
-  #searchBox {
-    width: 100%;
-    padding: 14px 14px 14px 45px;
-    background: var(--bg-card);
-    border: 1px solid var(--border-grey);
-    border-radius: 8px;
-    color: white;
-    font-size: 15px;
-    outline: none;
-  }
+        /* Search Bar */
+        .search-container {
+            position: relative;
+            max-width: 450px;
+        }
 
-  #searchBox:focus { border-color: #555; }
+        #searchBox {
+            width: 100%;
+            background: var(--bg-card);
+            border: 1px solid var(--border-grey);
+            border-radius: 10px;
+            padding: 14px 14px 14px 45px;
+            color: white;
+            font-size: 15px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
 
-  .search-icon {
-    position: absolute;
-    left: 15px;
-    top: 50%;
-    transform: translateY(-50%);
-    opacity: 0.4;
-  }
+        #searchBox:focus {
+            border-color: #444;
+        }
 
-  /* Command List Items (Wide) */
-  .command-list {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    max-width: 800px;
-  }
+        .search-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            pointer-events: none;
+        }
 
-  .command-item {
-    background: var(--bg-card);
-    border: 1px solid var(--border-grey);
-    border-radius: 10px;
-    padding: 20px;
-    transition: transform 0.1s, background 0.2s;
-    cursor: pointer;
-  }
+        /* Command Cards */
+        .command-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            max-width: 900px;
+        }
 
-  .command-item:hover {
-    background: var(--bg-card-hover);
-  }
+        .command-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border-grey);
+            border-radius: 12px;
+            padding: 22px;
+            transition: background 0.2s;
+        }
 
-  .cmd-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 6px;
-  }
+        .command-item:hover {
+            background: var(--bg-card-hover);
+        }
 
-  .cmd-name {
-    font-weight: 700;
-    font-size: 17px;
-    color: var(--text-primary);
-  }
+        .cmd-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
 
-  .cmd-alias {
-    font-size: 12px;
-    color: var(--text-secondary);
-    background: var(--accent-grey);
-    padding: 2px 8px;
-    border-radius: 4px;
-  }
+        .cmd-name {
+            font-weight: 700;
+            font-size: 18px;
+            color: var(--text-main);
+            letter-spacing: -0.5px;
+        }
 
-  .cmd-desc {
-    font-size: 14px;
-    color: var(--text-secondary);
-    line-height: 1.5;
-  }
+        .cmd-aliases {
+            font-size: 11px;
+            color: var(--text-muted);
+            text-transform: lowercase;
+        }
 
-  /* Custom scrollbar */
-  ::-webkit-scrollbar { width: 8px; }
-  ::-webkit-scrollbar-track { background: var(--bg-main); }
-  ::-webkit-scrollbar-thumb { background: #222; border-radius: 10px; }
-</style>
+        .cmd-desc {
+            color: var(--text-muted);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* Subcommands Section */
+        .subcommands-container {
+            margin-top: 18px;
+            padding-top: 15px;
+            border-top: 1px solid var(--border-grey);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .sub-item {
+            display: flex;
+            gap: 12px;
+            font-size: 13px;
+        }
+
+        .sub-name {
+            color: #ccc;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .sub-desc {
+            color: #666;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg-main); }
+        ::-webkit-scrollbar-thumb { background: var(--accent-grey); border-radius: 10px; }
+    </style>
 </head>
 <body>
 
 <aside class="sidebar">
-  <h2>Categories</h2>
-  <div class="category-list" id="categoryList">
-    </div>
+    <h2>Categories</h2>
+    <div class="category-list" id="categoryList">
+        </div>
 </aside>
 
 <main class="main-content">
-  <div class="header-section">
-    <h1>Commands</h1>
-    <p class="subtitle">Browse and search through all available commands.</p>
-    
-    <div class="search-wrapper">
-      <span class="search-icon">🔍</span>
-      <input type="text" id="searchBox" placeholder="Search commands...">
+    <div class="header">
+        <h1>Commands</h1>
+        <p class="subtitle">Browse and search through all available commands.</p>
+        
+        <div class="search-container">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="searchBox" placeholder="Search commands...">
+        </div>
     </div>
-  </div>
 
-  <div class="command-list" id="commandList">
-    </div>
+    <div class="command-list" id="commandList">
+        </div>
 </main>
 
 <script>
-(async function() {
-  const categoryList = document.getElementById('categoryList');
-  const commandList = document.getElementById('commandList');
-  const searchBox = document.getElementById('searchBox');
+    (async function() {
+        const categoryList = document.getElementById('categoryList');
+        const commandList = document.getElementById('commandList');
+        const searchBox = document.getElementById('searchBox');
 
-  let commandsJSON;
-  try {
-    const resp = await fetch('./commands.json');
-    commandsJSON = await resp.json();
-  } catch (e) {
-    commandList.innerHTML = `<p style="color:grey;">Add a commands.json file to display content.</p>`;
-    return;
-  }
+        let commandsJSON = {};
 
-  const categories = Object.keys(commandsJSON);
-  let activeCategory = 'All';
+        try {
+            const response = await fetch('./commands.json');
+            commandsJSON = await response.json();
+        } catch (err) {
+            commandList.innerHTML = `<p style="color: #555;">Could not find commands.json. Please run your bot command first.</p>`;
+            return;
+        }
 
-  function renderSidebar() {
-    categoryList.innerHTML = '';
-    categories.forEach(cat => {
-      const btn = document.createElement('button');
-      btn.className = `cat-btn ${cat === activeCategory ? 'active' : ''}`;
-      
-      const count = cat === 'All' 
-        ? categories.filter(c => c !== 'All').reduce((acc, c) => acc + commandsJSON[c].length, 0)
-        : commandsJSON[cat].length;
+        // Filter out 'developer' module just in case
+        const modules = Object.keys(commandsJSON).filter(m => m.toLowerCase() !== 'developer');
+        let currentCategory = 'All';
 
-      btn.innerHTML = `<span>${cat}</span> <span class="count">${count}</span>`;
-      btn.onclick = () => {
-        activeCategory = cat;
+        function renderSidebar() {
+            categoryList.innerHTML = '';
+            
+            // Add "All" Category
+            const allCount = modules.reduce((acc, m) => acc + commandsJSON[m].length, 0);
+            createSidebarBtn('All', allCount);
+
+            // Add Module Categories
+            modules.forEach(mod => {
+                createSidebarBtn(mod, commandsJSON[mod].length);
+            });
+        }
+
+        function createSidebarBtn(name, count) {
+            const btn = document.createElement('button');
+            btn.className = `cat-btn ${currentCategory === name ? 'active' : ''}`;
+            btn.innerHTML = `<span>${name}</span> <span class="count">${count}</span>`;
+            btn.onclick = () => {
+                currentCategory = name;
+                renderSidebar();
+                renderCommands();
+                document.querySelector('.main-content').scrollTop = 0;
+            };
+            categoryList.appendChild(btn);
+        }
+
+        function renderCommands() {
+            const query = searchBox.value.toLowerCase();
+            commandList.innerHTML = '';
+
+            let pool = [];
+            if (currentCategory === 'All') {
+                modules.forEach(m => pool = pool.concat(commandsJSON[m]));
+            } else {
+                pool = commandsJSON[currentCategory] || [];
+            }
+
+            const filtered = pool.filter(cmd => 
+                cmd.name.toLowerCase().includes(query) || 
+                (cmd.description && cmd.description.toLowerCase().includes(query))
+            );
+
+            if (filtered.length === 0) {
+                commandList.innerHTML = '<p style="color: #444; text-align: center; margin-top: 50px;">No commands found matching your search.</p>';
+                return;
+            }
+
+            filtered.forEach(cmd => {
+                const card = document.createElement('div');
+                card.className = 'command-item';
+
+                // Handle Subcommands
+                let subContent = '';
+                if (cmd.subcommands && cmd.subcommands.length > 0) {
+                    subContent = `<div class="subcommands-container">`;
+                    cmd.subcommands.forEach(sub => {
+                        subContent += `
+                            <div class="sub-item">
+                                <span class="sub-name">${cmd.name} ${sub.name}</span>
+                                <span class="sub-desc">${sub.description || ''}</span>
+                            </div>`;
+                    });
+                    subContent += `</div>`;
+                }
+
+                card.innerHTML = `
+                    <div class="cmd-top">
+                        <span class="cmd-name">/${cmd.name}</span>
+                        <span class="cmd-aliases">${cmd.aliases && cmd.aliases.length ? cmd.aliases.join(' ') : ''}</span>
+                    </div>
+                    <div class="cmd-desc">${cmd.description || 'No description provided.'}</div>
+                    ${subContent}
+                `;
+                commandList.appendChild(card);
+            });
+        }
+
+        searchBox.addEventListener('input', renderCommands);
+
+        // Initial Load
         renderSidebar();
         renderCommands();
-      };
-      categoryList.appendChild(btn);
-    });
-  }
-
-  function renderCommands() {
-    const term = searchBox.value.toLowerCase();
-    commandList.innerHTML = '';
-
-    let pool = [];
-    if (activeCategory === 'All') {
-      categories.forEach(c => { if(c !== 'All') pool = pool.concat(commandsJSON[c]); });
-    } else {
-      pool = commandsJSON[activeCategory] || [];
-    }
-
-    const filtered = pool.filter(c => 
-      c.name.toLowerCase().includes(term) || 
-      (c.description && c.description.toLowerCase().includes(term))
-    );
-
-    filtered.forEach(cmd => {
-      const div = document.createElement('div');
-      div.className = 'command-item';
-      div.innerHTML = `
-        <div class="cmd-header">
-          <span class="cmd-name">/${cmd.name}</span>
-          ${cmd.aliases ? `<span class="cmd-alias">${cmd.aliases.join(', ')}</span>` : ''}
-        </div>
-        <div class="cmd-desc">${cmd.description || 'No description available.'}</div>
-      `;
-      commandList.appendChild(div);
-    });
-  }
-
-  searchBox.oninput = renderCommands;
-  renderSidebar();
-  renderCommands();
-})();
+    })();
 </script>
 
 </body>
