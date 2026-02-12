@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wock | Home</title>
+    <style>
+        :root {
+            --bg-dark: #050505;
+            --text-main: #eeeeee;
+            --text-muted: #888888;
+            --btn-primary: #e0e0e0;
+            --btn-primary-text: #111111;
+            --btn-secondary: #121212;
+            --border-grey: #1a1a1a;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            background-color: var(--bg-dark);
+        }
+
+        /* Swirly Liquid Background Container */
+        .background-layer {
+            position: fixed;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            z-index: -1;
+            /* Multi-layer radial gradient to create "swirls" */
+            background: 
+                radial-gradient(circle at 50% 50%, #1a1a1a 0%, transparent 50%),
+                radial-gradient(circle at 20% 30%, #0d0d0d 0%, transparent 40%),
+                radial-gradient(circle at 80% 70%, #222222 0%, transparent 40%),
+                radial-gradient(circle at 10% 80%, #080808 0%, transparent 30%);
+            background-blend-mode: screen;
+            filter: blur(80px);
+            /* 120 second rotation for a "way slower" feel */
+            animation: ultraSlowSwirl 120s linear infinite;
+        }
+
+        @keyframes ultraSlowSwirl {
+            0% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(1.2); }
+            100% { transform: rotate(360deg) scale(1); }
+        }
+
+        .container {
+            text-align: center;
+            max-width: 600px;
+            padding: 20px;
+            z-index: 1;
+            animation: fadeIn 3s ease-out;
+        }
+
+        .bot-pfp {
+            width: 115px;
+            height: 115px;
+            border-radius: 50%;
+            margin-bottom: 24px;
+            object-fit: cover;
+            border: 1px solid var(--border-grey);
+            background-color: #000;
+            box-shadow: 0 15px 45px rgba(0,0,0,0.8);
+        }
+
+        h1 {
+            font-size: 52px;
+            margin: 0 0 10px 0;
+            font-weight: 800;
+            letter-spacing: -2px;
+        }
+
+        .tagline {
+            font-size: 18px;
+            color: var(--text-main);
+            margin-bottom: 8px;
+            font-weight: 500;
+            opacity: 0.8;
+        }
+
+        .stats {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 50px;
+        }
+
+        /* Reference: Underline style from Rival */
+        .stats span {
+            color: var(--text-main);
+            font-weight: 600;
+            border-bottom: 1px solid #2a2a2a;
+            padding-bottom: 1px;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 18px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            text-decoration: none;
+            padding: 15px 36px;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 600;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        .btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+        }
+
+        .btn-add {
+            background-color: var(--btn-primary);
+            color: var(--btn-primary-text);
+        }
+
+        .btn-commands {
+            background-color: var(--btn-secondary);
+            color: var(--text-main);
+            border: 1px solid var(--border-grey);
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--text-muted);
+            font-size: 22px;
+            opacity: 0.2;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @media (max-width: 480px) {
+            h1 { font-size: 40px; }
+            .btn { width: 100%; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="background-layer"></div>
+
+    <div class="container">
+        <img src="/avatar.png" alt="Wock" class="bot-pfp">
+        
+        <h1>Wock</h1>
+        <p class="tagline">A powerful Discord bot for your community</p>
+        
+        <p class="stats">
+            serving <span>25k+</span> users across <span>30+</span> guilds
+        </p>
+
+        <div class="btn-group">
+            <a href="https://discord.com/api/oauth2/authorize?client_id=1466693823508775099&scope=bot&permissions=8" class="btn btn-add">
+                Add to Discord
+            </a>
+            <a href="commands.html" class="btn btn-commands">
+                View Commands
+            </a>
+        </div>
+    </div>
+
+    <div class="scroll-indicator">⌄</div>
+
+</body>
+</html>
