@@ -1,0 +1,886 @@
+{
+    "configuration": [
+        {
+            "name": "alias",
+            "aliases": [
+                "al"
+            ],
+            "description": "Manage command aliases for this server",
+            "syntax": "(subcommands) (args)",
+            "example": "add hammer ban",
+            "permissions": "manage_guild",
+            "module": "configuration"
+        },
+        {
+            "name": "backup",
+            "aliases": [
+                "bk"
+            ],
+            "description": "Manage server backups with full restoration",
+            "syntax": "(subcommands) (args) ",
+            "example": "create",
+            "permissions": "administrator",
+            "module": "configuration"
+        },
+        {
+            "name": "customize",
+            "aliases": [
+                "custom"
+            ],
+            "description": "Customize the bot appearance in your server",
+            "syntax": "(subcommands) (args)",
+            "example": "nickname wocky",
+            "permissions": "manage_guild",
+            "module": "configuration"
+        },
+        {
+            "name": "disable",
+            "aliases": [
+                "dcmd"
+            ],
+            "description": "Manage disabled commands for your server",
+            "syntax": "(subcommands) (args)",
+            "example": "add ping everyone",
+            "permissions": "manage_guild",
+            "module": "configuration"
+        },
+        {
+            "name": "enable",
+            "aliases": [
+                "ecmd"
+            ],
+            "description": "Re-enable commands that were previously disabled",
+            "syntax": "(subcommands) (args)",
+            "example": "remove ping everyone",
+            "permissions": "manage_guild",
+            "module": "configuration"
+        },
+        {
+            "name": "setup",
+            "aliases": [
+                "configure",
+                "init"
+            ],
+            "description": "Initial moderation setup (Jail, Mute, Voice Mute, Emoji Mute)",
+            "syntax": null,
+            "example": null,
+            "permissions": "ManageGuild",
+            "module": "configuration"
+        },
+        {
+            "name": "starboard",
+            "aliases": [
+                "star"
+            ],
+            "description": "Set up the starboard for your server",
+            "syntax": "<subcommand> (args)",
+            "example": "channel #starboard",
+            "permissions": "ManageGuild",
+            "module": "configuration"
+        },
+        {
+            "name": "tickets",
+            "aliases": [
+                "ticket",
+                "tix"
+            ],
+            "description": "Manage the ticket system",
+            "syntax": "<subcommand> (args)",
+            "example": "setup",
+            "permissions": "manage_guild",
+            "module": "configuration"
+        },
+        {
+            "name": "voicemaster",
+            "aliases": [
+                "vm"
+            ],
+            "description": "Temporary voice channel management",
+            "syntax": "<subcommands> (args)",
+            "example": "setup",
+            "permissions": "manage_guild",
+            "module": "configuration"
+        }
+    ],
+    "crypto": [
+        {
+            "name": "bitcoin",
+            "aliases": [
+                "btc"
+            ],
+            "description": "Check the current price of Bitcoin",
+            "syntax": "bitcoin",
+            "example": "btc",
+            "permissions": "none",
+            "module": "crypto"
+        },
+        {
+            "name": "dogecoin",
+            "aliases": [
+                "doge"
+            ],
+            "description": "Get the current Dogecoin price",
+            "syntax": "dogecoin",
+            "example": "doge",
+            "permissions": "none",
+            "module": "crypto"
+        },
+        {
+            "name": "ethereum",
+            "aliases": [
+                "eth"
+            ],
+            "description": "Check the current price of Ethereum",
+            "syntax": "ethereum",
+            "example": "eth",
+            "permissions": "none",
+            "module": "crypto"
+        },
+        {
+            "name": "litecoin",
+            "aliases": [
+                "ltc"
+            ],
+            "description": "Check the current price of Litecoin",
+            "syntax": "litecoin",
+            "example": "ltc",
+            "permissions": "none",
+            "module": "crypto"
+        },
+        {
+            "name": "monero",
+            "aliases": [
+                "xmr"
+            ],
+            "description": "Get the current Monero price",
+            "syntax": "monero",
+            "example": "monero",
+            "permissions": "none",
+            "module": "crypto"
+        },
+        {
+            "name": "solana",
+            "aliases": [
+                "sol"
+            ],
+            "description": "Check the current price of Solana",
+            "syntax": "solana",
+            "example": "sol",
+            "permissions": "none",
+            "module": "crypto"
+        },
+        {
+            "name": "tether",
+            "aliases": [
+                "usdt"
+            ],
+            "description": "Get the current Tether price",
+            "syntax": "tether",
+            "example": "tether",
+            "permissions": "none",
+            "module": "crypto"
+        },
+        {
+            "name": "transaction",
+            "aliases": [
+                "tx",
+                "track",
+                "txid"
+            ],
+            "description": "Track and monitor crypto transactions",
+            "syntax": "<subcommand> (args)",
+            "example": "add 6f9...8a1",
+            "permissions": "none",
+            "module": "crypto"
+        }
+    ],
+    "developer": [
+        {
+            "name": "commands",
+            "aliases": [
+                "cmdtree",
+                "genhtml"
+            ],
+            "description": "Generate HTML source code to display all commands by module",
+            "syntax": "commands",
+            "example": "commands",
+            "permissions": null,
+            "module": "developer"
+        },
+        {
+            "name": "json",
+            "aliases": [
+                "exportjson",
+                "cmdjson"
+            ],
+            "description": "Export all prefix commands into a structured JSON file sorted by module.",
+            "syntax": "json",
+            "example": "json",
+            "permissions": "Bot Owner",
+            "module": "developer"
+        },
+        {
+            "name": "reload",
+            "aliases": [
+                "rl"
+            ],
+            "description": "Reloads commands or events with detailed logging.",
+            "syntax": "reload <command|event|all> [name]",
+            "example": "reload event messageCreate",
+            "permissions": "Bot Owner",
+            "module": "developer"
+        }
+    ],
+    "entertainment": [
+        {
+            "name": "blacktea",
+            "aliases": [
+                "bt"
+            ],
+            "description": "A fast-paced elimination word game.",
+            "syntax": null,
+            "example": "blacktea",
+            "permissions": "none",
+            "module": "entertainment"
+        },
+        {
+            "name": "jobs",
+            "aliases": [
+                "job",
+                "search",
+                "hiring"
+            ],
+            "description": "Search for job listings",
+            "syntax": "(subcommands) (arguments)",
+            "example": "developer chicago",
+            "permissions": "None",
+            "module": "entertainment"
+        },
+        {
+            "name": "rockpaperscissors",
+            "aliases": [
+                "rps"
+            ],
+            "description": "Challenge another user to Rock Paper Scissors",
+            "syntax": "rockpaperscissors <member>",
+            "example": "rockpaperscissors @c2rter",
+            "permissions": null,
+            "module": "entertainment"
+        },
+        {
+            "name": "snake",
+            "aliases": [
+                "sg"
+            ],
+            "description": "Play a game of Snake",
+            "syntax": "play",
+            "example": "play",
+            "permissions": null,
+            "module": "entertainment"
+        },
+        {
+            "name": "statistics",
+            "aliases": [
+                "stats",
+                "gameinfo",
+                "gtop"
+            ],
+            "description": "View global gaming records and totals",
+            "syntax": "gamestats",
+            "example": "gamestats",
+            "permissions": null,
+            "module": "entertainment"
+        },
+        {
+            "name": "tictactoe",
+            "aliases": [
+                "ttt"
+            ],
+            "description": "Play a game of Tic Tac Toe with another member",
+            "syntax": "<member>",
+            "example": "tictactoe @c2rter",
+            "permissions": null,
+            "module": "entertainment"
+        }
+    ],
+    "image": [
+        {
+            "name": "ocr",
+            "aliases": [
+                "read"
+            ],
+            "description": "Detects text in an image",
+            "syntax": "<attachment>",
+            "example": "ocr image.png",
+            "permissions": null,
+            "module": "image"
+        }
+    ],
+    "information": [
+        {
+            "name": "avatar",
+            "aliases": [
+                "av",
+                "pfp"
+            ],
+            "description": "Display a user's avatar",
+            "syntax": "[user]",
+            "example": "@User",
+            "permissions": "None",
+            "module": "information"
+        },
+        {
+            "name": "botinfo",
+            "aliases": [
+                "about",
+                "bi"
+            ],
+            "description": "Shows information about the bot",
+            "syntax": "botinfo",
+            "example": "botinfo",
+            "permissions": null,
+            "module": "information"
+        },
+        {
+            "name": "clearnames",
+            "aliases": [
+                "clearnames",
+                "clearusernames",
+                "cnames"
+            ],
+            "description": "Clear your own recorded username history.",
+            "syntax": null,
+            "example": null,
+            "permissions": "none",
+            "module": "information"
+        },
+        {
+            "name": "guildicon",
+            "aliases": [
+                "servericon",
+                "gicon"
+            ],
+            "description": "Display a guilds icon",
+            "syntax": "[guild]",
+            "example": "discord",
+            "permissions": "None",
+            "module": "information"
+        },
+        {
+            "name": "help",
+            "aliases": [
+                "h",
+                "commands"
+            ],
+            "description": "List all available commands or info about a specific one",
+            "syntax": "[command]",
+            "example": "ping",
+            "permissions": "None",
+            "module": "information"
+        },
+        {
+            "name": "invite",
+            "aliases": [
+                "inv"
+            ],
+            "description": "Invite link for the bot",
+            "syntax": null,
+            "example": null,
+            "permissions": "None",
+            "module": "information"
+        },
+        {
+            "name": "inviteinfo",
+            "aliases": [
+                "ii"
+            ],
+            "description": "Fetches information about the provided invite link.",
+            "syntax": "inviteinfo <invite>",
+            "example": "inviteinfo blehh",
+            "permissions": null,
+            "module": "information"
+        },
+        {
+            "name": "serverinfo",
+            "aliases": [
+                "si"
+            ],
+            "description": "View information about a server",
+            "syntax": "serverinfo",
+            "example": "serverinfo",
+            "permissions": null,
+            "module": "information"
+        },
+        {
+            "name": "serverinvite",
+            "aliases": [
+                "sinvite",
+                "si"
+            ],
+            "description": "Creates an invite for the server",
+            "syntax": "serverinvite",
+            "example": "serverinvite",
+            "permissions": null,
+            "module": "information"
+        },
+        {
+            "name": "userinfo",
+            "aliases": [
+                "ui"
+            ],
+            "description": "View information about a user",
+            "syntax": "userinfo (user)",
+            "example": "userinfo @c2rter",
+            "permissions": null,
+            "module": "information"
+        },
+        {
+            "name": "usernames",
+            "aliases": [
+                "unames",
+                "names",
+                "nh"
+            ],
+            "description": "List all past usernames of a user",
+            "syntax": "<user>",
+            "example": "usernames @x6l",
+            "permissions": "none",
+            "module": "information"
+        }
+    ],
+    "lastfm": [
+        {
+            "name": "lastfm",
+            "aliases": [
+                "lf",
+                "fm"
+            ],
+            "description": "Comprehensive Last.fm music integration",
+            "syntax": "lastfm <subcommand> [args]",
+            "example": "lastfm nowplaying",
+            "permissions": null,
+            "module": "lastfm"
+        },
+        {
+            "name": "nowplaying",
+            "aliases": [
+                "np",
+                "fm"
+            ],
+            "description": "Show your current or last played song",
+            "syntax": "nowplaying",
+            "example": "nowplaying",
+            "permissions": "None",
+            "module": "lastfm"
+        }
+    ],
+    "miscellaneous": [
+        {
+            "name": "createembed",
+            "aliases": [
+                "embed",
+                "ce"
+            ],
+            "description": "Create a custom embed or message",
+            "syntax": "{key: value}",
+            "example": "{message: hi} {title: test} {description: hello} {color: ff0000}",
+            "permissions": "send_messages",
+            "module": "miscellaneous"
+        },
+        {
+            "name": "fortnite",
+            "aliases": [
+                "fort",
+                "fn"
+            ],
+            "description": "View Fortnite related information",
+            "syntax": "<subcommand> (args)",
+            "example": "lookup Renegade Raider",
+            "permissions": null,
+            "module": "miscellaneous"
+        },
+        {
+            "name": "highlight",
+            "aliases": [
+                "hl",
+                "keyword"
+            ],
+            "description": "Manage highlight notifications for keywords",
+            "syntax": "(subcommands) (args)",
+            "example": "add wock",
+            "permissions": "None",
+            "module": "miscellaneous"
+        },
+        {
+            "name": "iplookup",
+            "aliases": [
+                "ip",
+                "geo"
+            ],
+            "description": "Lookup information about an IP address",
+            "syntax": "iplookup <ip>",
+            "example": "iplookup 8.8.8.8",
+            "permissions": null,
+            "module": "miscellaneous"
+        },
+        {
+            "name": "ping",
+            "aliases": [
+                "p"
+            ],
+            "description": "Shows bot latency",
+            "syntax": "ping",
+            "example": "ping",
+            "permissions": null,
+            "module": "miscellaneous"
+        },
+        {
+            "name": "weather",
+            "aliases": [
+                "wthr"
+            ],
+            "description": "Manage and view your weather settings",
+            "syntax": "weather <subcommand> (args)",
+            "example": "weather set clearwater",
+            "permissions": null,
+            "module": "miscellaneous"
+        }
+    ],
+    "moderation": [
+        {
+            "name": "ban",
+            "aliases": [
+                "b"
+            ],
+            "description": "Ban a member from the server with booster confirmation.",
+            "syntax": "<user> [reason]",
+            "example": "@x6l nuisance",
+            "permissions": "ban_members",
+            "module": "moderation"
+        },
+        {
+            "name": "category",
+            "aliases": [],
+            "description": "Manage server categories",
+            "syntax": "<subcommand> <args>",
+            "example": "create Staff",
+            "permissions": "manage_channels",
+            "module": "moderation"
+        },
+        {
+            "name": "channel",
+            "aliases": [],
+            "description": "Manage server channels",
+            "syntax": "<subcommand> <args>",
+            "example": "create general-chat Lounge",
+            "permissions": "manage_channels",
+            "module": "moderation"
+        },
+        {
+            "name": "emoji",
+            "aliases": [
+                "none"
+            ],
+            "description": "Manage server emojis",
+            "syntax": "<subcommand> (args)",
+            "example": "add :smile:",
+            "permissions": "manage_emojis",
+            "module": "moderation"
+        },
+        {
+            "name": "emojimute",
+            "aliases": [
+                "emute",
+                "nomoji"
+            ],
+            "description": "Restrict a member from using emojis and stickers",
+            "syntax": "emojimute <member> [reason]",
+            "example": "emojimute @user emoji spam",
+            "permissions": "manage_roles",
+            "module": "moderation"
+        },
+        {
+            "name": "hide",
+            "aliases": [
+                "invisible"
+            ],
+            "description": "Hide the current channel from members.",
+            "syntax": "[reason]",
+            "example": "hide private discussion",
+            "permissions": "manage_channels",
+            "module": "moderation"
+        },
+        {
+            "name": "jail",
+            "aliases": [
+                "detain",
+                "arrest"
+            ],
+            "description": "Send a user to jail",
+            "syntax": "<member> [reason]",
+            "example": "@x6l being annoying",
+            "permissions": "manage_roles",
+            "module": "moderation"
+        },
+        {
+            "name": "kick",
+            "aliases": [
+                "k"
+            ],
+            "description": "Kick a member from the server with booster confirmation.",
+            "syntax": "<user> [reason]",
+            "example": "kick @x6l breaking rules",
+            "permissions": "kick_members",
+            "module": "moderation"
+        },
+        {
+            "name": "lock",
+            "aliases": [
+                "lockchannel"
+            ],
+            "description": "Lock the current channel to prevent members from speaking.",
+            "syntax": "[reason]",
+            "example": "lock raiding",
+            "permissions": "manage_channels",
+            "module": "moderation"
+        },
+        {
+            "name": "mute",
+            "aliases": [
+                "m",
+                "shutup"
+            ],
+            "description": "Mute a member in the server",
+            "syntax": "<member> [duration] [reason]",
+            "example": "@x6l 10m stop spamming",
+            "permissions": "manage_roles",
+            "module": "moderation"
+        },
+        {
+            "name": "nickname",
+            "aliases": [
+                "nick",
+                "setnick"
+            ],
+            "description": "Change or reset a member's nickname.",
+            "syntax": "<user> [new_nickname]",
+            "example": "nickname @x6l CoolGuy",
+            "permissions": "manage_nicknames",
+            "module": "moderation"
+        },
+        {
+            "name": "prefix",
+            "aliases": [
+                "setprefix"
+            ],
+            "description": "Manage server prefix settings",
+            "syntax": "(subcommands) (args)",
+            "example": "set $",
+            "permissions": "manage_guild",
+            "module": "moderation"
+        },
+        {
+            "name": "purge",
+            "aliases": [
+                "clear",
+                "c"
+            ],
+            "description": "Purge messages from a channel with specific filters",
+            "syntax": "<user> <number>",
+            "example": "x6l 10",
+            "permissions": "manage_messages",
+            "module": "moderation"
+        },
+        {
+            "name": "role",
+            "aliases": [
+                "r"
+            ],
+            "description": "Give a user roles",
+            "syntax": "<user> <role>",
+            "example": "@x6l goat",
+            "permissions": "manage_roles",
+            "module": "moderation"
+        },
+        {
+            "name": "softban",
+            "aliases": [
+                "sb"
+            ],
+            "description": "Bans and immediately unbans a user to delete 7 days of messages.",
+            "syntax": "<user> [reason]",
+            "example": "softban @x6l raiding",
+            "permissions": "ban_members",
+            "module": "moderation"
+        },
+        {
+            "name": "timeout",
+            "aliases": [
+                "mute",
+                "tm"
+            ],
+            "description": "Timeout a member for a specified duration.",
+            "syntax": "<user> <duration> [reason]",
+            "example": "timeout @x6l 10m spamming",
+            "permissions": "moderate_members",
+            "module": "moderation"
+        },
+        {
+            "name": "unhide",
+            "aliases": [
+                "show"
+            ],
+            "description": "Make the current channel visible to members again.",
+            "syntax": "[reason]",
+            "example": "unhide announcement over",
+            "permissions": "manage_channels",
+            "module": "moderation"
+        },
+        {
+            "name": "unjail",
+            "aliases": [
+                "release",
+                "pardon"
+            ],
+            "description": "Release a member from jail",
+            "syntax": "<member> [reason]",
+            "example": "@x6l sentence finished",
+            "permissions": "manage_roles",
+            "module": "moderation"
+        },
+        {
+            "name": "unlock",
+            "aliases": [
+                "unlockchannel"
+            ],
+            "description": "Unlock the current channel so members can speak again.",
+            "syntax": "[reason]",
+            "example": "unlock raid over",
+            "permissions": "manage_channels",
+            "module": "moderation"
+        },
+        {
+            "name": "unmute",
+            "aliases": [
+                "unvmute",
+                "unemute",
+                "speak"
+            ],
+            "description": "Remove all mute restrictions (Standard, Voice, and Emoji) from a member",
+            "syntax": "<member> [reason]",
+            "example": "@user behavior improved",
+            "permissions": "manage_roles",
+            "module": "moderation"
+        },
+        {
+            "name": "untimeout",
+            "aliases": [
+                "unmute",
+                "utm"
+            ],
+            "description": "Remove a timeout from a member.",
+            "syntax": "<user> [reason]",
+            "example": "untimeout @x6l appeal accepted",
+            "permissions": "moderate_members",
+            "module": "moderation"
+        },
+        {
+            "name": "voicemute",
+            "aliases": [
+                "vmute",
+                "vcmute"
+            ],
+            "description": "Restrict a member from speaking in voice channels",
+            "syntax": "<member> [reason]",
+            "example": "@x6l loud background noise",
+            "permissions": "manage_roles",
+            "module": "moderation"
+        }
+    ],
+    "socials": [
+        {
+            "name": "aboutme",
+            "aliases": [
+                "social",
+                "accounts",
+                "about"
+            ],
+            "description": "View and link your social media accounts and game stats",
+            "syntax": "aboutme (subcommands) (args)",
+            "example": "aboutme @x6l",
+            "permissions": null,
+            "module": "socials"
+        },
+        {
+            "name": "github",
+            "aliases": [
+                "git",
+                "gh"
+            ],
+            "description": "View and link GitHub profiles",
+            "syntax": "<user>",
+            "example": "github enlarged",
+            "permissions": null,
+            "module": "socials"
+        },
+        {
+            "name": "tiktok",
+            "aliases": [
+                "tt"
+            ],
+            "description": "View a tiktok profile",
+            "syntax": "<username>",
+            "example": "tiktok charlidamelio",
+            "permissions": null,
+            "module": "socials"
+        },
+        {
+            "name": "xbox",
+            "aliases": [
+                "xb",
+                "xbl"
+            ],
+            "description": "View an xbox user's profile",
+            "syntax": "c9ce",
+            "example": "xbox c9ce",
+            "permissions": null,
+            "module": "socials"
+        }
+    ],
+    "utility": [
+        {
+            "name": "away",
+            "aliases": [
+                "afk"
+            ],
+            "description": "Set an AFK status to be displayed when you are mentioned",
+            "syntax": "[reason]",
+            "example": "afk eating dinner",
+            "permissions": "none",
+            "module": "utility"
+        },
+        {
+            "name": "boosterrole",
+            "aliases": [
+                "br"
+            ],
+            "description": "Manage booster roles",
+            "syntax": "(subcommand) (args)",
+            "example": "enable",
+            "permissions": "ManageRoles",
+            "module": "utility"
+        },
+        {
+            "name": "crypto",
+            "aliases": [
+                "coin",
+                "p"
+            ],
+            "description": "Get deep market info for any crypto",
+            "syntax": " <name>",
+            "example": "crypto",
+            "permissions": null,
+            "module": "utility"
+        }
+    ]
+}
