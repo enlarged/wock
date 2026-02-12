@@ -9,7 +9,7 @@
             "syntax": "(subcommands) (args)",
             "example": "add hammer ban",
             "permissions": "manage_guild",
-            "module": "configuration"
+            "subcommands": []
         },
         {
             "name": "backup",
@@ -20,7 +20,7 @@
             "syntax": "(subcommands) (args) ",
             "example": "create",
             "permissions": "administrator",
-            "module": "configuration"
+            "subcommands": []
         },
         {
             "name": "customize",
@@ -31,7 +31,7 @@
             "syntax": "(subcommands) (args)",
             "example": "nickname wocky",
             "permissions": "manage_guild",
-            "module": "configuration"
+            "subcommands": []
         },
         {
             "name": "disable",
@@ -42,7 +42,7 @@
             "syntax": "(subcommands) (args)",
             "example": "add ping everyone",
             "permissions": "manage_guild",
-            "module": "configuration"
+            "subcommands": []
         },
         {
             "name": "enable",
@@ -53,7 +53,18 @@
             "syntax": "(subcommands) (args)",
             "example": "remove ping everyone",
             "permissions": "manage_guild",
-            "module": "configuration"
+            "subcommands": []
+        },
+        {
+            "name": "goodbye",
+            "aliases": [
+                "leave"
+            ],
+            "description": "Manage goodbye messages for members leaving",
+            "syntax": "<subcommand> (args)",
+            "example": "view #exit",
+            "permissions": "manage_guild",
+            "subcommands": []
         },
         {
             "name": "setup",
@@ -65,7 +76,7 @@
             "syntax": null,
             "example": null,
             "permissions": "ManageGuild",
-            "module": "configuration"
+            "subcommands": []
         },
         {
             "name": "starboard",
@@ -76,7 +87,7 @@
             "syntax": "<subcommand> (args)",
             "example": "channel #starboard",
             "permissions": "ManageGuild",
-            "module": "configuration"
+            "subcommands": []
         },
         {
             "name": "tickets",
@@ -88,7 +99,19 @@
             "syntax": "<subcommand> (args)",
             "example": "setup",
             "permissions": "manage_guild",
-            "module": "configuration"
+            "subcommands": []
+        },
+        {
+            "name": "vanityrole",
+            "aliases": [
+                "vrole",
+                "vanity"
+            ],
+            "description": "Configure roles for users with the server vanity in their status",
+            "syntax": "<subcommand> (args)",
+            "example": "{message: thanks {user.name} for repping us!}",
+            "permissions": "manage_guild",
+            "subcommands": []
         },
         {
             "name": "voicemaster",
@@ -99,7 +122,18 @@
             "syntax": "<subcommands> (args)",
             "example": "setup",
             "permissions": "manage_guild",
-            "module": "configuration"
+            "subcommands": []
+        },
+        {
+            "name": "welcome",
+            "aliases": [
+                "greet"
+            ],
+            "description": "Manage welcome messages for new members",
+            "syntax": "<subcommand> (args)",
+            "example": "view #gate",
+            "permissions": "manage_guild",
+            "subcommands": []
         }
     ],
     "crypto": [
@@ -112,7 +146,7 @@
             "syntax": "bitcoin",
             "example": "btc",
             "permissions": "none",
-            "module": "crypto"
+            "subcommands": []
         },
         {
             "name": "dogecoin",
@@ -123,7 +157,7 @@
             "syntax": "dogecoin",
             "example": "doge",
             "permissions": "none",
-            "module": "crypto"
+            "subcommands": []
         },
         {
             "name": "ethereum",
@@ -134,7 +168,7 @@
             "syntax": "ethereum",
             "example": "eth",
             "permissions": "none",
-            "module": "crypto"
+            "subcommands": []
         },
         {
             "name": "litecoin",
@@ -145,7 +179,7 @@
             "syntax": "litecoin",
             "example": "ltc",
             "permissions": "none",
-            "module": "crypto"
+            "subcommands": []
         },
         {
             "name": "monero",
@@ -156,7 +190,7 @@
             "syntax": "monero",
             "example": "monero",
             "permissions": "none",
-            "module": "crypto"
+            "subcommands": []
         },
         {
             "name": "solana",
@@ -167,7 +201,7 @@
             "syntax": "solana",
             "example": "sol",
             "permissions": "none",
-            "module": "crypto"
+            "subcommands": []
         },
         {
             "name": "tether",
@@ -178,7 +212,7 @@
             "syntax": "tether",
             "example": "tether",
             "permissions": "none",
-            "module": "crypto"
+            "subcommands": []
         },
         {
             "name": "transaction",
@@ -191,44 +225,7 @@
             "syntax": "<subcommand> (args)",
             "example": "add 6f9...8a1",
             "permissions": "none",
-            "module": "crypto"
-        }
-    ],
-    "developer": [
-        {
-            "name": "commands",
-            "aliases": [
-                "cmdtree",
-                "genhtml"
-            ],
-            "description": "Generate HTML source code to display all commands by module",
-            "syntax": "commands",
-            "example": "commands",
-            "permissions": null,
-            "module": "developer"
-        },
-        {
-            "name": "json",
-            "aliases": [
-                "exportjson",
-                "cmdjson"
-            ],
-            "description": "Export all prefix commands into a structured JSON file sorted by module.",
-            "syntax": "json",
-            "example": "json",
-            "permissions": "Bot Owner",
-            "module": "developer"
-        },
-        {
-            "name": "reload",
-            "aliases": [
-                "rl"
-            ],
-            "description": "Reloads commands or events with detailed logging.",
-            "syntax": "reload <command|event|all> [name]",
-            "example": "reload event messageCreate",
-            "permissions": "Bot Owner",
-            "module": "developer"
+            "subcommands": []
         }
     ],
     "entertainment": [
@@ -241,7 +238,7 @@
             "syntax": null,
             "example": "blacktea",
             "permissions": "none",
-            "module": "entertainment"
+            "subcommands": []
         },
         {
             "name": "jobs",
@@ -254,7 +251,7 @@
             "syntax": "(subcommands) (arguments)",
             "example": "developer chicago",
             "permissions": "None",
-            "module": "entertainment"
+            "subcommands": []
         },
         {
             "name": "rockpaperscissors",
@@ -265,7 +262,7 @@
             "syntax": "rockpaperscissors <member>",
             "example": "rockpaperscissors @c2rter",
             "permissions": null,
-            "module": "entertainment"
+            "subcommands": []
         },
         {
             "name": "snake",
@@ -276,7 +273,7 @@
             "syntax": "play",
             "example": "play",
             "permissions": null,
-            "module": "entertainment"
+            "subcommands": []
         },
         {
             "name": "statistics",
@@ -289,7 +286,7 @@
             "syntax": "gamestats",
             "example": "gamestats",
             "permissions": null,
-            "module": "entertainment"
+            "subcommands": []
         },
         {
             "name": "tictactoe",
@@ -300,7 +297,7 @@
             "syntax": "<member>",
             "example": "tictactoe @c2rter",
             "permissions": null,
-            "module": "entertainment"
+            "subcommands": []
         }
     ],
     "image": [
@@ -313,7 +310,7 @@
             "syntax": "<attachment>",
             "example": "ocr image.png",
             "permissions": null,
-            "module": "image"
+            "subcommands": []
         }
     ],
     "information": [
@@ -327,7 +324,7 @@
             "syntax": "[user]",
             "example": "@User",
             "permissions": "None",
-            "module": "information"
+            "subcommands": []
         },
         {
             "name": "botinfo",
@@ -339,7 +336,7 @@
             "syntax": "botinfo",
             "example": "botinfo",
             "permissions": null,
-            "module": "information"
+            "subcommands": []
         },
         {
             "name": "clearnames",
@@ -352,7 +349,7 @@
             "syntax": null,
             "example": null,
             "permissions": "none",
-            "module": "information"
+            "subcommands": []
         },
         {
             "name": "guildicon",
@@ -364,7 +361,7 @@
             "syntax": "[guild]",
             "example": "discord",
             "permissions": "None",
-            "module": "information"
+            "subcommands": []
         },
         {
             "name": "help",
@@ -376,7 +373,7 @@
             "syntax": "[command]",
             "example": "ping",
             "permissions": "None",
-            "module": "information"
+            "subcommands": []
         },
         {
             "name": "invite",
@@ -387,7 +384,7 @@
             "syntax": null,
             "example": null,
             "permissions": "None",
-            "module": "information"
+            "subcommands": []
         },
         {
             "name": "inviteinfo",
@@ -398,7 +395,7 @@
             "syntax": "inviteinfo <invite>",
             "example": "inviteinfo blehh",
             "permissions": null,
-            "module": "information"
+            "subcommands": []
         },
         {
             "name": "serverinfo",
@@ -409,7 +406,7 @@
             "syntax": "serverinfo",
             "example": "serverinfo",
             "permissions": null,
-            "module": "information"
+            "subcommands": []
         },
         {
             "name": "serverinvite",
@@ -421,7 +418,7 @@
             "syntax": "serverinvite",
             "example": "serverinvite",
             "permissions": null,
-            "module": "information"
+            "subcommands": []
         },
         {
             "name": "userinfo",
@@ -432,7 +429,7 @@
             "syntax": "userinfo (user)",
             "example": "userinfo @c2rter",
             "permissions": null,
-            "module": "information"
+            "subcommands": []
         },
         {
             "name": "usernames",
@@ -445,7 +442,7 @@
             "syntax": "<user>",
             "example": "usernames @x6l",
             "permissions": "none",
-            "module": "information"
+            "subcommands": []
         }
     ],
     "lastfm": [
@@ -459,7 +456,7 @@
             "syntax": "lastfm <subcommand> [args]",
             "example": "lastfm nowplaying",
             "permissions": null,
-            "module": "lastfm"
+            "subcommands": []
         },
         {
             "name": "nowplaying",
@@ -471,7 +468,7 @@
             "syntax": "nowplaying",
             "example": "nowplaying",
             "permissions": "None",
-            "module": "lastfm"
+            "subcommands": []
         }
     ],
     "miscellaneous": [
@@ -485,7 +482,7 @@
             "syntax": "{key: value}",
             "example": "{message: hi} {title: test} {description: hello} {color: ff0000}",
             "permissions": "send_messages",
-            "module": "miscellaneous"
+            "subcommands": []
         },
         {
             "name": "fortnite",
@@ -497,7 +494,7 @@
             "syntax": "<subcommand> (args)",
             "example": "lookup Renegade Raider",
             "permissions": null,
-            "module": "miscellaneous"
+            "subcommands": []
         },
         {
             "name": "highlight",
@@ -509,7 +506,7 @@
             "syntax": "(subcommands) (args)",
             "example": "add wock",
             "permissions": "None",
-            "module": "miscellaneous"
+            "subcommands": []
         },
         {
             "name": "iplookup",
@@ -521,18 +518,7 @@
             "syntax": "iplookup <ip>",
             "example": "iplookup 8.8.8.8",
             "permissions": null,
-            "module": "miscellaneous"
-        },
-        {
-            "name": "ping",
-            "aliases": [
-                "p"
-            ],
-            "description": "Shows bot latency",
-            "syntax": "ping",
-            "example": "ping",
-            "permissions": null,
-            "module": "miscellaneous"
+            "subcommands": []
         },
         {
             "name": "weather",
@@ -543,7 +529,7 @@
             "syntax": "weather <subcommand> (args)",
             "example": "weather set clearwater",
             "permissions": null,
-            "module": "miscellaneous"
+            "subcommands": []
         }
     ],
     "moderation": [
@@ -556,7 +542,7 @@
             "syntax": "<user> [reason]",
             "example": "@x6l nuisance",
             "permissions": "ban_members",
-            "module": "moderation"
+            "subcommands": []
         },
         {
             "name": "category",
@@ -565,7 +551,7 @@
             "syntax": "<subcommand> <args>",
             "example": "create Staff",
             "permissions": "manage_channels",
-            "module": "moderation"
+            "subcommands": []
         },
         {
             "name": "channel",
@@ -574,7 +560,7 @@
             "syntax": "<subcommand> <args>",
             "example": "create general-chat Lounge",
             "permissions": "manage_channels",
-            "module": "moderation"
+            "subcommands": []
         },
         {
             "name": "emoji",
@@ -585,7 +571,7 @@
             "syntax": "<subcommand> (args)",
             "example": "add :smile:",
             "permissions": "manage_emojis",
-            "module": "moderation"
+            "subcommands": []
         },
         {
             "name": "emojimute",
@@ -597,7 +583,7 @@
             "syntax": "emojimute <member> [reason]",
             "example": "emojimute @user emoji spam",
             "permissions": "manage_roles",
-            "module": "moderation"
+            "subcommands": []
         },
         {
             "name": "hide",
@@ -608,7 +594,7 @@
             "syntax": "[reason]",
             "example": "hide private discussion",
             "permissions": "manage_channels",
-            "module": "moderation"
+            "subcommands": []
         },
         {
             "name": "jail",
@@ -620,7 +606,7 @@
             "syntax": "<member> [reason]",
             "example": "@x6l being annoying",
             "permissions": "manage_roles",
-            "module": "moderation"
+            "subcommands": []
         },
         {
             "name": "kick",
@@ -631,7 +617,7 @@
             "syntax": "<user> [reason]",
             "example": "kick @x6l breaking rules",
             "permissions": "kick_members",
-            "module": "moderation"
+            "subcommands": []
         },
         {
             "name": "lock",
@@ -642,7 +628,7 @@
             "syntax": "[reason]",
             "example": "lock raiding",
             "permissions": "manage_channels",
-            "module": "moderation"
+            "subcommands": []
         },
         {
             "name": "mute",
@@ -654,7 +640,7 @@
             "syntax": "<member> [duration] [reason]",
             "example": "@x6l 10m stop spamming",
             "permissions": "manage_roles",
-            "module": "moderation"
+            "subcommands": []
         },
         {
             "name": "nickname",
@@ -666,7 +652,7 @@
             "syntax": "<user> [new_nickname]",
             "example": "nickname @x6l CoolGuy",
             "permissions": "manage_nicknames",
-            "module": "moderation"
+            "subcommands": []
         },
         {
             "name": "prefix",
@@ -677,7 +663,7 @@
             "syntax": "(subcommands) (args)",
             "example": "set $",
             "permissions": "manage_guild",
-            "module": "moderation"
+            "subcommands": []
         },
         {
             "name": "purge",
@@ -689,7 +675,7 @@
             "syntax": "<user> <number>",
             "example": "x6l 10",
             "permissions": "manage_messages",
-            "module": "moderation"
+            "subcommands": []
         },
         {
             "name": "role",
@@ -700,7 +686,7 @@
             "syntax": "<user> <role>",
             "example": "@x6l goat",
             "permissions": "manage_roles",
-            "module": "moderation"
+            "subcommands": []
         },
         {
             "name": "softban",
@@ -711,7 +697,7 @@
             "syntax": "<user> [reason]",
             "example": "softban @x6l raiding",
             "permissions": "ban_members",
-            "module": "moderation"
+            "subcommands": []
         },
         {
             "name": "timeout",
@@ -723,7 +709,7 @@
             "syntax": "<user> <duration> [reason]",
             "example": "timeout @x6l 10m spamming",
             "permissions": "moderate_members",
-            "module": "moderation"
+            "subcommands": []
         },
         {
             "name": "unhide",
@@ -734,7 +720,7 @@
             "syntax": "[reason]",
             "example": "unhide announcement over",
             "permissions": "manage_channels",
-            "module": "moderation"
+            "subcommands": []
         },
         {
             "name": "unjail",
@@ -746,7 +732,7 @@
             "syntax": "<member> [reason]",
             "example": "@x6l sentence finished",
             "permissions": "manage_roles",
-            "module": "moderation"
+            "subcommands": []
         },
         {
             "name": "unlock",
@@ -757,7 +743,7 @@
             "syntax": "[reason]",
             "example": "unlock raid over",
             "permissions": "manage_channels",
-            "module": "moderation"
+            "subcommands": []
         },
         {
             "name": "unmute",
@@ -770,7 +756,7 @@
             "syntax": "<member> [reason]",
             "example": "@user behavior improved",
             "permissions": "manage_roles",
-            "module": "moderation"
+            "subcommands": []
         },
         {
             "name": "untimeout",
@@ -782,7 +768,7 @@
             "syntax": "<user> [reason]",
             "example": "untimeout @x6l appeal accepted",
             "permissions": "moderate_members",
-            "module": "moderation"
+            "subcommands": []
         },
         {
             "name": "voicemute",
@@ -794,7 +780,7 @@
             "syntax": "<member> [reason]",
             "example": "@x6l loud background noise",
             "permissions": "manage_roles",
-            "module": "moderation"
+            "subcommands": []
         }
     ],
     "socials": [
@@ -809,7 +795,7 @@
             "syntax": "aboutme (subcommands) (args)",
             "example": "aboutme @x6l",
             "permissions": null,
-            "module": "socials"
+            "subcommands": []
         },
         {
             "name": "github",
@@ -821,7 +807,7 @@
             "syntax": "<user>",
             "example": "github enlarged",
             "permissions": null,
-            "module": "socials"
+            "subcommands": []
         },
         {
             "name": "tiktok",
@@ -832,7 +818,7 @@
             "syntax": "<username>",
             "example": "tiktok charlidamelio",
             "permissions": null,
-            "module": "socials"
+            "subcommands": []
         },
         {
             "name": "xbox",
@@ -844,7 +830,7 @@
             "syntax": "c9ce",
             "example": "xbox c9ce",
             "permissions": null,
-            "module": "socials"
+            "subcommands": []
         }
     ],
     "utility": [
@@ -857,7 +843,7 @@
             "syntax": "[reason]",
             "example": "afk eating dinner",
             "permissions": "none",
-            "module": "utility"
+            "subcommands": []
         },
         {
             "name": "boosterrole",
@@ -868,7 +854,7 @@
             "syntax": "(subcommand) (args)",
             "example": "enable",
             "permissions": "ManageRoles",
-            "module": "utility"
+            "subcommands": []
         },
         {
             "name": "crypto",
@@ -880,7 +866,7 @@
             "syntax": " <name>",
             "example": "crypto",
             "permissions": null,
-            "module": "utility"
+            "subcommands": []
         }
     ]
 }
