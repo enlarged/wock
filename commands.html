@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Bot Commands</title>
     <style>
-        /* Modern Grey Palette */
         :root {
             --bg-main: #0a0a0a;
             --bg-sidebar: #0d0d0d;
@@ -17,9 +16,7 @@
             --accent-grey: #2a2a2a;
         }
 
-        *, *::before, *::after {
-            box-sizing: border-box;
-        }
+        *, *::before, *::after { box-sizing: border-box; }
 
         body {
             margin: 0;
@@ -29,6 +26,7 @@
             display: flex;
             height: 100vh;
             overflow: hidden;
+            flex-direction: row; /* Default Desktop */
         }
 
         /* Sidebar Styling */
@@ -40,15 +38,15 @@
             flex-direction: column;
             padding: 40px 20px;
             overflow-y: auto;
+            flex-shrink: 0;
         }
 
         .sidebar h2 {
-            font-size: 12px;
+            font-size: 11px;
             text-transform: uppercase;
             letter-spacing: 2px;
             color: var(--text-muted);
             margin-bottom: 20px;
-            padding-left: 10px;
         }
 
         .category-list {
@@ -70,11 +68,7 @@
             justify-content: space-between;
             align-items: center;
             transition: all 0.2s ease;
-        }
-
-        .cat-btn:hover {
-            background: var(--bg-card);
-            color: var(--text-main);
+            white-space: nowrap;
         }
 
         .cat-btn.active {
@@ -88,155 +82,114 @@
             background: var(--accent-grey);
             padding: 2px 8px;
             border-radius: 10px;
-            color: var(--text-muted);
         }
 
         /* Main Content */
         .main-content {
             flex: 1;
-            padding: 60px 8vw;
+            padding: 60px 5vw;
             overflow-y: auto;
             scroll-behavior: smooth;
         }
 
-        .header {
-            max-width: 900px;
-            margin-bottom: 50px;
-        }
+        .header { max-width: 800px; margin-bottom: 40px; }
+        h1 { font-size: 32px; margin: 0 0 8px 0; }
+        .subtitle { color: var(--text-muted); font-size: 14px; margin-bottom: 30px; }
 
-        h1 { font-size: 36px; margin: 0 0 10px 0; font-weight: 800; }
-        .subtitle { color: var(--text-muted); font-size: 16px; margin-bottom: 35px; }
-
-        /* Search Bar */
-        .search-container {
-            position: relative;
-            max-width: 450px;
-        }
-
+        /* Search */
+        .search-container { position: relative; max-width: 100%; }
         #searchBox {
             width: 100%;
             background: var(--bg-card);
             border: 1px solid var(--border-grey);
             border-radius: 10px;
-            padding: 14px 14px 14px 45px;
+            padding: 12px 12px 12px 40px;
             color: white;
             font-size: 15px;
             outline: none;
-            transition: border-color 0.2s;
         }
+        .search-icon { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--text-muted); }
 
-        #searchBox:focus {
-            border-color: #444;
-        }
-
-        .search-icon {
-            position: absolute;
-            left: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--text-muted);
-            pointer-events: none;
-        }
-
-        /* Command Cards */
-        .command-list {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            max-width: 900px;
-        }
-
+        /* Commands */
+        .command-list { display: flex; flex-direction: column; gap: 12px; max-width: 800px; }
         .command-item {
             background: var(--bg-card);
             border: 1px solid var(--border-grey);
-            border-radius: 12px;
-            padding: 22px;
-            transition: background 0.2s;
+            border-radius: 10px;
+            padding: 18px;
         }
+        .cmd-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+        .cmd-name { font-weight: 700; font-size: 16px; color: var(--text-main); }
+        .cmd-aliases { font-size: 10px; color: var(--text-muted); }
+        .cmd-desc { color: var(--text-muted); font-size: 14px; line-height: 1.5; }
 
-        .command-item:hover {
-            background: var(--bg-card-hover);
-        }
-
-        .cmd-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 8px;
-        }
-
-        .cmd-name {
-            font-weight: 700;
-            font-size: 18px;
-            color: var(--text-main);
-            letter-spacing: -0.5px;
-        }
-
-        .cmd-aliases {
-            font-size: 11px;
-            color: var(--text-muted);
-            text-transform: lowercase;
-        }
-
-        .cmd-desc {
-            color: var(--text-muted);
-            font-size: 14px;
-            line-height: 1.6;
-        }
-
-        /* Subcommands Section */
         .subcommands-container {
-            margin-top: 18px;
-            padding-top: 15px;
+            margin-top: 15px;
+            padding-top: 12px;
             border-top: 1px solid var(--border-grey);
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 8px;
         }
+        .sub-item { font-size: 13px; line-height: 1.4; }
+        .sub-name { color: #aaa; font-weight: 600; margin-right: 6px; }
+        .sub-desc { color: #666; }
 
-        .sub-item {
-            display: flex;
-            gap: 12px;
-            font-size: 13px;
-        }
+        /* MOBILE RESPONSIVENESS */
+        @media (max-width: 768px) {
+            body { flex-direction: column; }
 
-        .sub-name {
-            color: #ccc;
-            font-weight: 600;
-            white-space: nowrap;
-        }
+            .sidebar {
+                width: 100%;
+                height: auto;
+                padding: 15px;
+                border-right: none;
+                border-bottom: 1px solid var(--border-grey);
+            }
 
-        .sub-desc {
-            color: #666;
+            .sidebar h2 { display: none; } /* Hide "Categories" text on mobile to save space */
+
+            .category-list {
+                flex-direction: row;
+                overflow-x: auto;
+                padding-bottom: 5px;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .cat-btn {
+                padding: 8px 14px;
+                font-size: 13px;
+            }
+
+            .cat-btn .count { margin-left: 6px; }
+
+            .main-content { padding: 30px 20px; }
+            h1 { font-size: 24px; }
+            .command-item { padding: 15px; }
         }
 
         /* Custom Scrollbar */
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: var(--bg-main); }
-        ::-webkit-scrollbar-thumb { background: var(--accent-grey); border-radius: 10px; }
+        ::-webkit-scrollbar { width: 5px; height: 5px; }
+        ::-webkit-scrollbar-thumb { background: #222; border-radius: 10px; }
     </style>
 </head>
 <body>
 
 <aside class="sidebar">
     <h2>Categories</h2>
-    <div class="category-list" id="categoryList">
-        </div>
+    <div class="category-list" id="categoryList"></div>
 </aside>
 
 <main class="main-content">
     <div class="header">
         <h1>Commands</h1>
         <p class="subtitle">Browse and search through all available commands.</p>
-        
         <div class="search-container">
             <span class="search-icon">🔍</span>
             <input type="text" id="searchBox" placeholder="Search commands...">
         </div>
     </div>
-
-    <div class="command-list" id="commandList">
-        </div>
+    <div class="command-list" id="commandList"></div>
 </main>
 
 <script>
@@ -246,30 +199,22 @@
         const searchBox = document.getElementById('searchBox');
 
         let commandsJSON = {};
-
         try {
             const response = await fetch('./commands.json');
             commandsJSON = await response.json();
         } catch (err) {
-            commandList.innerHTML = `<p style="color: #555;">Could not find commands.json. Please run your bot command first.</p>`;
+            commandList.innerHTML = `<p style="color: #444;">Could not load commands.json</p>`;
             return;
         }
 
-        // Filter out 'developer' module just in case
         const modules = Object.keys(commandsJSON).filter(m => m.toLowerCase() !== 'developer');
         let currentCategory = 'All';
 
         function renderSidebar() {
             categoryList.innerHTML = '';
-            
-            // Add "All" Category
             const allCount = modules.reduce((acc, m) => acc + commandsJSON[m].length, 0);
             createSidebarBtn('All', allCount);
-
-            // Add Module Categories
-            modules.forEach(mod => {
-                createSidebarBtn(mod, commandsJSON[mod].length);
-            });
+            modules.forEach(mod => createSidebarBtn(mod, commandsJSON[mod].length));
         }
 
         function createSidebarBtn(name, count) {
@@ -288,7 +233,6 @@
         function renderCommands() {
             const query = searchBox.value.toLowerCase();
             commandList.innerHTML = '';
-
             let pool = [];
             if (currentCategory === 'All') {
                 modules.forEach(m => pool = pool.concat(commandsJSON[m]));
@@ -301,29 +245,17 @@
                 (cmd.description && cmd.description.toLowerCase().includes(query))
             );
 
-            if (filtered.length === 0) {
-                commandList.innerHTML = '<p style="color: #444; text-align: center; margin-top: 50px;">No commands found matching your search.</p>';
-                return;
-            }
-
             filtered.forEach(cmd => {
                 const card = document.createElement('div');
                 card.className = 'command-item';
-
-                // Handle Subcommands
                 let subContent = '';
                 if (cmd.subcommands && cmd.subcommands.length > 0) {
                     subContent = `<div class="subcommands-container">`;
                     cmd.subcommands.forEach(sub => {
-                        subContent += `
-                            <div class="sub-item">
-                                <span class="sub-name">${cmd.name} ${sub.name}</span>
-                                <span class="sub-desc">${sub.description || ''}</span>
-                            </div>`;
+                        subContent += `<div class="sub-item"><span class="sub-name">${cmd.name} ${sub.name}</span><span class="sub-desc">${sub.description || ''}</span></div>`;
                     });
                     subContent += `</div>`;
                 }
-
                 card.innerHTML = `
                     <div class="cmd-top">
                         <span class="cmd-name">/${cmd.name}</span>
@@ -337,8 +269,6 @@
         }
 
         searchBox.addEventListener('input', renderCommands);
-
-        // Initial Load
         renderSidebar();
         renderCommands();
     })();
