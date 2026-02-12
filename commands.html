@@ -1,184 +1,188 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Bot Commands</title>
-    <style>
-        :root {
-            --bg-sidebar: rgba(13, 13, 13, 0.7);
-            --bg-card: rgba(20, 20, 20, 0.6);
-            --bg-card-hover: rgba(30, 30, 30, 0.8);
-            --border-grey: #222222;
-            --text-main: #eeeeee;
-            --text-muted: #888888;
-            --accent-grey: #2a2a2a;
-        }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Bot Commands</title>
 
-        *, *::before, *::after { box-sizing: border-box; }
+<style>
+:root {
+    --bg-sidebar: rgba(13,13,13,0.7);
+    --bg-card: rgba(20,20,20,0.6);
+    --bg-card-hover: rgba(30,30,30,0.8);
+    --border-grey: #222;
+    --text-main: #eee;
+    --text-muted: #888;
+    --accent-grey: #2a2a2a;
+}
 
-        body {
-            margin: 0;
-            background-color: #050505;
-            font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
-            color: var(--text-main);
-            display: flex;
-            height: 100vh;
-            overflow: hidden;
-            position: relative;
-        }
+*, *::before, *::after { box-sizing: border-box; }
 
-        /* Swirly Liquid Background - Fixed Layering */
-        .background-layer {
-            position: fixed;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            z-index: 0; /* Behind everything */
-            background: 
-                radial-gradient(circle at 50% 50%, #1a1a1a 0%, transparent 50%),
-                radial-gradient(circle at 20% 30%, #0d0d0d 0%, transparent 40%),
-                radial-gradient(circle at 80% 70%, #222222 0%, transparent 40%),
-                radial-gradient(circle at 10% 80%, #080808 0%, transparent 30%);
-            background-blend-mode: screen;
-            filter: blur(80px);
-            animation: ultraSlowSwirl 120s linear infinite;
-            pointer-events: none; /* Allows clicking through to buttons */
-        }
+body {
+    margin: 0;
+    background-color: #050505;
+    font-family: 'Inter','Segoe UI',system-ui,sans-serif;
+    color: var(--text-main);
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+}
 
-        @keyframes ultraSlowSwirl {
-            0% { transform: rotate(0deg) scale(1); }
-            50% { transform: rotate(180deg) scale(1.1); }
-            100% { transform: rotate(360deg) scale(1); }
-        }
+/* Background */
+.background-layer {
+    position: fixed;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    z-index: 0;
+    background:
+        radial-gradient(circle at 50% 50%, #1a1a1a 0%, transparent 50%),
+        radial-gradient(circle at 20% 30%, #0d0d0d 0%, transparent 40%),
+        radial-gradient(circle at 80% 70%, #222 0%, transparent 40%),
+        radial-gradient(circle at 10% 80%, #080808 0%, transparent 30%);
+    filter: blur(80px);
+    animation: swirl 120s linear infinite;
+    pointer-events: none;
+}
+@keyframes swirl {
+    0% { transform: rotate(0deg) scale(1); }
+    50% { transform: rotate(180deg) scale(1.1); }
+    100% { transform: rotate(360deg) scale(1); }
+}
 
-        /* Sidebar Styling */
-        .sidebar {
-            width: 280px;
-            background-color: var(--bg-sidebar);
-            border-right: 1px solid var(--border-grey);
-            display: flex;
-            flex-direction: column;
-            padding: 40px 20px;
-            overflow-y: auto;
-            flex-shrink: 0;
-            z-index: 2;
-            backdrop-filter: blur(12px);
-        }
+/* Sidebar */
+.sidebar {
+    width: 280px;
+    background: var(--bg-sidebar);
+    border-right: 1px solid var(--border-grey);
+    display: flex;
+    flex-direction: column;
+    padding: 40px 20px;
+    overflow-y: auto;
+    z-index: 2;
+    backdrop-filter: blur(12px);
+}
+.sidebar h2 {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--text-muted);
+    margin-bottom: 20px;
+}
+.category-list { display: flex; flex-direction: column; gap: 5px; }
+.cat-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    padding: 12px 15px;
+    border-radius: 8px;
+    text-align: left;
+    cursor: pointer;
+    font-size: 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.cat-btn.active {
+    background: rgba(255,255,255,0.05);
+    color: var(--text-main);
+    font-weight: 600;
+}
+.cat-btn .count {
+    font-size: 11px;
+    background: var(--accent-grey);
+    padding: 2px 8px;
+    border-radius: 10px;
+}
 
-        .sidebar h2 {
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: var(--text-muted);
-            margin-bottom: 20px;
-        }
+/* Main */
+.main-content {
+    flex: 1;
+    padding: 60px 5vw;
+    overflow-y: auto;
+    z-index: 2;
+}
+h1 { font-size: 32px; margin: 0 0 8px 0; }
+.subtitle { color: var(--text-muted); font-size: 14px; margin-bottom: 30px; }
 
-        .category-list { display: flex; flex-direction: column; gap: 5px; }
+.search-container { position: relative; margin-bottom: 20px; }
+#searchBox {
+    width: 100%;
+    background: var(--bg-card);
+    border: 1px solid var(--border-grey);
+    border-radius: 10px;
+    padding: 12px 12px 12px 40px;
+    color: white;
+    font-size: 15px;
+    outline: none;
+}
+.search-icon {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+}
 
-        .cat-btn {
-            background: transparent;
-            border: none;
-            color: var(--text-muted);
-            padding: 12px 15px;
-            border-radius: 8px;
-            text-align: left;
-            cursor: pointer;
-            font-size: 14px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: all 0.2s ease;
-        }
+/* Command Cards */
+.command-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    max-width: 800px;
+}
+.command-item {
+    background: var(--bg-card);
+    border: 1px solid var(--border-grey);
+    border-radius: 10px;
+    padding: 20px;
+    backdrop-filter: blur(8px);
+    transition: 0.2s;
+}
+.command-item:hover {
+    background: var(--bg-card-hover);
+    transform: translateY(-2px);
+}
+.cmd-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+}
+.cmd-name { font-weight: 700; font-size: 17px; }
+.cmd-aliases { font-size: 11px; color: var(--text-muted); }
+.cmd-desc { color: var(--text-muted); font-size: 14px; }
 
-        .cat-btn.active {
-            background: rgba(255, 255, 255, 0.05);
-            color: var(--text-main);
-            font-weight: 600;
-        }
+/* Subcommands */
+.subcommands-container {
+    margin-top: 15px;
+    padding-top: 12px;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.subcommand-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 8px;
+    padding: 12px 15px;
+}
+.subcommand-card .cmd-name {
+    font-size: 14px;
+}
+.subcommand-card .cmd-desc {
+    font-size: 13px;
+    color: #777;
+}
 
-        .cat-btn .count {
-            font-size: 11px;
-            background: var(--accent-grey);
-            padding: 2px 8px;
-            border-radius: 10px;
-        }
-
-        /* Main Content */
-        .main-content {
-            flex: 1;
-            padding: 60px 5vw;
-            overflow-y: auto;
-            scroll-behavior: smooth;
-            z-index: 2;
-            position: relative;
-        }
-
-        .header { max-width: 800px; margin-bottom: 40px; }
-        h1 { font-size: 32px; margin: 0 0 8px 0; }
-        .subtitle { color: var(--text-muted); font-size: 14px; margin-bottom: 30px; }
-
-        /* Search */
-        .search-container { position: relative; max-width: 100%; margin-bottom: 20px; }
-        #searchBox {
-            width: 100%;
-            background: var(--bg-card);
-            border: 1px solid var(--border-grey);
-            border-radius: 10px;
-            padding: 12px 12px 12px 40px;
-            color: white;
-            font-size: 15px;
-            outline: none;
-            backdrop-filter: blur(5px);
-        }
-        .search-icon { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--text-muted); }
-
-        /* Commands */
-        .command-list { display: flex; flex-direction: column; gap: 12px; max-width: 800px; }
-        .command-item {
-            background: var(--bg-card);
-            border: 1px solid var(--border-grey);
-            border-radius: 10px;
-            padding: 20px;
-            backdrop-filter: blur(8px);
-            transition: transform 0.2s, background 0.2s;
-        }
-        .command-item:hover {
-            background: var(--bg-card-hover);
-            transform: translateY(-2px);
-        }
-        .cmd-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
-        .cmd-name { font-weight: 700; font-size: 17px; color: var(--text-main); }
-        .cmd-aliases { font-size: 11px; color: var(--text-muted); }
-        .cmd-desc { color: var(--text-muted); font-size: 14px; line-height: 1.5; }
-
-        .subcommands-container {
-            margin-top: 15px;
-            padding-top: 12px;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-        .sub-item { font-size: 13px; line-height: 1.4; }
-        .sub-name { color: #aaa; font-weight: 600; margin-right: 6px; }
-        .sub-desc { color: #666; }
-
-        /* Mobile Adjustments */
-        @media (max-width: 768px) {
-            body { flex-direction: column; }
-            .sidebar { width: 100%; height: auto; border-right: none; border-bottom: 1px solid var(--border-grey); padding: 15px; }
-            .sidebar h2 { display: none; }
-            .category-list { flex-direction: row; overflow-x: auto; }
-            .cat-btn { padding: 8px 12px; }
-            .main-content { padding: 25px 15px; }
-        }
-
-        ::-webkit-scrollbar { width: 5px; height: 5px; }
-        ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
-    </style>
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
+</style>
 </head>
+
 <body>
 
 <div class="background-layer"></div>
@@ -189,101 +193,113 @@
 </aside>
 
 <main class="main-content">
-    <div class="header">
-        <h1>Commands</h1>
-        <p class="subtitle">Browse and search through all available commands.</p>
-        <div class="search-container">
-            <span class="search-icon">🔍</span>
-            <input type="text" id="searchBox" placeholder="Search commands...">
-        </div>
+    <h1>Commands</h1>
+    <p class="subtitle">Browse and search through all available commands.</p>
+
+    <div class="search-container">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="searchBox" placeholder="Search commands...">
     </div>
+
     <div class="command-list" id="commandList"></div>
 </main>
 
 <script>
-    (async function() {
-        const categoryList = document.getElementById('categoryList');
-        const commandList = document.getElementById('commandList');
-        const searchBox = document.getElementById('searchBox');
+(async function() {
 
-        let commandsJSON = {};
-        try {
-            const response = await fetch('./commands.json');
-            commandsJSON = await response.json();
-            console.log("Loaded commands:", commandsJSON);
-        } catch (err) {
-            commandList.innerHTML = `<p style="color: #888;">Could not load commands.json. Check the file path.</p>`;
-            return;
+    const categoryList = document.getElementById('categoryList');
+    const commandList = document.getElementById('commandList');
+    const searchBox = document.getElementById('searchBox');
+
+    let commandsJSON = {};
+
+    try {
+        const res = await fetch('./commands.json');
+        commandsJSON = await res.json();
+    } catch (err) {
+        commandList.innerHTML = `<p style="color:#888;">Could not load commands.json</p>`;
+        return;
+    }
+
+    const modules = Object.keys(commandsJSON).filter(m => m.toLowerCase() !== 'developer');
+    let currentCategory = 'All';
+
+    function renderSidebar() {
+        categoryList.innerHTML = '';
+        const total = modules.reduce((a,m)=>a+commandsJSON[m].length,0);
+        createBtn('All', total);
+        modules.forEach(m => createBtn(m, commandsJSON[m].length));
+    }
+
+    function createBtn(name,count) {
+        const btn = document.createElement('button');
+        btn.className = `cat-btn ${currentCategory===name?'active':''}`;
+        btn.innerHTML = `<span>${name}</span><span class="count">${count}</span>`;
+        btn.onclick = ()=>{
+            currentCategory=name;
+            renderSidebar();
+            renderCommands();
+        };
+        categoryList.appendChild(btn);
+    }
+
+    function renderCommands() {
+        const query = searchBox.value.toLowerCase();
+        commandList.innerHTML = '';
+        let pool=[];
+
+        if(currentCategory==='All'){
+            modules.forEach(m=>pool=pool.concat(commandsJSON[m]));
+        } else {
+            pool=commandsJSON[currentCategory]||[];
         }
 
-        const modules = Object.keys(commandsJSON).filter(m => m.toLowerCase() !== 'developer');
-        let currentCategory = 'All';
+        const filtered=pool.filter(cmd =>
+            cmd.name.toLowerCase().includes(query) ||
+            (cmd.description && cmd.description.toLowerCase().includes(query)) ||
+            (cmd.subcommands && cmd.subcommands.some(sub =>
+                sub.name.toLowerCase().includes(query) ||
+                (sub.description && sub.description.toLowerCase().includes(query))
+            ))
+        );
 
-        function renderSidebar() {
-            categoryList.innerHTML = '';
-            const allCount = modules.reduce((acc, m) => acc + commandsJSON[m].length, 0);
-            createSidebarBtn('All', allCount);
-            modules.forEach(mod => createSidebarBtn(mod, commandsJSON[mod].length));
-        }
+        filtered.forEach(cmd=>{
+            const card=document.createElement('div');
+            card.className='command-item';
 
-        function createSidebarBtn(name, count) {
-            const btn = document.createElement('button');
-            btn.className = `cat-btn ${currentCategory === name ? 'active' : ''}`;
-            btn.innerHTML = `<span>${name}</span> <span class="count">${count}</span>`;
-            btn.onclick = () => {
-                currentCategory = name;
-                renderSidebar();
-                renderCommands();
-                document.querySelector('.main-content').scrollTop = 0;
-            };
-            categoryList.appendChild(btn);
-        }
-
-        function renderCommands() {
-            const query = searchBox.value.toLowerCase();
-            commandList.innerHTML = '';
-            let pool = [];
-
-            if (currentCategory === 'All') {
-                modules.forEach(m => pool = pool.concat(commandsJSON[m]));
-            } else {
-                pool = commandsJSON[currentCategory] || [];
+            let subHTML='';
+            if(cmd.subcommands && cmd.subcommands.length>0){
+                subHTML=`<div class="subcommands-container">`;
+                cmd.subcommands.forEach(sub=>{
+                    subHTML+=`
+                        <div class="subcommand-card">
+                            <div class="cmd-name">/${sub.name}</div>
+                            <div class="cmd-desc">${sub.description||'No description provided.'}</div>
+                        </div>
+                    `;
+                });
+                subHTML+=`</div>`;
             }
 
-            const filtered = pool.filter(cmd => 
-                cmd.name.toLowerCase().includes(query) || 
-                (cmd.description && cmd.description.toLowerCase().includes(query))
-            );
+            card.innerHTML=`
+                <div class="cmd-top">
+                    <span class="cmd-name">/${cmd.name}</span>
+                    <span class="cmd-aliases">${cmd.aliases?.join(' ')||''}</span>
+                </div>
+                <div class="cmd-desc">${cmd.description||'No description provided.'}</div>
+                ${subHTML}
+            `;
 
-            filtered.forEach(cmd => {
-                const card = document.createElement('div');
-                card.className = 'command-item';
-                let subContent = '';
-                
-                if (cmd.subcommands && cmd.subcommands.length > 0) {
-                    subContent = `<div class="subcommands-container">`;
-                    cmd.subcommands.forEach(sub => {
-                        subContent += `<div class="sub-item"><span class="sub-name">${cmd.name} ${sub.name}</span><span class="sub-desc">${sub.description || ''}</span></div>`;
-                    });
-                    subContent += `</div>`;
-                }
+            commandList.appendChild(card);
+        });
+    }
 
-                card.innerHTML = `
-                    <div class="cmd-top">
-                        <span class="cmd-name">/${cmd.name}</span>
-                        <span class="cmd-aliases">${cmd.aliases && cmd.aliases.length ? cmd.aliases.join(' ') : ''}</span>
-                    </div>
-                    <div class="cmd-desc">${cmd.description || 'No description provided.'}</div>
-                    ${subContent}
-                `;
-                commandList.appendChild(card);
-            });
-        }
+    searchBox.addEventListener('input', renderCommands);
 
-        searchBox.addEventListener('input', renderCommands);
-        renderSidebar();
-        renderCommands();
-    })();
+    renderSidebar();
+    renderCommands();
+
+})();
 </script>
 
 </body>
