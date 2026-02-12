@@ -6,10 +6,9 @@
     <title>Bot Commands</title>
     <style>
         :root {
-            --bg-main: transparent; /* Changed to let gradient show */
-            --bg-sidebar: rgba(13, 13, 13, 0.8); /* Semi-transparent */
-            --bg-card: rgba(20, 20, 20, 0.7); /* Semi-transparent */
-            --bg-card-hover: rgba(26, 26, 26, 0.9);
+            --bg-sidebar: rgba(13, 13, 13, 0.7);
+            --bg-card: rgba(20, 20, 20, 0.6);
+            --bg-card-hover: rgba(30, 30, 30, 0.8);
             --border-grey: #222222;
             --text-main: #eeeeee;
             --text-muted: #888888;
@@ -20,23 +19,23 @@
 
         body {
             margin: 0;
-            background-color: #050505; /* Fallback base color */
+            background-color: #050505;
             font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
             color: var(--text-main);
             display: flex;
             height: 100vh;
             overflow: hidden;
-            flex-direction: row; 
+            position: relative;
         }
 
-        /* Swirly Liquid Background Layer */
+        /* Swirly Liquid Background - Fixed Layering */
         .background-layer {
             position: fixed;
             top: -50%;
             left: -50%;
             width: 200%;
             height: 200%;
-            z-index: -1;
+            z-index: 0; /* Behind everything */
             background: 
                 radial-gradient(circle at 50% 50%, #1a1a1a 0%, transparent 50%),
                 radial-gradient(circle at 20% 30%, #0d0d0d 0%, transparent 40%),
@@ -45,11 +44,12 @@
             background-blend-mode: screen;
             filter: blur(80px);
             animation: ultraSlowSwirl 120s linear infinite;
+            pointer-events: none; /* Allows clicking through to buttons */
         }
 
         @keyframes ultraSlowSwirl {
             0% { transform: rotate(0deg) scale(1); }
-            50% { transform: rotate(180deg) scale(1.2); }
+            50% { transform: rotate(180deg) scale(1.1); }
             100% { transform: rotate(360deg) scale(1); }
         }
 
@@ -63,7 +63,8 @@
             padding: 40px 20px;
             overflow-y: auto;
             flex-shrink: 0;
-            backdrop-filter: blur(10px); /* Frosted glass effect */
+            z-index: 2;
+            backdrop-filter: blur(12px);
         }
 
         .sidebar h2 {
@@ -74,11 +75,7 @@
             margin-bottom: 20px;
         }
 
-        .category-list {
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-        }
+        .category-list { display: flex; flex-direction: column; gap: 5px; }
 
         .cat-btn {
             background: transparent;
@@ -93,11 +90,10 @@
             justify-content: space-between;
             align-items: center;
             transition: all 0.2s ease;
-            white-space: nowrap;
         }
 
         .cat-btn.active {
-            background: var(--bg-card);
+            background: rgba(255, 255, 255, 0.05);
             color: var(--text-main);
             font-weight: 600;
         }
@@ -115,7 +111,8 @@
             padding: 60px 5vw;
             overflow-y: auto;
             scroll-behavior: smooth;
-            z-index: 1;
+            z-index: 2;
+            position: relative;
         }
 
         .header { max-width: 800px; margin-bottom: 40px; }
@@ -123,7 +120,7 @@
         .subtitle { color: var(--text-muted); font-size: 14px; margin-bottom: 30px; }
 
         /* Search */
-        .search-container { position: relative; max-width: 100%; }
+        .search-container { position: relative; max-width: 100%; margin-bottom: 20px; }
         #searchBox {
             width: 100%;
             background: var(--bg-card);
@@ -143,23 +140,23 @@
             background: var(--bg-card);
             border: 1px solid var(--border-grey);
             border-radius: 10px;
-            padding: 18px;
-            backdrop-filter: blur(5px);
-            transition: all 0.3s ease;
+            padding: 20px;
+            backdrop-filter: blur(8px);
+            transition: transform 0.2s, background 0.2s;
         }
         .command-item:hover {
             background: var(--bg-card-hover);
             transform: translateY(-2px);
         }
         .cmd-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
-        .cmd-name { font-weight: 700; font-size: 16px; color: var(--text-main); }
-        .cmd-aliases { font-size: 10px; color: var(--text-muted); }
+        .cmd-name { font-weight: 700; font-size: 17px; color: var(--text-main); }
+        .cmd-aliases { font-size: 11px; color: var(--text-muted); }
         .cmd-desc { color: var(--text-muted); font-size: 14px; line-height: 1.5; }
 
         .subcommands-container {
             margin-top: 15px;
             padding-top: 12px;
-            border-top: 1px solid var(--border-grey);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
             display: flex;
             flex-direction: column;
             gap: 8px;
@@ -168,35 +165,16 @@
         .sub-name { color: #aaa; font-weight: 600; margin-right: 6px; }
         .sub-desc { color: #666; }
 
-        /* MOBILE RESPONSIVENESS */
+        /* Mobile Adjustments */
         @media (max-width: 768px) {
             body { flex-direction: column; }
-
-            .sidebar {
-                width: 100%;
-                height: auto;
-                padding: 15px;
-                border-right: none;
-                border-bottom: 1px solid var(--border-grey);
-            }
-
+            .sidebar { width: 100%; height: auto; border-right: none; border-bottom: 1px solid var(--border-grey); padding: 15px; }
             .sidebar h2 { display: none; }
-
-            .category-list {
-                flex-direction: row;
-                overflow-x: auto;
-                padding-bottom: 5px;
-                -webkit-overflow-scrolling: touch;
-            }
-
-            .cat-btn { padding: 8px 14px; font-size: 13px; }
-            .cat-btn .count { margin-left: 6px; }
-            .main-content { padding: 30px 20px; }
-            h1 { font-size: 24px; }
-            .command-item { padding: 15px; }
+            .category-list { flex-direction: row; overflow-x: auto; }
+            .cat-btn { padding: 8px 12px; }
+            .main-content { padding: 25px 15px; }
         }
 
-        /* Custom Scrollbar */
         ::-webkit-scrollbar { width: 5px; height: 5px; }
         ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
     </style>
@@ -232,8 +210,9 @@
         try {
             const response = await fetch('./commands.json');
             commandsJSON = await response.json();
+            console.log("Loaded commands:", commandsJSON);
         } catch (err) {
-            commandList.innerHTML = `<p style="color: #444;">Could not load commands.json</p>`;
+            commandList.innerHTML = `<p style="color: #888;">Could not load commands.json. Check the file path.</p>`;
             return;
         }
 
@@ -255,4 +234,57 @@
                 currentCategory = name;
                 renderSidebar();
                 renderCommands();
-                document.
+                document.querySelector('.main-content').scrollTop = 0;
+            };
+            categoryList.appendChild(btn);
+        }
+
+        function renderCommands() {
+            const query = searchBox.value.toLowerCase();
+            commandList.innerHTML = '';
+            let pool = [];
+
+            if (currentCategory === 'All') {
+                modules.forEach(m => pool = pool.concat(commandsJSON[m]));
+            } else {
+                pool = commandsJSON[currentCategory] || [];
+            }
+
+            const filtered = pool.filter(cmd => 
+                cmd.name.toLowerCase().includes(query) || 
+                (cmd.description && cmd.description.toLowerCase().includes(query))
+            );
+
+            filtered.forEach(cmd => {
+                const card = document.createElement('div');
+                card.className = 'command-item';
+                let subContent = '';
+                
+                if (cmd.subcommands && cmd.subcommands.length > 0) {
+                    subContent = `<div class="subcommands-container">`;
+                    cmd.subcommands.forEach(sub => {
+                        subContent += `<div class="sub-item"><span class="sub-name">${cmd.name} ${sub.name}</span><span class="sub-desc">${sub.description || ''}</span></div>`;
+                    });
+                    subContent += `</div>`;
+                }
+
+                card.innerHTML = `
+                    <div class="cmd-top">
+                        <span class="cmd-name">/${cmd.name}</span>
+                        <span class="cmd-aliases">${cmd.aliases && cmd.aliases.length ? cmd.aliases.join(' ') : ''}</span>
+                    </div>
+                    <div class="cmd-desc">${cmd.description || 'No description provided.'}</div>
+                    ${subContent}
+                `;
+                commandList.appendChild(card);
+            });
+        }
+
+        searchBox.addEventListener('input', renderCommands);
+        renderSidebar();
+        renderCommands();
+    })();
+</script>
+
+</body>
+</html>
