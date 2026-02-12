@@ -20,45 +20,15 @@
     margin-bottom: 30px;
     font-weight: 700;
   }
-  /* --- Header & Nav --- */
+  /* --- Header --- */
   .header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 30px;
-  }
-  .nav-categories {
-    display: flex;
-    gap: 12px;
     flex-wrap: wrap;
+    gap: 20px;
+    margin-bottom: 20px;
   }
-  .nav-button {
-    background-color: #1f1f1f;
-    color: #888;
-    border: none;
-    padding: 6px 16px;
-    border-radius: 20px;
-    font-size: 13px;
-    cursor: pointer;
-    transition: background-color 0.25s, color 0.25s;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    user-select: none;
-  }
-  .nav-button.active {
-    background-color: #3a3a3a;
-    color: #fff;
-    font-weight: 600;
-  }
-  .nav-button .count {
-    background: #444;
-    border-radius: 10px;
-    padding: 0 8px;
-    font-size: 12px;
-    color: #bbb;
-  }
-  /* --- Search --- */
   #searchBox {
     padding: 8px 14px;
     font-size: 14px;
@@ -74,10 +44,79 @@
   #searchBox::placeholder {
     color: #666;
   }
+  /* --- Modules bar container --- */
+  .modules-bar-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 30px;
+  }
+  /* --- Arrow buttons --- */
+  .arrow-btn {
+    background-color: #1f1f1f;
+    border: none;
+    color: #888;
+    padding: 8px 14px;
+    font-size: 18px;
+    border-radius: 10px;
+    cursor: pointer;
+    user-select: none;
+    transition: background-color 0.2s, color 0.2s;
+  }
+  .arrow-btn:hover:not(:disabled) {
+    background-color: #3a3a3a;
+    color: #fff;
+  }
+  .arrow-btn:disabled {
+    opacity: 0.3;
+    cursor: default;
+  }
+  /* --- Modules bar --- */
+  .modules-bar {
+    overflow: hidden;
+    flex-grow: 1;
+  }
+  .modules-list {
+    display: flex;
+    gap: 12px;
+    transition: transform 0.3s ease;
+    will-change: transform;
+  }
+  /* --- Module buttons --- */
+  .nav-button {
+    background-color: #1f1f1f;
+    color: #888;
+    border: none;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background-color 0.25s, color 0.25s;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    min-width: 110px;
+    justify-content: center;
+    user-select: none;
+    white-space: nowrap;
+  }
+  .nav-button.active {
+    background-color: #3a3a3a;
+    color: #fff;
+    font-weight: 600;
+  }
+  .nav-button .count {
+    background: #444;
+    border-radius: 10px;
+    padding: 0 8px;
+    font-size: 12px;
+    color: #bbb;
+    user-select: none;
+  }
   /* --- Command Grid --- */
   .command-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill,minmax(280px,1fr));
+    grid-template-columns: repeat(3, 1fr);
     gap: 20px;
   }
   .command-card {
@@ -128,17 +167,18 @@
     white-space: nowrap;
   }
   /* --- Responsive --- */
-  @media (max-width: 600px) {
-    body {
-      padding: 40px 6%;
+  @media (max-width: 980px) {
+    .command-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (max-width: 620px) {
+    .command-grid {
+      grid-template-columns: 1fr;
     }
     #searchBox {
       width: 100%;
       margin-top: 12px;
-    }
-    .header {
-      flex-wrap: wrap;
-      gap: 12px;
     }
   }
 </style>
@@ -150,21 +190,30 @@
   <input type="search" id="searchBox" placeholder="Search commands..." autocomplete="off" />
 </div>
 
-<div class="nav-categories" id="categoryNav">
-  <!-- Dynamically filled -->
+<div class="modules-bar-container">
+  <button class="arrow-btn" id="leftArrow" title="Scroll Left" aria-label="Scroll Left" disabled>←</button>
+  <div class="modules-bar" id="modulesBar" aria-label="Command Categories">
+    <div class="modules-list" id="modulesList">
+      <!-- Module buttons injected here -->
+    </div>
+  </div>
+  <button class="arrow-btn" id="rightArrow" title="Scroll Right" aria-label="Scroll Right" disabled>→</button>
 </div>
 
 <div class="command-grid" id="commandGrid">
-  <!-- Dynamically filled -->
+  <!-- Command cards injected here -->
 </div>
 
 <script>
 (async function() {
+  const modulesList = document.getElementById('modulesList');
   const commandGrid = document.getElementById('commandGrid');
-  const categoryNav = document.getElementById('categoryNav');
   const searchBox = document.getElementById('searchBox');
+  const leftArrow = document.getElementById('leftArrow');
+  const rightArrow = document.getElementById('rightArrow');
+  const modulesBar = document.getElementById('modulesBar');
 
-  // Load JSON file
+  // Load commands JSON
   let commandsJSON;
   try {
     const resp = await fetch('./commands.json');
@@ -175,67 +224,72 @@
     return;
   }
 
-  // Parse JSON: keys = modules, values = array of commands
+  // Extract modules (categories)
   const modules = Object.keys(commandsJSON).sort();
 
-  // Create category buttons + "All"
-  function createCategoryButtons() {
-    // Clear old
-    categoryNav.innerHTML = '';
+  // Setup module buttons with counts, including "All"
+  const MODULES_VISIBLE = 3; // Number of modules visible at once
 
-    // "All" button
-    const allBtn = document.createElement('button');
-    allBtn.textContent = 'All';
-    allBtn.className = 'nav-button active';
-    allBtn.dataset.module = 'all';
-    allBtn.addEventListener('click', () => {
-      setActiveCategory('all');
-      renderCommands();
-    });
-    categoryNav.appendChild(allBtn);
+  // Create module buttons + "All"
+  function createModuleButtons() {
+    modulesList.innerHTML = '';
 
-    // Per module buttons with counts
+    // Create "All" module button
+    const allBtn = createModuleBtn('All', 'all', modules.reduce((acc, mod) => acc + commandsJSON[mod].length, 0));
+    allBtn.classList.add('active');
+    modulesList.appendChild(allBtn);
+
+    // Create individual module buttons
     for (const mod of modules) {
-      const btn = document.createElement('button');
-      btn.className = 'nav-button';
-      btn.dataset.module = mod;
-      btn.title = mod;
-      btn.innerHTML = `${mod} <span class="count">${commandsJSON[mod].length}</span>`;
-      btn.addEventListener('click', () => {
-        setActiveCategory(mod);
-        renderCommands(mod);
-      });
-      categoryNav.appendChild(btn);
+      const btn = createModuleBtn(mod, mod, commandsJSON[mod].length);
+      modulesList.appendChild(btn);
     }
   }
 
-  // Track active category and filter commands
-  let activeCategory = 'all';
+  function createModuleBtn(text, modName, count) {
+    const btn = document.createElement('button');
+    btn.className = 'nav-button';
+    btn.textContent = text;
+    btn.dataset.module = modName;
+    // Add count badge
+    const countSpan = document.createElement('span');
+    countSpan.className = 'count';
+    countSpan.textContent = count;
+    btn.appendChild(countSpan);
 
-  function setActiveCategory(module) {
-    activeCategory = module;
-    // update active button styling
+    btn.addEventListener('click', () => {
+      setActiveModule(modName);
+      renderCommands(modName);
+      updateArrows();
+    });
+
+    return btn;
+  }
+
+  // Track currently active module/category
+  let activeModule = 'all';
+
+  function setActiveModule(modName) {
+    activeModule = modName;
     document.querySelectorAll('.nav-button').forEach(btn => {
-      btn.classList.toggle('active', btn.dataset.module === module);
+      btn.classList.toggle('active', btn.dataset.module === modName);
     });
   }
 
-  // Render commands filtered by category & search
+  // Render commands filtered by module & search
   function renderCommands(moduleFilter = 'all') {
     const searchTerm = searchBox.value.trim().toLowerCase();
     commandGrid.innerHTML = '';
 
-    // Gather all commands or filtered
+    // Gather commands for filter
     let filteredCommands = [];
     if (moduleFilter === 'all') {
-      for (const mod of modules) {
-        filteredCommands = filteredCommands.concat(commandsJSON[mod]);
-      }
+      for (const mod of modules) filteredCommands = filteredCommands.concat(commandsJSON[mod]);
     } else {
       filteredCommands = commandsJSON[moduleFilter] ?? [];
     }
 
-    // Filter by search term on name or description
+    // Filter by search
     if (searchTerm) {
       filteredCommands = filteredCommands.filter(cmd => {
         return (cmd.name && cmd.name.toLowerCase().includes(searchTerm))
@@ -252,7 +306,7 @@
       const card = document.createElement('div');
       card.className = 'command-card';
 
-      // Command Name
+      // Name
       const nameEl = document.createElement('div');
       nameEl.className = 'command-name';
       nameEl.textContent = cmd.name || '(Unnamed)';
@@ -266,20 +320,14 @@
         card.appendChild(descEl);
       }
 
-      // Arguments (from syntax or example)
+      // Arguments
       let args = [];
 
-      // Try to parse args from syntax (e.g. "command <arg1> [arg2]")
       if (cmd.syntax) {
-        // Extract words inside <> or []
         const regex = /[<\[]([^>\]]+)[>\]]/g;
         let match;
-        while ((match = regex.exec(cmd.syntax)) !== null) {
-          args.push(match[1]);
-        }
+        while ((match = regex.exec(cmd.syntax)) !== null) args.push(match[1]);
       }
-
-      // If no args from syntax, try example split (remove 'none')
       if (args.length === 0 && cmd.example) {
         args = cmd.example.split(/\s+/).filter(x => x && x.toLowerCase() !== 'none');
       }
@@ -308,28 +356,91 @@
         permLabel.textContent = 'Permissions';
         card.appendChild(permLabel);
 
-        const permTag = document.createElement('div');
-        permTag.className = 'tags';
-        const tag = document.createElement('div');
-        tag.className = 'tag';
-        tag.textContent = cmd.permissions;
-        permTag.appendChild(tag);
-        card.appendChild(permTag);
+        const permTags = document.createElement('div');
+        permTags.className = 'tags';
+
+        // If permissions is array, show multiple tags, else single
+        if (Array.isArray(cmd.permissions)) {
+          cmd.permissions.forEach(p => {
+            const tag = document.createElement('div');
+            tag.className = 'tag';
+            tag.textContent = p;
+            permTags.appendChild(tag);
+          });
+        } else {
+          const tag = document.createElement('div');
+          tag.className = 'tag';
+          tag.textContent = cmd.permissions;
+          permTags.appendChild(tag);
+        }
+        card.appendChild(permTags);
       }
 
       commandGrid.appendChild(card);
     }
   }
 
-  // Initialize UI
-  createCategoryButtons();
+  // --- Modules bar scrolling ---
+  // The modulesList is flex, scroll via transform translateX by fixed amount per click
+
+  let currentScrollIndex = 0; // how many modules scrolled from left (in module units)
+  const moduleBtnWidth = 128; // Approx width of each module button (including gap)
+  // We'll update after render buttons, just initial guess
+
+  function updateArrowButtons() {
+    const maxIndex = Math.max(0, modulesList.children.length - MODULES_VISIBLE);
+    leftArrow.disabled = currentScrollIndex <= 0;
+    rightArrow.disabled = currentScrollIndex >= maxIndex;
+  }
+
+  function updateModulesTransform() {
+    const offset = -currentScrollIndex * moduleBtnWidth;
+    modulesList.style.transform = `translateX(${offset}px)`;
+  }
+
+  // On arrow clicks:
+  leftArrow.addEventListener('click', () => {
+    currentScrollIndex = Math.max(0, currentScrollIndex - MODULES_VISIBLE);
+    updateModulesTransform();
+    updateArrowButtons();
+  });
+  rightArrow.addEventListener('click', () => {
+    const maxIndex = Math.max(0, modulesList.children.length - MODULES_VISIBLE);
+    currentScrollIndex = Math.min(maxIndex, currentScrollIndex + MODULES_VISIBLE);
+    updateModulesTransform();
+    updateArrowButtons();
+  });
+
+  // After module buttons are created, calculate button width dynamically:
+  function recalcModuleBtnWidth() {
+    if (modulesList.children.length === 0) return;
+    // Get first button width + gap
+    const style = getComputedStyle(modulesList.children[0]);
+    const marginRight = parseFloat(style.marginRight) || 0;
+    moduleBtnWidth = modulesList.children[0].offsetWidth + marginRight;
+  }
+
+  // Initialize modules
+  createModuleButtons();
+  recalcModuleBtnWidth();
+  updateModulesTransform();
+  updateArrowButtons();
+
+  // Render all commands initially
   renderCommands();
 
-  // Search filter event
+  // Search box filters commands live
   searchBox.addEventListener('input', () => {
-    renderCommands(activeCategory);
+    renderCommands(activeModule);
+  });
+
+  // Accessibility: Allow arrow keys to navigate modules
+  modulesBar.addEventListener('keydown', e => {
+    if (e.key === 'ArrowLeft') leftArrow.click();
+    else if (e.key === 'ArrowRight') rightArrow.click();
   });
 })();
 </script>
+
 </body>
 </html>
