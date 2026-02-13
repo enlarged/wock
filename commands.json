@@ -990,6 +990,18 @@
             "subcommands": []
         },
         {
+            "name": "release",
+            "aliases": [
+                "rel",
+                "freepoke"
+            ],
+            "description": "Release a Pokémon back into the wild",
+            "syntax": "release <pokemon>",
+            "example": "release pikachu",
+            "permissions": null,
+            "subcommands": []
+        },
+        {
             "name": "rockpaperscissors",
             "aliases": [
                 "rps"
@@ -1085,33 +1097,6 @@
                     "permissions": null
                 }
             ]
-        }
-    ],
-    "fun": [
-        {
-            "name": "release",
-            "aliases": [
-                "rel",
-                "freepoke"
-            ],
-            "description": "Release a Pokémon back into the wild",
-            "syntax": "release <pokemon>",
-            "example": "release pikachu",
-            "permissions": null,
-            "subcommands": []
-        }
-    ],
-    "image": [
-        {
-            "name": "ocr",
-            "aliases": [
-                "read"
-            ],
-            "description": "Detects text in an image",
-            "syntax": "<attachment>",
-            "example": "ocr image.png",
-            "permissions": null,
-            "subcommands": []
         }
     ],
     "info": [
@@ -1457,18 +1442,6 @@
             "subcommands": []
         },
         {
-            "name": "createembed",
-            "aliases": [
-                "embed",
-                "ce"
-            ],
-            "description": "Create a custom embed or message",
-            "syntax": "{key: value}",
-            "example": "{message: hi} {title: test} {description: hello} {color: ff0000}",
-            "permissions": "send_messages",
-            "subcommands": []
-        },
-        {
             "name": "fortnite",
             "aliases": [
                 "fort",
@@ -1506,47 +1479,6 @@
                     "syntax": null,
                     "example": "none",
                     "permissions": null
-                }
-            ]
-        },
-        {
-            "name": "highlight",
-            "aliases": [
-                "hl",
-                "keyword"
-            ],
-            "description": "Manage highlight notifications for keywords",
-            "syntax": "(subcommands) (args)",
-            "example": "add wock",
-            "permissions": "None",
-            "subcommands": [
-                {
-                    "name": "highlight highlight add",
-                    "description": "Add a keyword to highlight",
-                    "syntax": "(keyword)",
-                    "example": "myname",
-                    "permissions": "None"
-                },
-                {
-                    "name": "highlight highlight remove",
-                    "description": "Remove a keyword from highlights",
-                    "syntax": "(keyword)",
-                    "example": "wock",
-                    "permissions": "None"
-                },
-                {
-                    "name": "highlight highlight view",
-                    "description": "View all your highlight keywords",
-                    "syntax": null,
-                    "example": "none",
-                    "permissions": "None"
-                },
-                {
-                    "name": "highlight highlight clear",
-                    "description": "Clear all highlight keywords",
-                    "syntax": null,
-                    "example": "none",
-                    "permissions": "None"
                 }
             ]
         },
@@ -1597,6 +1529,28 @@
             "subcommands": []
         },
         {
+            "name": "soundcloud",
+            "aliases": [
+                "sc"
+            ],
+            "description": "Search SoundCloud for song results",
+            "syntax": "soundcloud <query>",
+            "example": "soundcloud Run Your Mouth",
+            "permissions": null,
+            "subcommands": []
+        },
+        {
+            "name": "spotify",
+            "aliases": [
+                "sp"
+            ],
+            "description": "Search Spotify for a song",
+            "syntax": "spotify <query>",
+            "example": "spotify Run Your Mouth",
+            "permissions": null,
+            "subcommands": []
+        },
+        {
             "name": "steam",
             "aliases": [
                 "game"
@@ -1604,17 +1558,6 @@
             "description": "Search Steam for a game",
             "syntax": "<game>",
             "example": "CSGO",
-            "permissions": "none",
-            "subcommands": []
-        },
-        {
-            "name": "translate",
-            "aliases": [
-                "tr"
-            ],
-            "description": "Translates text to a specified language",
-            "syntax": "<language> <text>",
-            "example": "french whats up",
             "permissions": "none",
             "subcommands": []
         },
@@ -2175,43 +2118,43 @@
                 "about"
             ],
             "description": "View and link your social media accounts and game stats",
-            "syntax": "aboutme (subcommands) (args)",
-            "example": "aboutme @x6l",
+            "syntax": "(subcommands) (args)",
+            "example": "block @x6l",
             "permissions": null,
             "subcommands": [
                 {
-                    "name": "aboutme aboutme view",
+                    "name": "aboutme view",
                     "description": "View your linked accounts",
                     "syntax": null,
                     "example": null,
                     "permissions": null
                 },
                 {
-                    "name": "aboutme aboutme reset",
+                    "name": "aboutme reset",
                     "description": "Reset all linked accounts",
                     "syntax": null,
                     "example": null,
                     "permissions": null
                 },
                 {
-                    "name": "aboutme aboutme remove",
+                    "name": "aboutme remove",
                     "description": "Remove a specific account",
                     "syntax": "<platform>",
-                    "example": null,
+                    "example": "remove xbox",
                     "permissions": null
                 },
                 {
-                    "name": "aboutme aboutme block",
+                    "name": "aboutme block",
                     "description": "Block a user from viewing your about me",
                     "syntax": "<user>",
-                    "example": null,
+                    "example": "block @x6l",
                     "permissions": null
                 },
                 {
-                    "name": "aboutme aboutme unblock",
+                    "name": "aboutme unblock",
                     "description": "Unblock a user",
                     "syntax": "<user>",
-                    "example": null,
+                    "example": "unblock @x6l",
                     "permissions": null
                 }
             ]
@@ -2331,6 +2274,15 @@
             "subcommands": []
         },
         {
+            "name": "blur",
+            "aliases": [],
+            "description": "Blur an image attachment",
+            "syntax": "<attachment> (sigma)",
+            "example": "wock.png 10",
+            "permissions": null,
+            "subcommands": []
+        },
+        {
             "name": "boosterrole",
             "aliases": [
                 "br"
@@ -2392,6 +2344,36 @@
             ]
         },
         {
+            "name": "compress",
+            "aliases": [],
+            "description": "Compress an image attachment",
+            "syntax": "compress <attachment> (quality)",
+            "example": "compress 50",
+            "permissions": null,
+            "subcommands": []
+        },
+        {
+            "name": "createembed",
+            "aliases": [
+                "embed",
+                "ce"
+            ],
+            "description": "Create a custom embed or message",
+            "syntax": "{key: value}",
+            "example": "{message: hi} {title: test} {description: hello} {color: ff0000}",
+            "permissions": null,
+            "subcommands": []
+        },
+        {
+            "name": "crop",
+            "aliases": [],
+            "description": "Crop an image attachment to a specified area",
+            "syntax": "<left> <top> <width> <height>",
+            "example": "100 100 400 300",
+            "permissions": null,
+            "subcommands": []
+        },
+        {
             "name": "crypto",
             "aliases": [
                 "coin",
@@ -2423,6 +2405,67 @@
             ]
         },
         {
+            "name": "highlight",
+            "aliases": [
+                "hl",
+                "keyword"
+            ],
+            "description": "Manage highlight notifications for keywords",
+            "syntax": "(subcommands) (args)",
+            "example": "add wock",
+            "permissions": "None",
+            "subcommands": [
+                {
+                    "name": "highlight highlight add",
+                    "description": "Add a keyword to highlight",
+                    "syntax": "(keyword)",
+                    "example": "myname",
+                    "permissions": "None"
+                },
+                {
+                    "name": "highlight highlight remove",
+                    "description": "Remove a keyword from highlights",
+                    "syntax": "(keyword)",
+                    "example": "wock",
+                    "permissions": "None"
+                },
+                {
+                    "name": "highlight highlight view",
+                    "description": "View all your highlight keywords",
+                    "syntax": null,
+                    "example": "none",
+                    "permissions": "None"
+                },
+                {
+                    "name": "highlight highlight clear",
+                    "description": "Clear all highlight keywords",
+                    "syntax": null,
+                    "example": "none",
+                    "permissions": "None"
+                }
+            ]
+        },
+        {
+            "name": "invert",
+            "aliases": [],
+            "description": "Invert the colors of an image attachment",
+            "syntax": "<attachment>",
+            "example": "wock.png",
+            "permissions": null,
+            "subcommands": []
+        },
+        {
+            "name": "ocr",
+            "aliases": [
+                "read"
+            ],
+            "description": "Detects text in an image",
+            "syntax": "<attachment>",
+            "example": "ocr image.png",
+            "permissions": null,
+            "subcommands": []
+        },
+        {
             "name": "reactionsnipe",
             "aliases": [
                 "rs"
@@ -2430,6 +2473,27 @@
             "description": "View reciently removed reactions",
             "syntax": null,
             "example": null,
+            "permissions": null,
+            "subcommands": []
+        },
+        {
+            "name": "resize",
+            "aliases": [],
+            "description": "Resize an image attachment to a specified width and height",
+            "syntax": "<width> <height>",
+            "example": "800 600",
+            "permissions": null,
+            "subcommands": []
+        },
+        {
+            "name": "script",
+            "aliases": [
+                "exec",
+                "run"
+            ],
+            "description": "Run code snippets in various languages",
+            "syntax": "<language> <code>",
+            "example": "python print(\"hello world\")",
             "permissions": null,
             "subcommands": []
         },
@@ -2451,6 +2515,26 @@
                     "permissions": "manage_messages"
                 }
             ]
+        },
+        {
+            "name": "tint",
+            "aliases": [],
+            "description": "Apply a color tint to an image attachment",
+            "syntax": "<color>",
+            "example": "#ff0000",
+            "permissions": null,
+            "subcommands": []
+        },
+        {
+            "name": "translate",
+            "aliases": [
+                "tr"
+            ],
+            "description": "Translates text to a specified language",
+            "syntax": "<language> <text>",
+            "example": "french whats up",
+            "permissions": "none",
+            "subcommands": []
         },
         {
             "name": "vouch",
