@@ -34,6 +34,39 @@
             ]
         },
         {
+            "name": "autorole",
+            "aliases": [
+                "arole"
+            ],
+            "description": "Automatically assign roles to users upon arrival",
+            "syntax": "(subcommands) (args)",
+            "example": "add @members",
+            "permissions": "manage_guild",
+            "subcommands": [
+                {
+                    "name": "autorole add",
+                    "description": "Add a role to the autorole list",
+                    "syntax": "<role>",
+                    "example": "@members",
+                    "permissions": "manage_roles"
+                },
+                {
+                    "name": "autorole remove",
+                    "description": "Remove a role from the autorole list",
+                    "syntax": "<role>",
+                    "example": "@members",
+                    "permissions": "manage_roles"
+                },
+                {
+                    "name": "autorole list",
+                    "description": "List all autoroles",
+                    "syntax": null,
+                    "example": null,
+                    "permissions": "manage_guild"
+                }
+            ]
+        },
+        {
             "name": "backup",
             "aliases": [
                 "bk"
@@ -675,6 +708,38 @@
     ],
     "entertainment": [
         {
+            "name": "balance",
+            "aliases": [
+                "bal",
+                "money"
+            ],
+            "description": "Check your current balance",
+            "syntax": null,
+            "example": null,
+            "permissions": null,
+            "subcommands": []
+        },
+        {
+            "name": "beg",
+            "aliases": [],
+            "description": "Beg for some coins in the streets",
+            "syntax": null,
+            "example": "beg",
+            "permissions": "none",
+            "subcommands": []
+        },
+        {
+            "name": "blackjack",
+            "aliases": [
+                "bj"
+            ],
+            "description": "Play a game of blackjack against the house",
+            "syntax": "<amount>",
+            "example": "100",
+            "permissions": null,
+            "subcommands": []
+        },
+        {
             "name": "blacktea",
             "aliases": [
                 "bt"
@@ -682,6 +747,65 @@
             "description": "A fast-paced elimination word game.",
             "syntax": null,
             "example": "blacktea",
+            "permissions": "none",
+            "subcommands": []
+        },
+        {
+            "name": "coinflip",
+            "aliases": [
+                "cf"
+            ],
+            "description": "Flip a coin and bet on heads or tails",
+            "syntax": "<heads/tails> <amount>",
+            "example": "heads 100",
+            "permissions": null,
+            "subcommands": []
+        },
+        {
+            "name": "daily",
+            "aliases": [
+                "dailies"
+            ],
+            "description": "Claim your daily reward",
+            "syntax": null,
+            "example": null,
+            "permissions": null,
+            "subcommands": []
+        },
+        {
+            "name": "gamble",
+            "aliases": [
+                "bet"
+            ],
+            "description": "Gamble your coins for a chance to double them",
+            "syntax": "<amount>",
+            "example": "50%",
+            "permissions": "none",
+            "subcommands": []
+        },
+        {
+            "name": "gambleleaderboard",
+            "aliases": [
+                "glb",
+                "balancetop",
+                "baltop",
+                "gleaderboard"
+            ],
+            "description": "View the richest users in the bot",
+            "syntax": null,
+            "example": null,
+            "permissions": "none",
+            "subcommands": []
+        },
+        {
+            "name": "give",
+            "aliases": [
+                "pay",
+                "transfer"
+            ],
+            "description": "Give a user some of your coins",
+            "syntax": "<user> <amount>",
+            "example": "give @x6l 1000",
             "permissions": "none",
             "subcommands": []
         },
@@ -705,17 +829,6 @@
                     "permissions": "None"
                 }
             ]
-        },
-        {
-            "name": "resume",
-            "aliases": [
-                "r"
-            ],
-            "description": "Resume the current song",
-            "syntax": null,
-            "example": "resume",
-            "permissions": null,
-            "subcommands": []
         },
         {
             "name": "rockpaperscissors",
@@ -761,17 +874,6 @@
             "subcommands": []
         },
         {
-            "name": "stop",
-            "aliases": [
-                "leave"
-            ],
-            "description": "Stop the music and leave the voice channel",
-            "syntax": null,
-            "example": "stop",
-            "permissions": null,
-            "subcommands": []
-        },
-        {
             "name": "tictactoe",
             "aliases": [
                 "ttt"
@@ -779,6 +881,29 @@
             "description": "Play a game of Tic Tac Toe with another member",
             "syntax": "<member>",
             "example": "tictactoe @c2rter",
+            "permissions": null,
+            "subcommands": []
+        },
+        {
+            "name": "weekly",
+            "aliases": [
+                "wkly"
+            ],
+            "description": "Claim your weekly reward",
+            "syntax": null,
+            "example": null,
+            "permissions": null,
+            "subcommands": []
+        },
+        {
+            "name": "work",
+            "aliases": [
+                "job",
+                "shift"
+            ],
+            "description": "Work to earn money and experience",
+            "syntax": null,
+            "example": null,
             "permissions": null,
             "subcommands": []
         }
@@ -1069,6 +1194,76 @@
     ],
     "miscellaneous": [
         {
+            "name": "appstore",
+            "aliases": [
+                "playstore",
+                "app"
+            ],
+            "description": "View an app on the app store",
+            "syntax": "<query>",
+            "example": "Uber",
+            "permissions": "none",
+            "subcommands": []
+        },
+        {
+            "name": "birthday",
+            "aliases": [
+                "bday"
+            ],
+            "description": "Manage and view your birthday settings",
+            "syntax": "<subcommand> (args)",
+            "example": "set 12-25",
+            "permissions": null,
+            "subcommands": [
+                {
+                    "name": "birthday birthday set",
+                    "description": "Set your birthday (MM-DD)",
+                    "syntax": "<mm-dd>",
+                    "example": "12-25",
+                    "permissions": null
+                },
+                {
+                    "name": "birthday birthday view",
+                    "description": "View your saved birthday",
+                    "syntax": null,
+                    "example": "none",
+                    "permissions": null
+                },
+                {
+                    "name": "birthday birthday reset",
+                    "description": "Remove your birthday from the database",
+                    "syntax": null,
+                    "example": "none",
+                    "permissions": null
+                }
+            ]
+        },
+        {
+            "name": "bmi",
+            "aliases": [
+                "weight",
+                "bodymass"
+            ],
+            "description": "Calculate BMI using lbs and feet'inches.",
+            "syntax": "<weight in lbs> <height (ft'in)>",
+            "example": "180 5'11",
+            "permissions": "none",
+            "subcommands": []
+        },
+        {
+            "name": "color",
+            "aliases": [
+                "colour",
+                "colorinfo",
+                "colourinfo"
+            ],
+            "description": "Get information about a specific color using its HEX code.",
+            "syntax": "<hex>",
+            "example": "#acacac",
+            "permissions": "none",
+            "subcommands": []
+        },
+        {
             "name": "createembed",
             "aliases": [
                 "embed",
@@ -1163,6 +1358,18 @@
             ]
         },
         {
+            "name": "imdb",
+            "aliases": [
+                "movie",
+                "series"
+            ],
+            "description": "Get information on a movie or series",
+            "syntax": "<query>",
+            "example": "Smile",
+            "permissions": "none",
+            "subcommands": []
+        },
+        {
             "name": "iplookup",
             "aliases": [
                 "ip",
@@ -1172,6 +1379,62 @@
             "syntax": "iplookup <ip>",
             "example": "iplookup 8.8.8.8",
             "permissions": null,
+            "subcommands": []
+        },
+        {
+            "name": "itunes",
+            "aliases": [
+                "itu"
+            ],
+            "description": "Finds a song from the iTunes API",
+            "syntax": "<query>",
+            "example": "itunes Run Your Mouth",
+            "permissions": "none",
+            "subcommands": []
+        },
+        {
+            "name": "ping",
+            "aliases": [
+                "p"
+            ],
+            "description": "Shows bot latency",
+            "syntax": "ping",
+            "example": "ping",
+            "permissions": null,
+            "subcommands": []
+        },
+        {
+            "name": "steam",
+            "aliases": [
+                "game"
+            ],
+            "description": "Search Steam for a game",
+            "syntax": "<game>",
+            "example": "CSGO",
+            "permissions": "none",
+            "subcommands": []
+        },
+        {
+            "name": "translate",
+            "aliases": [
+                "tr"
+            ],
+            "description": "Translates text to a specified language",
+            "syntax": "<language> <text>",
+            "example": "french whats up",
+            "permissions": "none",
+            "subcommands": []
+        },
+        {
+            "name": "urbandictionary",
+            "aliases": [
+                "urban",
+                "ud"
+            ],
+            "description": "Search for definitions on Urban Dictionary",
+            "syntax": "<query>",
+            "example": "wock",
+            "permissions": "none",
             "subcommands": []
         },
         {
@@ -1206,6 +1469,29 @@
                     "permissions": null
                 }
             ]
+        },
+        {
+            "name": "wikipedia",
+            "aliases": [
+                "wiki"
+            ],
+            "description": "Search Wikipedia for a specific query",
+            "syntax": "<query>",
+            "example": "Earth",
+            "permissions": "none",
+            "subcommands": []
+        },
+        {
+            "name": "wolfram",
+            "aliases": [
+                "w",
+                "wolframalpha"
+            ],
+            "description": "Get math and scientific answers from Wolfram Alpha",
+            "syntax": "<query>",
+            "example": "2+2",
+            "permissions": "none",
+            "subcommands": []
         }
     ],
     "moderation": [
