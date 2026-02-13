@@ -47,20 +47,20 @@
                     "name": "autorole add",
                     "description": "Add a role to the autorole list",
                     "syntax": "<role>",
-                    "example": "@members",
+                    "example": "add @members",
                     "permissions": "manage_roles"
                 },
                 {
                     "name": "autorole remove",
                     "description": "Remove a role from the autorole list",
                     "syntax": "<role>",
-                    "example": "@members",
+                    "example": "remove @members",
                     "permissions": "manage_roles"
                 },
                 {
                     "name": "autorole list",
                     "description": "List all autoroles",
-                    "syntax": null,
+                    "syntax": "list",
                     "example": null,
                     "permissions": "manage_guild"
                 }
@@ -103,6 +103,32 @@
                     "syntax": "(id)",
                     "example": "ABCD123",
                     "permissions": "administrator"
+                }
+            ]
+        },
+        {
+            "name": "confession",
+            "aliases": [
+                "confessset"
+            ],
+            "description": "Configure the confessions channel",
+            "syntax": "channel <#channel> | remove",
+            "example": "confession channel #confessions",
+            "permissions": "manage_channels",
+            "subcommands": [
+                {
+                    "name": "confession channel",
+                    "description": "Set the confessions channel",
+                    "syntax": "<#channel>",
+                    "example": "confession channel #confessions",
+                    "permissions": "manage_channels"
+                },
+                {
+                    "name": "confession remove",
+                    "description": "Remove the confessions channel",
+                    "syntax": null,
+                    "example": "confession remove",
+                    "permissions": "manage_channels"
                 }
             ]
         },
@@ -276,6 +302,53 @@
                     "description": "View a goodbye channel's set message",
                     "syntax": "<#channel>",
                     "example": "#exit",
+                    "permissions": "manage_guild"
+                }
+            ]
+        },
+        {
+            "name": "level",
+            "aliases": [
+                "lvl"
+            ],
+            "description": "Configure the leveling system",
+            "syntax": "<subcommand> (args)",
+            "example": "role @Member 5",
+            "permissions": "manage_guild",
+            "subcommands": [
+                {
+                    "name": "level role",
+                    "description": "Set a role reward for a level",
+                    "syntax": "<role> (level)",
+                    "example": "role @Member 5",
+                    "permissions": "manage_guild"
+                },
+                {
+                    "name": "level channel",
+                    "description": "Set the channel for level up messages",
+                    "syntax": "<#channel>",
+                    "example": "channel #levels",
+                    "permissions": "manage_guild"
+                },
+                {
+                    "name": "level message",
+                    "description": "Set the level up message (placeholders: {user.mention}, {level})",
+                    "syntax": "<message>",
+                    "example": "message Congrats {user.mention}, you reached level {level}!",
+                    "permissions": "manage_guild"
+                },
+                {
+                    "name": "level view",
+                    "description": "View current leveling configuration",
+                    "syntax": null,
+                    "example": null,
+                    "permissions": "manage_guild"
+                },
+                {
+                    "name": "level reset",
+                    "description": "Reset all leveling settings to default",
+                    "syntax": null,
+                    "example": null,
                     "permissions": "manage_guild"
                 }
             ]
@@ -683,21 +756,21 @@
             "permissions": "none",
             "subcommands": [
                 {
-                    "name": "transaction transaction lookup",
+                    "name": "transaction lookup",
                     "description": "Search for a transaction hash directly",
                     "syntax": "<hash>",
                     "example": "6f9...8a1",
                     "permissions": "none"
                 },
                 {
-                    "name": "transaction transaction add",
+                    "name": "transaction add",
                     "description": "Get a notification when a transaction confirms",
                     "syntax": "<hash>",
                     "example": "6f9...8a1",
                     "permissions": "none"
                 },
                 {
-                    "name": "transaction transaction cancel",
+                    "name": "transaction cancel",
                     "description": "Stop tracking a specific transaction",
                     "syntax": "<hash>",
                     "example": "6f9...8a1",
@@ -716,6 +789,18 @@
             "description": "Check your current balance",
             "syntax": null,
             "example": null,
+            "permissions": null,
+            "subcommands": []
+        },
+        {
+            "name": "battle",
+            "aliases": [
+                "fight",
+                "pb"
+            ],
+            "description": "Battle another user with your Pokémon",
+            "syntax": "<user>",
+            "example": "@x6l",
             "permissions": null,
             "subcommands": []
         },
@@ -748,6 +833,17 @@
             "syntax": null,
             "example": "blacktea",
             "permissions": "none",
+            "subcommands": []
+        },
+        {
+            "name": "catch",
+            "aliases": [
+                "pcc"
+            ],
+            "description": "Catch a random Pokémon",
+            "syntax": "catch",
+            "example": "catch",
+            "permissions": null,
             "subcommands": []
         },
         {
@@ -831,6 +927,69 @@
             ]
         },
         {
+            "name": "muha",
+            "aliases": [
+                "za"
+            ],
+            "description": "Hit the muha",
+            "syntax": "(subcommand) [args]",
+            "example": "flavor mango",
+            "permissions": null,
+            "subcommands": [
+                {
+                    "name": "muha flavors",
+                    "description": "List all available muha flavors",
+                    "syntax": null,
+                    "example": "flavors",
+                    "permissions": null
+                },
+                {
+                    "name": "muha flavor",
+                    "description": "Set your muha flavor",
+                    "syntax": "<flavor>",
+                    "example": "flavor mango",
+                    "permissions": null
+                },
+                {
+                    "name": "muha leaderboard",
+                    "description": "View the muha leaderboard",
+                    "syntax": null,
+                    "example": "leaderboard",
+                    "permissions": null
+                },
+                {
+                    "name": "muha count",
+                    "description": "View your or another user's muha hit count",
+                    "syntax": "[user]",
+                    "example": "@x6l",
+                    "permissions": null
+                }
+            ]
+        },
+        {
+            "name": "pokedex",
+            "aliases": [
+                "dex",
+                "inventory"
+            ],
+            "description": "View detailed information for each Pokémon in your collection",
+            "syntax": "pokedex (@user)",
+            "example": "pokedex @x6l",
+            "permissions": null,
+            "subcommands": []
+        },
+        {
+            "name": "pokemon",
+            "aliases": [
+                "poke"
+            ],
+            "description": "View information about a Pokémon",
+            "syntax": "pokemon <name>",
+            "example": "pokemon pikachu",
+            "permissions": null,
+            "subcommands": []
+        },
+        {
             "name": "rockpaperscissors",
             "aliases": [
                 "rps"
@@ -904,6 +1063,40 @@
             "description": "Work to earn money and experience",
             "syntax": null,
             "example": null,
+            "permissions": null,
+            "subcommands": []
+        },
+        {
+            "name": "xp",
+            "aliases": [
+                "rank",
+                "level"
+            ],
+            "description": "Check your level or the server leaderboard",
+            "syntax": "(user)",
+            "example": "xp @x6l",
+            "permissions": null,
+            "subcommands": [
+                {
+                    "name": "xp leaderboard",
+                    "description": "View the XP leaderboard for this server",
+                    "syntax": "lb",
+                    "example": "xp lb",
+                    "permissions": null
+                }
+            ]
+        }
+    ],
+    "fun": [
+        {
+            "name": "release",
+            "aliases": [
+                "rel",
+                "freepoke"
+            ],
+            "description": "Release a Pokémon back into the wild",
+            "syntax": "release <pokemon>",
+            "example": "release pikachu",
             "permissions": null,
             "subcommands": []
         }
@@ -1080,98 +1273,98 @@
             "permissions": null,
             "subcommands": [
                 {
-                    "name": "lastfm lastfm set",
+                    "name": "lastfm set",
                     "description": "Link your username",
                     "syntax": "<user>",
                     "example": "twix",
                     "permissions": null
                 },
                 {
-                    "name": "lastfm lastfm reset",
+                    "name": "lastfm reset",
                     "description": "Unlink your account",
                     "syntax": null,
                     "example": "none",
                     "permissions": null
                 },
                 {
-                    "name": "lastfm lastfm profile",
+                    "name": "lastfm profile",
                     "description": "View a Last.fm profile",
                     "syntax": "[user]",
                     "example": "none",
                     "permissions": null
                 },
                 {
-                    "name": "lastfm lastfm nowplaying",
+                    "name": "lastfm nowplaying",
                     "description": "Show current song",
                     "syntax": null,
                     "example": "none",
                     "permissions": null
                 },
                 {
-                    "name": "lastfm lastfm recent",
+                    "name": "lastfm recent",
                     "description": "View 10 recent tracks",
                     "syntax": null,
                     "example": "none",
                     "permissions": null
                 },
                 {
-                    "name": "lastfm lastfm topartists",
+                    "name": "lastfm topartists",
                     "description": "Your top 10 artists",
                     "syntax": null,
                     "example": "none",
                     "permissions": null
                 },
                 {
-                    "name": "lastfm lastfm topalbums",
+                    "name": "lastfm topalbums",
                     "description": "Your top 10 albums",
                     "syntax": null,
                     "example": "none",
                     "permissions": null
                 },
                 {
-                    "name": "lastfm lastfm toptracks",
+                    "name": "lastfm toptracks",
                     "description": "Your top 10 tracks",
                     "syntax": null,
                     "example": "none",
                     "permissions": null
                 },
                 {
-                    "name": "lastfm lastfm taste",
+                    "name": "lastfm taste",
                     "description": "Compare taste with a user",
                     "syntax": "<user>",
                     "example": "@Gemini",
                     "permissions": null
                 },
                 {
-                    "name": "lastfm lastfm whoknows",
+                    "name": "lastfm whoknows",
                     "description": "Who listens to the current artist",
                     "syntax": null,
                     "example": "none",
                     "permissions": null
                 },
                 {
-                    "name": "lastfm lastfm plays",
+                    "name": "lastfm plays",
                     "description": "Playcount for an artist",
                     "syntax": "<artist>",
                     "example": "Drake",
                     "permissions": null
                 },
                 {
-                    "name": "lastfm lastfm streak",
+                    "name": "lastfm streak",
                     "description": "Your daily listening streak",
                     "syntax": null,
                     "example": "none",
                     "permissions": null
                 },
                 {
-                    "name": "lastfm lastfm recommend",
+                    "name": "lastfm recommend",
                     "description": "Get a track recommendation",
                     "syntax": null,
                     "example": "none",
                     "permissions": null
                 },
                 {
-                    "name": "lastfm lastfm update",
+                    "name": "lastfm update",
                     "description": "Refresh your cached data",
                     "syntax": null,
                     "example": "lastfm update",
@@ -1515,21 +1708,21 @@
             "permissions": "manage_channels",
             "subcommands": [
                 {
-                    "name": "category category create",
+                    "name": "category create",
                     "description": "Create a new category",
                     "syntax": "<name>",
                     "example": "Tickets",
                     "permissions": "manage_channels"
                 },
                 {
-                    "name": "category category rename",
+                    "name": "category rename",
                     "description": "Rename an existing category",
                     "syntax": "<name/id> <new name>",
                     "example": "Staff Admin",
                     "permissions": "manage_channels"
                 },
                 {
-                    "name": "category category delete",
+                    "name": "category delete",
                     "description": "Delete a category",
                     "syntax": "<name/id>",
                     "example": "Old",
@@ -1546,21 +1739,21 @@
             "permissions": "manage_channels",
             "subcommands": [
                 {
-                    "name": "channel channel create",
+                    "name": "channel create",
                     "description": "Create a new text channel",
                     "syntax": "<name> (category)",
                     "example": "chat Lounge",
                     "permissions": "manage_channels"
                 },
                 {
-                    "name": "channel channel rename",
+                    "name": "channel rename",
                     "description": "Rename an existing channel",
                     "syntax": "<channel> <new name>",
                     "example": "#general lounge",
                     "permissions": "manage_channels"
                 },
                 {
-                    "name": "channel channel delete",
+                    "name": "channel delete",
                     "description": "Delete a channel",
                     "syntax": "<channel>",
                     "example": "#junk",
@@ -2035,21 +2228,21 @@
             "permissions": null,
             "subcommands": [
                 {
-                    "name": "github github set",
+                    "name": "github set",
                     "description": "Link your GitHub username",
                     "syntax": "<username>",
                     "example": "enlarged",
                     "permissions": null
                 },
                 {
-                    "name": "github github reset",
+                    "name": "github reset",
                     "description": "Unlink your GitHub account",
                     "syntax": null,
                     "example": "none",
                     "permissions": null
                 },
                 {
-                    "name": "github github view",
+                    "name": "github view",
                     "description": "View your linked GitHub username",
                     "syntax": null,
                     "example": "none",
@@ -2068,21 +2261,21 @@
             "permissions": null,
             "subcommands": [
                 {
-                    "name": "tiktok tiktok set",
+                    "name": "tiktok set",
                     "description": "Link your TikTok username",
                     "syntax": "(username)",
                     "example": "charlidamelio",
                     "permissions": null
                 },
                 {
-                    "name": "tiktok tiktok reset",
+                    "name": "tiktok reset",
                     "description": "Unlink your TikTok account",
                     "syntax": null,
                     "example": "none",
                     "permissions": null
                 },
                 {
-                    "name": "tiktok tiktok view",
+                    "name": "tiktok view",
                     "description": "View your linked TikTok username",
                     "syntax": null,
                     "example": "none",
@@ -2098,25 +2291,25 @@
             ],
             "description": "View an xbox user's profile",
             "syntax": "c9ce",
-            "example": "xbox c9ce",
+            "example": "c9ce",
             "permissions": null,
             "subcommands": [
                 {
-                    "name": "xbox xbox set",
+                    "name": "xbox set",
                     "description": "Set your Xbox gamertag",
                     "syntax": "<gamertag>",
-                    "example": "c9ce",
+                    "example": null,
                     "permissions": null
                 },
                 {
-                    "name": "xbox xbox reset",
+                    "name": "xbox reset",
                     "description": "Reset your Xbox gamertag",
                     "syntax": null,
                     "example": "none",
                     "permissions": null
                 },
                 {
-                    "name": "xbox xbox view",
+                    "name": "xbox view",
                     "description": "View your linked Xbox gamertag",
                     "syntax": null,
                     "example": "none",
@@ -2209,6 +2402,95 @@
             "example": "crypto",
             "permissions": null,
             "subcommands": []
+        },
+        {
+            "name": "editsnipe",
+            "aliases": [
+                "es"
+            ],
+            "description": "View most recently edited message",
+            "syntax": null,
+            "example": null,
+            "permissions": null,
+            "subcommands": [
+                {
+                    "name": "editsnipe clear",
+                    "description": "Clear the last edit snipe for this channel",
+                    "syntax": "clear",
+                    "example": "editsnipe clear",
+                    "permissions": "manage_messages"
+                }
+            ]
+        },
+        {
+            "name": "reactionsnipe",
+            "aliases": [
+                "rs"
+            ],
+            "description": "View reciently removed reactions",
+            "syntax": null,
+            "example": null,
+            "permissions": null,
+            "subcommands": []
+        },
+        {
+            "name": "snipe",
+            "aliases": [
+                "s"
+            ],
+            "description": "View recently deleted messages",
+            "syntax": null,
+            "example": null,
+            "permissions": null,
+            "subcommands": [
+                {
+                    "name": "snipe clear",
+                    "description": "Clear the last snipe for this channel",
+                    "syntax": "clear",
+                    "example": "snipe clear",
+                    "permissions": "manage_messages"
+                }
+            ]
+        },
+        {
+            "name": "vouch",
+            "aliases": [
+                "rep"
+            ],
+            "description": "Manage and view user reputations",
+            "syntax": "<user> (reason)",
+            "example": "@x6l nice bot",
+            "permissions": null,
+            "subcommands": [
+                {
+                    "name": "vouch channel",
+                    "description": "Set a channel restriction for vouches",
+                    "syntax": "[#channel]",
+                    "example": "channel #vouches",
+                    "permissions": "manage_channels"
+                },
+                {
+                    "name": "vouch leaderboard",
+                    "description": "View the vouch leaderboard",
+                    "syntax": null,
+                    "example": "leaderboard",
+                    "permissions": null
+                },
+                {
+                    "name": "vouch list",
+                    "description": "List vouches for a user",
+                    "syntax": "[user]",
+                    "example": "list @x6l",
+                    "permissions": null
+                },
+                {
+                    "name": "vouch remove",
+                    "description": "Remove your vouch from a user",
+                    "syntax": "<user>",
+                    "example": "remove @x6l",
+                    "permissions": null
+                }
+            ]
         }
     ]
 }
