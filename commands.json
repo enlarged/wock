@@ -2227,6 +2227,60 @@
             ]
         },
         {
+            "name": "tumblr",
+            "aliases": [
+                "tmb"
+            ],
+            "description": "Lookup Tumblr blogs, link accounts, or setup auto-posting",
+            "syntax": "<subcommand> [query]",
+            "example": "blog staff",
+            "permissions": null,
+            "subcommands": [
+                {
+                    "name": "tumblr set",
+                    "description": "Link your Tumblr blog",
+                    "syntax": "(blog_name)",
+                    "example": "set staff",
+                    "permissions": null
+                },
+                {
+                    "name": "tumblr reset",
+                    "description": "Unlink your Tumblr blog",
+                    "syntax": null,
+                    "example": "reset",
+                    "permissions": null
+                },
+                {
+                    "name": "tumblr view",
+                    "description": "View your linked Tumblr blog",
+                    "syntax": null,
+                    "example": "view",
+                    "permissions": null
+                },
+                {
+                    "name": "tumblr blog",
+                    "description": "View recent posts from a blog",
+                    "syntax": "(blog_name)",
+                    "example": "blog staff",
+                    "permissions": null
+                },
+                {
+                    "name": "tumblr add",
+                    "description": "Add a Tumblr feed to a channel",
+                    "syntax": "(#channel) (blog)",
+                    "example": "add #feeds staff",
+                    "permissions": null
+                },
+                {
+                    "name": "tumblr remove",
+                    "description": "Remove a Tumblr feed from a channel",
+                    "syntax": "(#channel)",
+                    "example": "remove #news",
+                    "permissions": null
+                }
+            ]
+        },
+        {
             "name": "xbox",
             "aliases": [
                 "xb",
@@ -2453,6 +2507,48 @@
             "example": "wock.png",
             "permissions": null,
             "subcommands": []
+        },
+        {
+            "name": "minecraft",
+            "aliases": [
+                "mc",
+                "skin",
+                "skins"
+            ],
+            "description": "Minecraft player info, skins, and name availability",
+            "syntax": "<subcommand> <username>",
+            "example": "skins Notch",
+            "permissions": null,
+            "subcommands": [
+                {
+                    "name": "minecraft set",
+                    "description": "Link your Minecraft username",
+                    "syntax": "(username)",
+                    "example": " set Notch",
+                    "permissions": null
+                },
+                {
+                    "name": "minecraft reset",
+                    "description": "Unlink your Minecraft account",
+                    "syntax": null,
+                    "example": " reset",
+                    "permissions": null
+                },
+                {
+                    "name": "minecraft view",
+                    "description": "View your linked Minecraft username",
+                    "syntax": null,
+                    "example": " view",
+                    "permissions": null
+                },
+                {
+                    "name": "minecraft skins",
+                    "description": "View Minecraft skin renders for a username",
+                    "syntax": "(username)",
+                    "example": " skins Notch",
+                    "permissions": null
+                }
+            ]
         },
         {
             "name": "ocr",
