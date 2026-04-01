@@ -1,0 +1,1 @@
+Shitty python bot
