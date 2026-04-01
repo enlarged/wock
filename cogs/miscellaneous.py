@@ -25,25 +25,25 @@ class Miscellaneous(commands.Cog, name="Miscellaneous"):
         self.cache = {}
         self.wock_headers = {"x-api-key": self.bot.config.get("wock_api")}
         self.rapid_headers = {
-            'x-rapidapi-key': '141e070f61mshebb9f8f7dac8e8fp179694jsnb651b7323525',
-            'x-rapidapi-host': 'twitter241.p.rapidapi.com'
+            'x-rapidapi-key': '',
+            'x-rapidapi-host': ''
         }
-        self.weather_api_key = '985f10d327f3695fa10aab134e0b6391'
-        self.twitch_client_id = 'iijx9qzjllzo68zzxi07plct52ld2m'
-        self.twitch_client_secret = '1fowmpozxd4n6sdhruuhln2knv2rlg'
+        self.weather_api_key = ''
+        self.twitch_client_id = ''
+        self.twitch_client_secret = ''
         self.twitch_access_token = None
         self.twitch_live_cache = {}
-        self.api_key = 'vnPxojTZgUQwtYjMx07ay12aBpceLGALWUy5TggW4GHRTbIGyW'
+        self.api_key = ''
         self.check_twitch_live.start()
         
-        self.spotify_client_id = '90595927739c497889bb248dd3aa422d'
-        self.spotify_client_secret = '5f3629f827b74218af14627dac0daed7'
+        self.spotify_client_id = ''
+        self.spotify_client_secret = ''
         auth_manager = SpotifyClientCredentials(client_id=self.spotify_client_id, client_secret=self.spotify_client_secret)
         self.sp = spotipy.Spotify(auth_manager=auth_manager)
         self.translator = Translator()
         
-        self.tumblr_api_key = 'vnPxojTZgUQwtYjMx07ay12aBpceLGALWUy5TggW4GHRTbIGyW'
-        self.fnbr_key = '816ece3e-a07d-4856-a7de-101b00279ddf'
+        self.tumblr_api_key = ''
+        self.fnbr_key = ''
         self.host_cooldowns = {}
     
     def cog_unload(self):
