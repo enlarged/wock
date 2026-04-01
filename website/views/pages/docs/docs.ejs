@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wock | Docs</title>
+    <link rel="icon" type="image/png" id="favicon" href="/avatar.png" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/css/docs.css?v=20260331a" />
+</head>
+<body>
+
+<header class="topbar">
+    <div class="topbar-inner">
+        <a class="brand" href="/">
+            <img id="brandAvatar" src="/avatar.png" alt="Wock" />
+            <span>Wock</span>
+        </a>
+
+        <nav class="site-nav" aria-label="Main navigation">
+            <a href="/">Home</a>
+            <a href="/commands">Commands</a>
+            <a href="/api">API</a>
+            <a href="/docs" class="active">Docs</a>
+            <a href="/status">Status</a>
+            <a href="/updates">Updates</a>
+            <a href="/gallery">Gallery</a>
+        </nav>
+
+        <div class="page-pill">
+            <i class="fas fa-book"></i>
+            Module Documentation
+        </div>
+    </div>
+</header>
+
+<main class="docs-wrap">
+    <aside class="sidebar">
+        <div class="search-wrapper">
+            <label class="search" for="sidebarSearch">
+                <i class="fas fa-search"></i>
+                <input type="text" id="sidebarSearch" placeholder="Search commands..." oninput="searchCommands()" />
+            </label>
+        </div>
+
+        <div class="nav-label">Modules</div>
+        <button class="nav-link active" onclick="showModule('security', 'Security', 'Protect your server from nukes and raids.', this)"><i class="fa-solid fa-shield-halved"></i>Security</button>
+        <button class="nav-link" onclick="showModule('crypto', 'Crypto', 'Live market data and wallet tracking.', this)"><i class="fa-solid fa-bitcoin-sign"></i>Crypto</button>
+        <button class="nav-link" onclick="showModule('profiles', 'Profiles & FM', 'Social identities and Last.fm integration.', this)"><i class="fa-solid fa-user"></i>Social Hub</button>
+    </aside>
+
+    <section class="main-content">
+        <header class="header">
+            <h1 id="m-title">Security</h1>
+            <p id="m-desc">Protect your server from nukes and raids.</p>
+        </header>
+
+        <section id="security" class="module-section active">
+            <div class="cmd-group">
+                <h2>Antinuke</h2>
+                <div class="cmd-card">
+                    <span class="cmd-name">antinuke enable</span>
+                    <p class="cmd-desc">Activate protection for specific events (e.g. channel deletion) or all at once.</p>
+                    <div class="syntax"><code>,antinuke enable &lt;event | all&gt;</code><button class="copy-btn" type="button" onclick="copy(this)"><i class="fa-regular fa-copy"></i></button></div>
+                </div>
+                <div class="cmd-card">
+                    <span class="cmd-name">antinuke bypass</span>
+                    <p class="cmd-desc">Whitelists a trusted administrator from antinuke triggers.</p>
+                    <div class="syntax"><code>,antinuke bypass @user</code><button class="copy-btn" type="button" onclick="copy(this)"><i class="fa-regular fa-copy"></i></button></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="crypto" class="module-section">
+            <div class="cmd-group">
+                <h2>Market Tracking</h2>
+                <div class="cmd-card">
+                    <span class="cmd-name">crypto price</span>
+                    <p class="cmd-desc">Fetch live price, 24h change, and volume for any ticker.</p>
+                    <div class="syntax"><code>,crypto price &lt;ticker&gt;</code><button class="copy-btn" type="button" onclick="copy(this)"><i class="fa-regular fa-copy"></i></button></div>
+                </div>
+                <div class="cmd-card">
+                    <span class="cmd-name">gas</span>
+                    <p class="cmd-desc">View real-time Ethereum network gas fees.</p>
+                    <div class="syntax"><code>,gas</code><button class="copy-btn" type="button" onclick="copy(this)"><i class="fa-regular fa-copy"></i></button></div>
+                </div>
+            </div>
+            <div class="cmd-group">
+                <h2>On-Chain</h2>
+                <div class="cmd-card">
+                    <span class="cmd-name">wallet balance</span>
+                    <p class="cmd-desc">Check current holdings and value of a public ETH/BTC address.</p>
+                    <div class="syntax"><code>,wallet balance &lt;address&gt;</code><button class="copy-btn" type="button" onclick="copy(this)"><i class="fa-regular fa-copy"></i></button></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="profiles" class="module-section">
+            <div class="cmd-group">
+                <h2>Social Identities</h2>
+                <div class="cmd-card">
+                    <span class="cmd-name">profile create</span>
+                    <p class="cmd-desc">Create your global identity on wock.best directory.</p>
+                    <div class="syntax"><code>,profile create</code><button class="copy-btn" type="button" onclick="copy(this)"><i class="fa-regular fa-copy"></i></button></div>
+                </div>
+                <div class="cmd-card">
+                    <span class="cmd-name">profile bio</span>
+                    <p class="cmd-desc">Update your personal description shown on your profile card.</p>
+                    <div class="syntax"><code>,profile bio &lt;text&gt;</code><button class="copy-btn" type="button" onclick="copy(this)"><i class="fa-regular fa-copy"></i></button></div>
+                </div>
+            </div>
+            <div class="cmd-group">
+                <h2>Music (Last.fm)</h2>
+                <div class="cmd-card">
+                    <span class="cmd-name">nowplaying</span>
+                    <p class="cmd-desc">Display the track you are currently listening to.</p>
+                    <div class="syntax"><code>,np</code><button class="copy-btn" type="button" onclick="copy(this)"><i class="fa-regular fa-copy"></i></button></div>
+                </div>
+                <div class="cmd-card">
+                    <span class="cmd-name">lf set</span>
+                    <p class="cmd-desc">Connect your Last.fm username to your Discord account.</p>
+                    <div class="syntax"><code>,lf set &lt;username&gt;</code><button class="copy-btn" type="button" onclick="copy(this)"><i class="fa-regular fa-copy"></i></button></div>
+                </div>
+            </div>
+        </section>
+    </section>
+</main>
+
+<footer class="site-footer">
+    <div class="footer-inner">
+        <div class="footer-brand">
+            <a href="/" class="footer-logo">
+                <img id="footerAvatar" src="/avatar.png" alt="Wock" />
+                <span>Wock</span>
+            </a>
+            <p>The all-in-one Discord bot for moderation, utility, and more.</p>
+        </div>
+
+        <div class="footer-col">
+            <h4>Support</h4>
+            <a href="/docs">Documentation</a>
+            <a href="https://discord.gg/wockbot" target="_blank" rel="noopener">Support Server</a>
+            <a href="/privacy">Privacy Policy</a>
+            <a href="/terms">Terms of Service</a>
+        </div>
+
+        <div class="footer-col">
+            <h4>Community</h4>
+            <div class="footer-socials">
+                <a href="https://discord.gg/wockbot" target="_blank" rel="noopener" aria-label="Discord"><i class="fab fa-discord"></i></a>
+                <a href="https://github.com/enlarged" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        <span>© 2026 wock.best. All rights reserved.</span>
+    </div>
+</footer>
+
+<script>
+    function showModule(id, title, desc, btn) {
+        document.querySelectorAll('.module-section').forEach(s => s.classList.remove('active'));
+        document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+        
+        document.getElementById(id).classList.add('active');
+        document.getElementById('m-title').innerText = title;
+        document.getElementById('m-desc').innerText = desc;
+        
+        if (btn) btn.classList.add('active');
+        const scroller = document.querySelector('.main-content');
+        if (scroller) scroller.scrollTop = 0;
+    }
+
+    function searchCommands() {
+        const query = document.getElementById('sidebarSearch').value.toLowerCase();
+        const cards = document.querySelectorAll('.cmd-card');
+        const sections = document.querySelectorAll('.module-section');
+        const navLinks = document.querySelectorAll('.nav-link');
+        
+        if (query === "") {
+            sections.forEach(s => s.style.display = "");
+            cards.forEach(c => c.style.display = "");
+
+            const active = document.querySelector('.nav-link.active');
+            if (!active) {
+                navLinks[0]?.classList.add('active');
+                showModule('security', 'Security', 'Protect your server from nukes and raids.', navLinks[0]);
+            }
+            return;
+        }
+
+        navLinks.forEach(l => l.classList.remove('active'));
+        sections.forEach(s => {
+            const sectionCards = s.querySelectorAll('.cmd-card');
+            let hasMatch = false;
+            
+            sectionCards.forEach(c => {
+                const text = c.innerText.toLowerCase();
+                if (text.includes(query)) {
+                    c.style.display = "block";
+                    hasMatch = true;
+                } else {
+                    c.style.display = "none";
+                }
+            });
+
+            s.style.display = hasMatch ? "block" : "none";
+        });
+    }
+
+    function copy(btn) {
+        const icon = btn.querySelector('i');
+        const text = btn.parentElement.querySelector('code').innerText;
+        navigator.clipboard.writeText(text);
+
+        icon.classList.replace('fa-regular', 'fa-solid');
+        icon.classList.replace('fa-copy', 'fa-check');
+
+        setTimeout(() => {
+            icon.classList.replace('fa-solid', 'fa-regular');
+            icon.classList.replace('fa-check', 'fa-copy');
+        }, 1500);
+    }
+
+    async function refreshBranding() {
+        try {
+            const res = await fetch('/api/stats');
+            const data = await res.json();
+            if (!data.avatar) return;
+            document.getElementById('favicon').href = data.avatar;
+            const brand = document.getElementById('brandAvatar');
+            const footer = document.getElementById('footerAvatar');
+            if (brand) brand.src = data.avatar;
+            if (footer) footer.src = data.avatar;
+        } catch (_) {}
+    }
+
+    refreshBranding();
+</script>
+
+</body>
+</html>

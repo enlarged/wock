@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wock | Commands</title>
+    <link rel="icon" type="image/png" href="/avatar.png" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/css/commands.css?v=20260331d" />
+</head>
+<body>
+    <header class="topbar">
+        <div class="topbar-inner">
+            <a class="brand" href="/">
+                <img src="/avatar.png" alt="Wock" />
+                <span>Wock</span>
+            </a>
+
+            <nav class="site-nav" aria-label="Main navigation">
+                <a href="/">Home</a>
+                <a href="/commands" class="active">Commands</a>
+                <a href="/api">API</a>
+                <a href="/docs">Docs</a>
+                <a href="/status">Status</a>
+                <a href="/updates">Updates</a>
+                <a href="/gallery">Gallery</a>
+            </nav>
+
+            <div class="nav-select" id="navSelect">
+                <button class="top-pill" id="moduleToggle" type="button" aria-haspopup="listbox" aria-expanded="false">
+                    <span id="moduleToggleLabel">Commands</span>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="module-menu" id="moduleMenu" role="listbox" aria-label="Modules"></div>
+            </div>
+        </div>
+    </header>
+
+    <div class="app-shell">
+        <aside class="dock" id="moduleDock">
+            <a href="/" class="dock-logo" title="Home">
+                <img src="/avatar.png" alt="Wock" />
+            </a>
+            <div class="dock-items" id="dockItems"></div>
+        </aside>
+
+        <main class="content">
+            <section class="title-row">
+                <div class="title-wrap">
+                    <div class="title-icon"><i id="currentIcon" class="fas fa-terminal"></i></div>
+                    <div>
+                        <h1 id="categoryName">Commands</h1>
+                        <p id="commandCount">0 commands</p>
+                    </div>
+                </div>
+
+                <label class="search" for="commandSearch">
+                    <i class="fas fa-search"></i>
+                    <input id="commandSearch" type="text" placeholder="Search commands..." autocomplete="off" />
+                </label>
+            </section>
+
+            <section class="commands-grid" id="commandsGrid"></section>
+        </main>
+    </div>
+
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <a href="/" class="footer-logo">
+                    <img src="/avatar.png" alt="Wock" />
+                    <span>Wock</span>
+                </a>
+                <p>The all-in-one Discord bot for moderation, utility, and more.</p>
+            </div>
+
+            <div class="footer-col">
+                <h4>Support</h4>
+                <a href="/docs">Documentation</a>
+                <a href="https://discord.gg/wockbot" target="_blank" rel="noopener">Support Server</a>
+                <a href="/privacy">Privacy Policy</a>
+                <a href="/terms">Terms of Service</a>
+            </div>
+
+            <div class="footer-col">
+                <h4>Community</h4>
+                <div class="footer-socials">
+                    <a href="https://discord.gg/wockbot" target="_blank" rel="noopener" aria-label="Discord"><i class="fab fa-discord"></i></a>
+                    <a href="https://github.com/enlarged" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <span>© 2026 wock.best. All rights reserved.</span>
+        </div>
+    </footer>
+
+    <script src="/js/commands.js?v=20260330c" defer></script>
+</body>
+</html>

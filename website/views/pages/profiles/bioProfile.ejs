@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= profile.username %> | wock.best</title>
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+          crossorigin="anonymous"
+          referrerpolicy="no-referrer" />
+
+    <style>
+        :root {
+            --bg-dark: #050505;
+            --text-main: #ffffff;
+            --text-dim: #a0a0a0;
+            --lfm-red: #d31f27;
+            --glass: rgba(0, 0, 0, 0.55);
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body, html {
+            height: 100%;
+            width: 100%;
+            background-color: var(--bg-dark);
+            font-family: 'Inter', 'Segoe UI', sans-serif;
+            color: var(--text-main);
+            overflow-y: auto; 
+            overflow-x: hidden;
+        }
+
+        .background-blur {
+            position: fixed;
+            inset: 0;
+            background-image: url('<%= profile.backgroundUrl || profile.avatarUrl %>');
+            background-size: cover;
+            background-position: center;
+            filter: blur(30px) brightness(0.3);
+            transform: scale(1.15);
+            z-index: -1;
+            transition: background-image 0.6s ease-in-out;
+        }
+
+        /* Flex Wrapper for Centering & Scrolling */
+        .main-wrapper {
+            min-height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+        }
+
+        /* Profile Card */
+        .profile-card {
+            width: 100%;
+            max-width: 380px;
+            text-align: center;
+            padding: 30px 20px;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 24px;
+            animation: fadeIn 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+        }
+
+        .avatar {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 15px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+        }
+
+        .username {
+            font-size: 22px;
+            font-weight: 800;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            letter-spacing: -0.5px;
+        }
+
+        .description {
+            color: var(--text-dim);
+            font-size: 14px;
+            margin: 10px 0 20px;
+            line-height: 1.6;
+            word-wrap: break-word;
+        }
+
+        /* Widgets */
+        .widget-area {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .lastfm-container {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 16px;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-align: left;
+        }
+
+        .lastfm-art {
+            width: 44px;
+            height: 44px;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+
+        .lastfm-details { flex: 1; overflow: hidden; }
+
+        .status-badge {
+            font-size: 9px;
+            text-transform: uppercase;
+            font-weight: 800;
+            color: var(--lfm-red);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-bottom: 2px;
+            letter-spacing: 0.5px;
+        }
+
+        .pulse {
+            width: 6px;
+            height: 6px;
+            background-color: var(--lfm-red);
+            border-radius: 50%;
+            animation: pulse-red 1.5s infinite;
+        }
+
+        .track-name {
+            font-size: 13px;
+            font-weight: 700;
+            display: block;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .artist-name { font-size: 11px; color: var(--text-dim); }
+
+        .view-counter {
+            font-size: 10px;
+            color: var(--text-dim);
+            margin-top: 25px;
+            opacity: 0.4;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 600;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95) translateY(10px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        @keyframes pulse-red {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(211, 31, 39, 0.6); }
+            70% { transform: scale(1); box-shadow: 0 0 0 5px rgba(211, 31, 39, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(211, 31, 39, 0); }
+        }
+
+        /* Mobile specific tweaks */
+        @media (max-width: 480px) {
+            .profile-card { padding: 25px 15px; border-radius: 20px; }
+            .username { font-size: 20px; }
+            .description { font-size: 13.5px; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="background-blur"></div>
+
+    <div class="main-wrapper">
+        <div class="profile-card">
+            <img src="<%= profile.avatarUrl || 'https://cdn.discordapp.com/embed/avatars/0.png' %>" class="avatar" alt="Avatar">
+
+            <h1 class="username" style="color: <%= profile.usernameColor || '#ffffff' %>;">
+                @<%= profile.username %>
+                <i class="fas fa-check-circle" style="color:#3897f0;font-size:15px;" title="Verified"></i>
+            </h1>
+
+            <p class="description">
+                <%= profile.description || "welcome to my profile" %>
+            </p>
+
+            <div class="widget-area">
+                <% if (locals.lastfmData) { 
+                    const isNowPlaying = lastfmData['@attr'] && lastfmData['@attr'].nowplaying;
+                %>
+                    <div class="lastfm-container">
+                        <img src="<%= lastfmData.image[2]['#text'] || 'https://www.last.fm/static/images/lastfm_avatar_twitter.66cd2c90961a.png' %>" class="lastfm-art">
+                        <div class="lastfm-details">
+                            <div class="status-badge">
+                                <% if (isNowPlaying) { %><div class="pulse"></div><% } %>
+                                <i class="fab fa-lastfm"></i> 
+                                <%= isNowPlaying ? 'Now Playing' : 'Last Played' %>
+                            </div>
+                            <span class="track-name"><%= lastfmData.name %></span>
+                            <span class="artist-name"><%= lastfmData.artist['#text'] %></span>
+                        </div>
+                    </div>
+                <% } else if (profile.spotifyTrackId) { %>
+                    <div style="border-radius: 14px; overflow: hidden; height: 80px;">
+                        <iframe
+                            src="https://open.spotify.com/embed/track/<%= profile.spotifyTrackId.replace('spotify:track:', '') %>"
+                            width="100%"
+                            height="80"
+                            frameborder="0"
+                            allow="autoplay; encrypted-media; clipboard-write; picture-in-picture">
+                        </iframe>
+                    </div>
+                <% } %>
+            </div>
+
+            <div class="view-counter">
+                <i class="far fa-eye"></i> <%= (profile.views || 0).toLocaleString() %> Views
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

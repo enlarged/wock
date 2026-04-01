@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wock | Status</title>
+    <link rel="icon" type="image/png" id="favicon" href="/avatar.png" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/css/status.css?v=20260331b" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <header class="topbar">
+        <div class="topbar-inner">
+            <a class="brand" href="/">
+                <img id="brandAvatar" src="/avatar.png" alt="Wock" />
+                <span>Wock</span>
+            </a>
+
+            <nav class="site-nav" aria-label="Main navigation">
+                <a href="/">Home</a>
+                <a href="/commands">Commands</a>
+                <a href="/api">API</a>
+                <a href="/docs">Docs</a>
+                <a href="/status" class="active">Status</a>
+                <a href="/updates">Updates</a>
+                <a href="/gallery">Gallery</a>
+            </nav>
+
+            <div class="page-pill">
+                <i class="fas fa-signal"></i>
+                Live Telemetry
+            </div>
+        </div>
+    </header>
+
+    <main class="status-wrap">
+        <section class="status-hero">
+            <h1>System Status</h1>
+            <p>Live uptime, latency, and shard health across the network.</p>
+        </section>
+
+        <section class="stats-grid">
+            <article class="stat-card">
+                <div class="stat-label">Current Ping</div>
+                <div class="stat-value" id="ping">--ms</div>
+            </article>
+            <article class="stat-card">
+                <div class="stat-label">RAM Usage</div>
+                <div class="stat-value" id="memory">--MB</div>
+            </article>
+            <article class="stat-card">
+                <div class="stat-label">Guilds</div>
+                <div class="stat-value" id="guilds">--</div>
+            </article>
+            <article class="stat-card">
+                <div class="stat-label">Uptime</div>
+                <div class="stat-value" id="uptime">--</div>
+            </article>
+        </section>
+
+        <section class="charts-grid">
+            <article class="chart-card">
+                <h3 class="chart-title">Ping</h3>
+                <canvas id="pingChart"></canvas>
+            </article>
+            <article class="chart-card">
+                <h3 class="chart-title">Memory</h3>
+                <canvas id="memChart"></canvas>
+            </article>
+        </section>
+
+        <h2 class="section-title">Shard Index</h2>
+        <section class="shard-grid" id="shardGrid"></section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <a href="/" class="footer-logo">
+                    <img src="/avatar.png" alt="Wock" />
+                    <span>Wock</span>
+                </a>
+                <p>The all-in-one Discord bot for moderation, utility, and more.</p>
+            </div>
+
+            <div class="footer-col">
+                <h4>Support</h4>
+                <a href="/docs">Documentation</a>
+                <a href="https://discord.gg/wockbot" target="_blank" rel="noopener">Support Server</a>
+                <a href="/privacy">Privacy Policy</a>
+                <a href="/terms">Terms of Service</a>
+            </div>
+
+            <div class="footer-col">
+                <h4>Community</h4>
+                <div class="footer-socials">
+                    <a href="https://discord.gg/wockbot" target="_blank" rel="noopener" aria-label="Discord"><i class="fab fa-discord"></i></a>
+                    <a href="https://github.com/enlarged" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <span>© 2026 wock.best. All rights reserved.</span>
+        </div>
+    </footer>
+
+    <script>
+        const chartOptions = {
+            responsive: true,
+            maintainAspectRatio: false,
+            elements: {
+                line: { tension: 0.35, borderWidth: 2 },
+                point: { radius: 0 },
+            },
+            scales: {
+                x: { display: false },
+                y: {
+                    grid: { color: 'rgba(255,255,255,0.06)' },
+                    ticks: { color: '#6f7788', font: { size: 10, family: 'JetBrains Mono' } },
+                },
+            },
+            plugins: { legend: { display: false } },
+        };
+
+        const pingCtx = document.getElementById('pingChart').getContext('2d');
+        const memCtx = document.getElementById('memChart').getContext('2d');
+
+        const pingChart = new Chart(pingCtx, {
+            type: 'line',
+            data: {
+                labels: Array(20).fill(''),
+                datasets: [{
+                    label: 'Ping',
+                    data: [],
+                    borderColor: '#cfd8ff',
+                    fill: true,
+                    backgroundColor: 'rgba(207, 216, 255, 0.08)',
+                }],
+            },
+            options: chartOptions,
+        });
+
+        const memChart = new Chart(memCtx, {
+            type: 'line',
+            data: {
+                labels: Array(20).fill(''),
+                datasets: [{
+                    label: 'Memory',
+                    data: [],
+                    borderColor: '#9aa6cf',
+                    fill: true,
+                    backgroundColor: 'rgba(154, 166, 207, 0.08)',
+                }],
+            },
+            options: chartOptions,
+        });
+
+        function formatUptime(seconds) {
+            if (!seconds || Number.isNaN(seconds)) return '0h 0m';
+            const h = Math.floor(seconds / 3600);
+            const m = Math.floor((seconds % 3600) / 60);
+            return `${h}h ${m}m`;
+        }
+
+        function updateChart(chart, newValue) {
+            chart.data.datasets[0].data.push(newValue);
+            if (chart.data.datasets[0].data.length > 20) chart.data.datasets[0].data.shift();
+            chart.update('none');
+        }
+
+        function renderShards(shards) {
+            const shardContainer = document.getElementById('shardGrid');
+
+            if (!Array.isArray(shards) || !shards.length) {
+                shardContainer.innerHTML = '<article class="shard-card">No shard data available.</article>';
+                return;
+            }
+
+            shardContainer.innerHTML = shards
+                .map((shard) => {
+                    const isOnline = String(shard.status || '').toLowerCase() === 'operational';
+                    return `
+                        <article class="shard-card">
+                            <div class="shard-head">
+                                <span class="shard-id">Node ${String(shard.id ?? 0).padStart(2, '0')}</span>
+                                <span class="shard-status ${isOnline ? 'ok' : 'bad'}">${shard.status || 'Unknown'}</span>
+                            </div>
+                            <div class="shard-info">
+                                <div class="info-box"><label>Latency</label><span>${shard.ping ?? 0}ms</span></div>
+                                <div class="info-box"><label>Uptime</label><span>${formatUptime(shard.uptime)}</span></div>
+                                <div class="info-box"><label>Guilds</label><span>${Number(shard.guilds || 0).toLocaleString()}</span></div>
+                                <div class="info-box"><label>Users</label><span>${Number(shard.users || 0).toLocaleString()}</span></div>
+                            </div>
+                        </article>
+                    `;
+                })
+                .join('');
+        }
+
+        async function refreshStats() {
+            try {
+                const res = await fetch('/api/stats');
+                const data = await res.json();
+
+                if (data.avatar) {
+                    document.getElementById('favicon').href = data.avatar;
+                    const avatar = document.getElementById('brandAvatar');
+                    if (avatar) avatar.src = data.avatar;
+                }
+
+                document.getElementById('uptime').innerText = formatUptime(data.uptime);
+                document.getElementById('ping').innerText = `${data.ping ?? 0}ms`;
+                document.getElementById('memory').innerText = `${data.memory ?? 0}MB`;
+                document.getElementById('guilds').innerText = Number(data.guilds || 0).toLocaleString();
+
+                updateChart(pingChart, Number(data.ping || 0));
+                updateChart(memChart, Number(data.memory || 0));
+
+                renderShards(data.shards || []);
+            } catch (_) {}
+        }
+
+        refreshStats();
+        setInterval(refreshStats, 10000);
+    </script>
+</body>
+</html>

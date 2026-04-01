@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Wock | Image Host</title>
+    <link rel="icon" type="image/png" id="favicon" href="/avatar.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-deep: #030303;
+            --card-bg: rgba(10, 10, 10, 0.6);
+            --border: rgba(255, 255, 255, 0.05);
+            --accent: #ffffff;
+            --text-main: #eeeeee;
+            --text-dim: #666666;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-font-smoothing: antialiased; }
+        
+        body { 
+            background-color: var(--bg-deep); 
+            font-family: 'Inter', sans-serif; 
+            color: var(--text-main); 
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+            min-height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* --- Galaxy Swirl Background --- */
+        body::before {
+            content: ""; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+            background: radial-gradient(circle at center, #0e0e15 0%, #050508 40%, #030303 100%);
+            z-index: -1; animation: swirl 30s linear infinite;
+        }
+        @keyframes swirl { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+        /* --- Navigation Pill --- */
+        .nav-wrapper { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); z-index: 4000; }
+        .dropdown { position: relative; }
+        .dropbtn {
+            background: rgba(10, 10, 10, 0.95); backdrop-filter: blur(12px); border: 1px solid var(--border);
+            padding: 10px 18px; border-radius: 100px; color: #fff; display: flex; align-items: center; gap: 12px; cursor: pointer;
+        }
+        .dropbtn img { width: 20px; height: 20px; border-radius: 50%; }
+        .dropdown-content {
+            display: none; position: absolute; top: 50px; left: 50%; transform: translateX(-50%);
+            background: #0a0a0a; border: 1px solid var(--border); min-width: 220px; border-radius: 14px; padding: 8px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.8);
+        }
+        .dropdown:hover .dropdown-content { display: block; }
+        .dropdown-content a { 
+            color: var(--text-dim); padding: 12px 14px; text-decoration: none; display: flex; 
+            align-items: center; gap: 12px; font-size: 13px; border-radius: 10px; transition: 0.2s;
+        }
+        .dropdown-content a:hover { background: rgba(255,255,255,0.04); color: #fff; }
+
+        /* --- Host UI --- */
+        .host-container { width: 100%; max-width: 500px; padding: 20px; text-align: center; z-index: 10; }
+
+        .header-section { margin-bottom: 40px; }
+        .header-section h1 { font-size: 36px; font-weight: 800; letter-spacing: -2px; }
+        .header-section span { opacity: 0.4; font-weight: 400; }
+
+        .upload-box {
+            background: var(--card-bg);
+            border: 1px dashed var(--border);
+            border-radius: 32px;
+            padding: 70px 40px;
+            cursor: pointer;
+            transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(12px);
+            position: relative;
+        }
+
+        .upload-box.disabled { pointer-events: none; opacity: 0.5; border-style: solid; }
+        .upload-box:hover { border-color: rgba(255,255,255,0.2); transform: translateY(-5px); background: rgba(255,255,255,0.02); }
+
+        .upload-box i { font-size: 44px; color: #fff; margin-bottom: 25px; opacity: 0.8; }
+        .upload-box h2 { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
+        .upload-box p { color: var(--text-dim); font-size: 13px; letter-spacing: 0.5px; }
+
+        #resultArea {
+            margin-top: 30px;
+            display: none;
+            animation: slideUp 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .url-input-group {
+            display: flex; background: rgba(0,0,0,0.4); border: 1px solid var(--border);
+            border-radius: 16px; overflow: hidden; padding: 6px; backdrop-filter: blur(10px);
+        }
+
+        .url-input-group input {
+            flex: 1; background: transparent; border: none; color: #fff;
+            padding: 12px 18px; font-family: var(--font-mono); font-size: 13px; outline: none;
+        }
+
+        .copy-btn {
+            background: #fff; color: #000; border: none; padding: 0 24px;
+            border-radius: 12px; font-weight: 800; font-size: 12px; cursor: pointer; transition: 0.2s;
+        }
+        .copy-btn:hover { transform: scale(1.03); filter: brightness(0.9); }
+
+        .footer-links { margin-top: 40px; display: flex; justify-content: center; gap: 20px; }
+        .footer-links a {
+            color: var(--text-dim); text-decoration: none; font-size: 12px; font-weight: 600;
+            transition: 0.2s; display: flex; align-items: center; gap: 8px;
+        }
+        .footer-links a:hover { color: #fff; }
+
+        /* Loader */
+        .loader {
+            display: none; width: 40px; height: 40px; border: 3px solid rgba(255,255,255,0.05);
+            border-radius: 50%; border-top-color: #fff; animation: spin 0.8s linear infinite;
+            margin: 30px auto;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+    </style>
+</head>
+<body>
+
+    <div class="nav-wrapper">
+        <div class="dropdown">
+            <button class="dropbtn">
+                <img id="navAvatar" src="/logo.png" alt="">
+                <span>Image Host</span>
+                <i class="fas fa-chevron-down" style="font-size: 10px; opacity: 0.5;"></i>
+            </button>
+            <div class="dropdown-content">
+                <a href="/"><i class="fas fa-home"></i> Home</a>
+                <a href="/uploads"><i class="fas fa-images"></i> Gallery</a>
+                <a href="/embed"><i class="fas fa-code"></i> Builder</a>
+                <a href="/status"><i class="fas fa-signal"></i> Status</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="host-container">
+        <div class="header-section">
+            <h1>Wock <span>CDN</span></h1>
+        </div>
+        
+        <div class="upload-box" id="dropZone" onclick="document.getElementById('fileInput').click()">
+            <i class="fas fa-arrow-up-from-bracket"></i>
+            <h2 id="statusTitle">Select Assets</h2>
+            <p id="statusDesc">PNG, JPG, GIF, or WEBP</p>
+            <input type="file" id="fileInput" hidden accept="image/*">
+        </div>
+
+        <div class="loader" id="loader"></div>
+
+        <div id="resultArea">
+            <p style="font-size: 10px; color: var(--text-dim); text-align: left; margin-bottom: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; padding-left: 5px;">Storage URL</p>
+            <div class="url-input-group">
+                <input type="text" id="rawUrl" readonly>
+                <button class="copy-btn" onclick="copyUrl()">Copy</button>
+            </div>
+        </div>
+
+        <div class="footer-links">
+            <a href="/uploads"><i class="fas fa-folder-open"></i> Local Gallery</a>
+            <a href="https://discord.gg/wockbot" target="_blank"><i class="fab fa-discord"></i> Support</a>
+        </div>
+    </div>
+
+    <script>
+        const fileInput = document.getElementById('fileInput');
+        const dropZone = document.getElementById('dropZone');
+        const loader = document.getElementById('loader');
+        const resultArea = document.getElementById('resultArea');
+        const rawUrl = document.getElementById('rawUrl');
+        const statusTitle = document.getElementById('statusTitle');
+        const statusDesc = document.getElementById('statusDesc');
+
+        function resetUI() {
+            loader.style.display = 'none';
+            dropZone.style.display = 'block';
+            dropZone.classList.remove('disabled');
+            statusTitle.innerText = "Select Assets";
+            statusDesc.innerText = "PNG, JPG, GIF, or WEBP";
+        }
+
+        fileInput.onchange = async () => {
+            if (fileInput.files.length === 0) return;
+            
+            dropZone.classList.add('disabled');
+            statusTitle.innerText = "Processing...";
+            statusDesc.innerText = "Syncing with Catbox Protocol";
+            loader.style.display = 'block';
+            resultArea.style.display = 'none';
+
+            const formData = new FormData();
+            formData.append('file', fileInput.files[0]);
+
+            try {
+                const response = await fetch('/api/upload', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const data = await response.json();
+                
+                if (response.status === 429) {
+                    alert(data.error || "Rate limit reached. Wait 5 seconds.");
+                    resetUI();
+                    return;
+                }
+
+                if (!response.ok) throw new Error(data.error || "Network failure");
+
+                if (data.url) {
+                    rawUrl.value = data.url;
+                    loader.style.display = 'none';
+                    resultArea.style.display = 'block';
+                    statusTitle.innerText = "Asset Synced";
+                    statusDesc.innerText = "Click to upload another";
+                    dropZone.classList.remove('disabled');
+                }
+            } catch (err) {
+                alert("Critical Error: " + err.message);
+                resetUI();
+            }
+        };
+
+        function copyUrl() {
+            rawUrl.select();
+            document.execCommand('copy');
+            const btn = document.querySelector('.copy-btn');
+            btn.innerText = "Copied";
+            setTimeout(() => btn.innerText = "Copy", 2000);
+        }
+
+        dropZone.ondragover = (e) => { e.preventDefault(); dropZone.style.borderColor = "#fff"; };
+        dropZone.ondragleave = () => { dropZone.style.borderColor = "rgba(255,255,255,0.05)"; };
+        dropZone.ondrop = (e) => {
+            e.preventDefault();
+            if (dropZone.classList.contains('disabled')) return;
+            fileInput.files = e.dataTransfer.files;
+            fileInput.onchange();
+        };
+
+        async function syncIcon() {
+            try {
+                const res = await fetch('/api/stats');
+                const data = await res.json();
+                if(data.avatar) document.getElementById('navAvatar').src = data.avatar;
+            } catch(e) {}
+        }
+        syncIcon();
+    </script>
+</body>
+</html>

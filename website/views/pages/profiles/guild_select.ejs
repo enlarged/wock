@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Wock | Select Server</title>
+    <link rel="icon" type="image/png" id="favicon" href="/avatar.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-deep: #030303;
+            --sidebar-glass: rgba(10, 10, 12, 0.9);
+            --card-bg: rgba(10, 10, 10, 0.6);
+            --border: rgba(255, 255, 255, 0.05);
+            --accent: #ffffff;
+            --text-main: #eeeeee;
+            --text-dim: #666666;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-font-smoothing: antialiased; }
+        body { 
+            background-color: var(--bg-deep); 
+            font-family: 'Inter', sans-serif; 
+            color: var(--text-main); 
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* --- Galaxy Swirl --- */
+        body::before {
+            content: ""; position: fixed; top: -50%; left: -50%; width: 200%; height: 200%;
+            background: radial-gradient(circle at center, #0e0e15 0%, #050508 40%, #030303 100%);
+            z-index: -1; animation: swirl 30s linear infinite;
+        }
+        @keyframes swirl { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+        /* --- Navigation & User UI --- */
+        .nav-wrapper { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); z-index: 4000; }
+        .dropdown { position: relative; }
+        .dropbtn {
+            background: rgba(10, 10, 10, 0.95); backdrop-filter: blur(12px); border: 1px solid var(--border);
+            padding: 10px 18px; border-radius: 100px; color: #fff; display: flex; align-items: center; gap: 12px; cursor: pointer;
+        }
+        .dropbtn img { width: 20px; height: 20px; border-radius: 50%; }
+        
+        .user-auth-pill {
+            position: fixed; top: 20px; right: 30px; z-index: 4000;
+            background: rgba(10, 10, 10, 0.8); backdrop-filter: blur(10px); border: 1px solid var(--border);
+            padding: 6px 14px 6px 6px; border-radius: 100px; display: flex; align-items: center; gap: 10px;
+        }
+        .user-auth-pill img { width: 30px; height: 30px; border-radius: 50%; border: 1px solid var(--border); }
+        .user-auth-pill span { font-size: 13px; font-weight: 700; color: #fff; }
+
+        /* --- Header Section --- */
+        .header { text-align: center; margin: 140px 0 50px; z-index: 5; }
+        .header h1 { font-size: 2.8rem; font-weight: 800; letter-spacing: -2px; margin-bottom: 10px; }
+        .header p { color: var(--text-dim); font-size: 15px; }
+
+        /* --- Search Bar --- */
+        .search-container {
+            width: 100%; max-width: 440px; margin-bottom: 60px; position: relative; z-index: 5;
+        }
+        .search-container i { position: absolute; left: 20px; top: 50%; transform: translateY(-50%); color: var(--text-dim); font-size: 14px; }
+        .search-input {
+            width: 100%; background: var(--card-bg); border: 1px solid var(--border);
+            padding: 16px 16px 16px 50px; border-radius: 16px; color: #fff;
+            font-family: var(--font-mono); font-size: 13px; outline: none; transition: 0.2s;
+            backdrop-filter: blur(10px);
+        }
+        .search-input:focus { border-color: rgba(255,255,255,0.2); background: rgba(0,0,0,0.5); }
+
+        /* --- Guild Grid --- */
+        .guild-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            width: 100%;
+            max-width: 1100px;
+            padding: 0 20px;
+            z-index: 5;
+        }
+
+        .guild-card {
+            background: var(--card-bg); border: 1px solid var(--border);
+            border-radius: 28px; padding: 32px; text-align: center;
+            transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex; flex-direction: column; align-items: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .guild-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(255,255,255,0.15);
+            background: rgba(255,255,255,0.03);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.4);
+        }
+
+        .icon-wrapper { width: 90px; height: 90px; margin-bottom: 24px; position: relative; }
+        .guild-icon {
+            width: 100%; height: 100%; border-radius: 28px;
+            object-fit: cover; border: 1px solid var(--border); background: #111;
+        }
+
+        .no-icon {
+            width: 100%; height: 100%; border-radius: 28px; background: rgba(255,255,255,0.02);
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 800; color: var(--text-dim); font-size: 24px; border: 1px solid var(--border);
+        }
+
+        .guild-name {
+            font-size: 16px; font-weight: 700; margin-bottom: 25px;
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 100%;
+            color: #fff;
+        }
+
+        /* --- Buttons --- */
+        .btn {
+            display: block; width: 100%; padding: 14px; border-radius: 14px;
+            text-decoration: none; font-size: 13px; font-weight: 800; transition: 0.2s;
+            text-align: center; border: none; cursor: pointer;
+        }
+
+        .btn-manage { background: #fff; color: #000; }
+        .btn-manage:hover { transform: scale(1.02); }
+
+        .btn-invite { background: rgba(255,255,255,0.03); color: #fff; border: 1px solid var(--border); }
+        .btn-invite:hover { background: rgba(255,255,255,0.08); }
+
+        #no-results { display: none; text-align: center; color: var(--text-dim); margin-top: 50px; z-index: 5; }
+
+        @media (max-width: 768px) {
+            .header h1 { font-size: 2rem; }
+            .user-auth-pill { top: auto; bottom: 20px; right: 50%; transform: translateX(50%); padding: 8px 20px; }
+            .guild-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="nav-wrapper">
+        <div class="dropdown">
+            <button class="dropbtn">
+                <img id="navAvatar" src="/logo.png" alt="">
+                <span>Guild Selector</span>
+                <i class="fas fa-chevron-down" style="font-size: 10px; opacity: 0.5;"></i>
+            </button>
+        </div>
+    </div>
+
+    <div class="user-auth-pill">
+        <img src="https://cdn.discordapp.com/avatars/<%= user.id %>/<%= user.avatar %>.png" onerror="this.src='/logo.png'" alt="">
+        <span><%= user.username %></span>
+    </div>
+
+    <header class="header">
+        <h1>Authorize Access</h1>
+        <p>Select a server to initialize management tools.</p>
+    </header>
+
+    <div class="search-container">
+        <i class="fas fa-search"></i>
+        <input type="text" id="guildSearch" class="search-input" placeholder="Filter servers...">
+    </div>
+
+    <div class="guild-grid" id="guildGrid">
+        <% guilds.forEach(guild => { %>
+            <div class="guild-card" data-name="<%= guild.name.toLowerCase() %>">
+                <div class="icon-wrapper">
+                    <% if (guild.icon) { %>
+                        <img class="guild-icon" src="https://cdn.discordapp.com/icons/<%= guild.id %>/<%= guild.icon %>.png" alt="">
+                    <% } else { %>
+                        <div class="no-icon"><%= guild.name.split(' ').map(x => x[0]).join('').slice(0, 2).toUpperCase() %></div>
+                    <% } %>
+                </div>
+                
+                <div class="guild-name"><%= guild.name %></div>
+
+                <% if (guild.botPresent) { %>
+                    <a href="/dashboard/<%= guild.id %>" class="btn btn-manage">Open Dashboard</a>
+                <% } else { %>
+                    <a href="https://discord.com/api/oauth2/authorize?client_id=YOUR_CLIENT_ID&permissions=8&scope=bot%20applications.commands&guild_id=<%= guild.id %>" class="btn btn-invite">Add Wock</a>
+                <% } %>
+            </div>
+        <% }) %>
+    </div>
+
+    <div id="no-results">
+        <i class="fas fa-search" style="font-size: 30px; margin-bottom: 15px; opacity: 0.2;"></i>
+        <p>No matching clusters found.</p>
+    </div>
+
+    <footer style="margin: 100px 0 40px; color: var(--text-dim); font-size: 11px; text-align: center; font-family: var(--font-mono); text-transform: uppercase; letter-spacing: 1px;">
+        Protocol WOCK &bull; v1.4.2-STABLE
+    </footer>
+
+    <script>
+        const searchInput = document.getElementById('guildSearch');
+        const noResults = document.getElementById('no-results');
+        const cards = document.querySelectorAll('.guild-card');
+
+        searchInput.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase();
+            let hasVisible = false;
+
+            cards.forEach(card => {
+                const name = card.getAttribute('data-name');
+                if (name.includes(query)) {
+                    card.style.display = 'flex';
+                    hasVisible = true;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            noResults.style.display = hasVisible ? 'none' : 'block';
+        });
+
+        async function syncBotIcon() {
+            try {
+                const res = await fetch('/api/stats');
+                const data = await res.json();
+                if(data.avatar) document.getElementById('navAvatar').src = data.avatar;
+            } catch(e) {}
+        }
+        syncBotIcon();
+    </script>
+</body>
+</html>

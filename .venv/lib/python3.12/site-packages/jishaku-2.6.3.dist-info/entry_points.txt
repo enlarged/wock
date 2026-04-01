@@ -1,0 +1,2 @@
+[console_scripts]
+jishaku = jishaku.__main__:entrypoint

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Wock | <%= errorCode %></title>
+    <link rel="icon" type="image/png" id="favicon" href="/avatar.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/error.css?v=20260331a" />
+</head>
+<body>
+
+    <header class="topbar">
+        <div class="topbar-inner">
+            <a class="brand" href="/">
+                <img id="brandAvatar" src="/avatar.png" alt="Wock" />
+                <span>Wock</span>
+            </a>
+
+            <nav class="site-nav" aria-label="Main navigation">
+                <a href="/">Home</a>
+                <a href="/commands">Commands</a>
+                <a href="/api">API</a>
+                <a href="/docs">Docs</a>
+                <a href="/status">Status</a>
+                <a href="/updates">Updates</a>
+                <a href="/gallery">Gallery</a>
+            </nav>
+
+            <div class="page-pill">
+                <i class="fas fa-triangle-exclamation"></i>
+                Error <%= errorCode %>
+            </div>
+        </div>
+    </header>
+
+    <main class="error-wrap">
+        <section class="error-hero">
+            <div class="status-tag">HTTP Error</div>
+            <div class="code"><%= errorCode %></div>
+            <h1>Request failed</h1>
+            <p class="message"><%= errorMessage %></p>
+
+            <div class="hero-actions">
+                <a href="/" class="btn-primary"><i class="fas fa-house"></i> Back to Home</a>
+                <a href="/status" class="btn-secondary"><i class="fas fa-signal"></i> Check Status</a>
+            </div>
+        </section>
+
+        <section class="quick-links" aria-label="Quick links">
+            <h2>Quick navigation</h2>
+            <div class="links-grid">
+                <a href="/" class="card">
+                    <div class="icon"><i class="fas fa-house"></i></div>
+                    <div class="info"><span class="title">Home</span><span class="desc">Return to the landing page</span></div>
+                </a>
+                <a href="/commands" class="card">
+                    <div class="icon"><i class="fas fa-bolt"></i></div>
+                    <div class="info"><span class="title">Commands</span><span class="desc">Browse all available commands</span></div>
+                </a>
+                <a href="/status" class="card">
+                    <div class="icon"><i class="fas fa-signal"></i></div>
+                    <div class="info"><span class="title">Status</span><span class="desc">View live service telemetry</span></div>
+                </a>
+                <a href="/docs" class="card">
+                    <div class="icon"><i class="fas fa-book"></i></div>
+                    <div class="info"><span class="title">Docs</span><span class="desc">Read platform documentation</span></div>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <a href="/" class="footer-logo">
+                    <img id="footerAvatar" src="/avatar.png" alt="Wock" />
+                    <span>Wock</span>
+                </a>
+                <p>The all-in-one Discord bot for moderation, utility, and more.</p>
+            </div>
+
+            <div class="footer-col">
+                <h4>Support</h4>
+                <a href="/docs">Documentation</a>
+                <a href="https://discord.gg/wockbot" target="_blank" rel="noopener">Support Server</a>
+                <a href="/privacy">Privacy Policy</a>
+                <a href="/terms">Terms of Service</a>
+            </div>
+
+            <div class="footer-col">
+                <h4>Community</h4>
+                <div class="footer-socials">
+                    <a href="https://discord.gg/wockbot" target="_blank" rel="noopener" aria-label="Discord"><i class="fab fa-discord"></i></a>
+                    <a href="https://github.com/enlarged" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <span>© 2026 wock.best. All rights reserved.</span>
+        </div>
+    </footer>
+
+    <script>
+        async function refreshBranding() {
+            try {
+                const res = await fetch('/api/stats');
+                const data = await res.json();
+                if (!data.avatar) return;
+                document.getElementById('favicon').href = data.avatar;
+                const brand = document.getElementById('brandAvatar');
+                const footer = document.getElementById('footerAvatar');
+                if (brand) brand.src = data.avatar;
+                if (footer) footer.src = data.avatar;
+            } catch (_) {}
+        }
+
+        refreshBranding();
+    </script>
+</body>
+</html>

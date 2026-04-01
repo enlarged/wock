@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wock | Dashboard</title>
+    <link rel="icon" type="image/png" id="favicon" href="/avatar.png" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/css/dashboard.css?v=20260331a" />
+</head>
+<body>
+
+<!-- ── Guild Picker ───────────────────────────────── -->
+<div id="guildPickScreen">
+    <img class="pick-logo" src="/avatar.png" id="pickLogo" alt="Wock" />
+    <h1 class="pick-title">Select a Server</h1>
+    <p class="pick-sub">Choose a server to configure</p>
+    <div class="guild-pick-grid" id="guildPickGrid">
+        <p class="pick-loading">Loading servers…</p>
+    </div>
+</div>
+
+<!-- ── App Shell ──────────────────────────────────── -->
+<div id="appShell">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+
+        <!-- Server selector / guild switcher -->
+        <div class="server-selector" onclick="toggleGuildDropdown(event)">
+            <img class="server-icon" id="sidebarServerIcon" src="/avatar.png" alt="" />
+            <span class="server-name" id="sidebarServerName">Server</span>
+            <i class="fas fa-chevron-down server-chevron"></i>
+            <div class="guild-dropdown" id="guildDropdown" onclick="event.stopPropagation()">
+                <div id="guildDropdownList"></div>
+            </div>
+        </div>
+
+        <!-- Nav -->
+        <nav class="sidebar-nav">
+            <span class="nav-label">Server</span>
+            <button class="nav-item" data-page="overview"        onclick="navigate('overview')">        <i class="fas fa-chart-pie"></i>     Overview</button>
+            <button class="nav-item" data-page="settings"        onclick="navigate('settings')">        <i class="fas fa-sliders-h"></i>     Settings</button>
+            <button class="nav-item" data-page="leaderboard"     onclick="navigate('leaderboard')">     <i class="fas fa-trophy"></i>        Leaderboard</button>
+
+            <span class="nav-label">Security</span>
+            <button class="nav-item" data-page="antinuke"        onclick="navigate('antinuke')">        <i class="fas fa-shield-alt"></i>    Antinuke</button>
+            <button class="nav-item" data-page="joingate"        onclick="navigate('joingate')">        <i class="fas fa-door-open"></i>     Join Gate</button>
+            <button class="nav-item" data-page="fakepermissions" onclick="navigate('fakepermissions')"> <i class="fas fa-user-lock"></i>     Fake Permissions</button>
+
+            <span class="nav-label">Configuration</span>
+            <button class="nav-item" data-page="roles"           onclick="navigate('roles')">           <i class="fas fa-id-badge"></i>      Roles</button>
+            <button class="nav-item" data-page="messages"        onclick="navigate('messages')">        <i class="fas fa-envelope"></i>      Messages</button>
+            <button class="nav-item" data-page="starboard"       onclick="navigate('starboard')">       <i class="fas fa-star"></i>          Starboard</button>
+            <button class="nav-item" data-page="voicemaster"     onclick="navigate('voicemaster')">     <i class="fas fa-microphone"></i>    VoiceMaster</button>
+            <button class="nav-item" data-page="levelrewards"    onclick="navigate('levelrewards')">    <i class="fas fa-award"></i>         Level Rewards</button>
+            <button class="nav-item" data-page="bumpreward"      onclick="navigate('bumpreward')">      <i class="fas fa-bell"></i>          Bump Reminder</button>
+            <button class="nav-item" data-page="reactiontriggers"onclick="navigate('reactiontriggers')"><i class="fas fa-bolt"></i>          Reaction Triggers</button>
+            <button class="nav-item" data-page="aliases"         onclick="navigate('aliases')">         <i class="fas fa-terminal"></i>      Command Aliases</button>
+            <button class="nav-item" data-page="automod"         onclick="navigate('automod')">         <i class="fas fa-robot"></i>         Automod</button>
+            <button class="nav-item" data-page="logging"         onclick="navigate('logging')">         <i class="fas fa-clipboard-list"></i>Logging</button>
+        </nav>
+
+        <!-- Footer: bot identity -->
+        <div class="sidebar-footer">
+            <img class="bot-avatar-sm" id="sidebarBotAvatar" src="/avatar.png" alt="" />
+            <div>
+                <div class="footer-name" id="sidebarBotName">Wock</div>
+                <div class="footer-tag">Bot</div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main -->
+    <div class="main">
+        <div class="main-topbar">
+            <span id="breadcrumbSection">Server</span>
+            <span class="sep">/</span>
+            <span class="active-crumb" id="breadcrumbPage">Overview</span>
+        </div>
+
+        <div class="main-content">
+
+            <!-- ── Overview ── -->
+            <div id="page-overview" class="page">
+
+                <!-- Hero -->
+                <div class="ov-hero">
+                    <div>
+                        <h1>Hello, <span id="ovGuildName">your server</span></h1>
+                        <p>Here's a quick overview of the engagement in your server.</p>
+                    </div>
+                    <div class="time-pills">
+                        <button class="time-pill active" onclick="setTimePill(this,'day')">Day</button>
+                        <button class="time-pill" onclick="setTimePill(this,'week')">Week</button>
+                        <button class="time-pill" onclick="setTimePill(this,'month')">Month</button>
+                        <button class="time-pill" onclick="setTimePill(this,'year')">Year</button>
+                    </div>
+                </div>
+
+                <!-- Big chart -->
+                <div class="ov-chart-card">
+                    <div class="ov-chart-header">
+                        <div>
+                            <div class="ov-chart-label">Total Members</div>
+                            <div class="ov-chart-val" id="ovMemberBig">—</div>
+                            <div class="ov-chart-delta" id="ovMemberDelta">—</div>
+                        </div>
+                        <div class="legend">
+                            <span class="legend-item"><span class="legend-dot blue"></span> Members</span>
+                            <span class="legend-item"><span class="legend-dot purple"></span> Roles</span>
+                        </div>
+                    </div>
+                    <div class="ov-chart-area">
+                        <canvas id="overviewChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- 4 stat cards -->
+                <div class="ov-stat-row">
+                    <div class="stat-card">
+                        <div class="stat-label">Total Members</div>
+                        <div class="stat-val" id="ovMemberVal">—</div>
+                        <div class="stat-delta">Current server size</div>
+                        <div class="stat-mini-wrap"><canvas class="stat-mini" id="miniChart1"></canvas></div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Text Channels</div>
+                        <div class="stat-val" id="ovChannelVal">—</div>
+                        <div class="stat-delta">All channel types</div>
+                        <div class="stat-mini-wrap"><canvas class="stat-mini" id="miniChart2"></canvas></div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Server Roles</div>
+                        <div class="stat-val" id="ovRoleVal">—</div>
+                        <div class="stat-delta">Excluding @everyone</div>
+                        <div class="stat-mini-wrap"><canvas class="stat-mini" id="miniChart3"></canvas></div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Active Modules</div>
+                        <div class="stat-val" id="ovModuleVal">—</div>
+                        <div class="stat-delta">Enabled features</div>
+                        <div class="stat-mini-wrap"><canvas class="stat-mini" id="miniChart4"></canvas></div>
+                    </div>
+                </div>
+
+                <!-- Channel + Role tables -->
+                <div class="ov-tables">
+                    <div class="table-card">
+                        <div class="table-card-header">
+                            <div class="table-card-title">Top Text Channels</div>
+                            <div class="table-card-sub">The active channels in your server.</div>
+                        </div>
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Channel</th>
+                                    <th>Type</th>
+                                    <th>ID</th>
+                                </tr>
+                            </thead>
+                            <tbody id="ovChannelTable">
+                                <tr><td colspan="3" style="color:var(--text-dim);text-align:center;padding:20px">Select a server to view channels.</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="table-card">
+                        <div class="table-card-header">
+                            <div class="table-card-title">Server Roles</div>
+                            <div class="table-card-sub">Configured roles in your server.</div>
+                        </div>
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Role</th>
+                                    <th>Color</th>
+                                    <th>ID</th>
+                                </tr>
+                            </thead>
+                            <tbody id="ovRoleTable">
+                                <tr><td colspan="3" style="color:var(--text-dim);text-align:center;padding:20px">Select a server to view roles.</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- ── General Settings ── -->
+            <div id="page-settings" class="page">
+                <div class="section-header">
+                    <h2>General Settings</h2>
+                    <p>Core bot configuration for this server.</p>
+                </div>
+                <div class="setting-card">
+                    <div class="setting-card-header">
+                        <i class="fas fa-cog setting-card-icon"></i>
+                        <span class="setting-card-title">Core</span>
+                    </div>
+                    <div class="setting-card-body">
+                        <div class="form-grid">
+                            <div class="field-group">
+                                <label class="field-label">Command Prefix</label>
+                                <input type="text" id="cfg-prefix" placeholder=";" maxlength="5" oninput="markDirty()">
+                                <span class="field-hint">Character(s) that trigger bot commands</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="setting-card">
+                    <div class="setting-card-header">
+                        <i class="fas fa-gavel setting-card-icon"></i>
+                        <span class="setting-card-title">Moderation Roles</span>
+                    </div>
+                    <div class="setting-card-body">
+                        <div class="form-grid">
+                            <div class="field-group">
+                                <label class="field-label">Mute Role</label>
+                                <select id="cfg-mute-role" onchange="markDirty()"><option value="">— None —</option></select>
+                            </div>
+                            <div class="field-group">
+                                <label class="field-label">Jail Role</label>
+                                <select id="cfg-jail-role" onchange="markDirty()"><option value="">— None —</option></select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ── Leaderboard ── -->
+            <div id="page-leaderboard" class="page">
+                <div class="section-header">
+                    <h2>Leaderboard</h2>
+                    <p>Top members ranked by XP. Enable leveling to populate this.</p>
+                </div>
+                <div class="setting-card">
+                    <div class="setting-card-body">
+                        <p class="info-block">Enable the <strong>Level Rewards</strong> module to start tracking XP and see a leaderboard here.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ── Antinuke ── -->
+            <div id="page-antinuke" class="page">
+                <div class="section-header">
+                    <h2>Antinuke</h2>
+                    <p>Automatically detect and punish users performing mass destructive actions.</p>
+                </div>
+                <div class="setting-card">
+                    <div class="setting-card-header">
+                        <i class="fas fa-shield-alt setting-card-icon"></i>
+                        <span class="setting-card-title">Protection</span>
+                    </div>
+                    <div class="setting-card-body">
+                        <div class="setting-row">
+                            <div class="setting-row-info">
+                                <div class="setting-row-label">Enable Antinuke</div>
+                                <div class="setting-row-desc">Monitor for mass bans, kicks, channel deletions, and role changes.</div>
+                            </div>
+                            <label class="switch">
+                                <input type="checkbox" id="cfg-antinuke-enabled" onchange="markDirty()">
+                                <span class="switch-track"></span>
+                            </label>
+                        </div>
+                        <div class="form-grid" style="margin-top:18px">
+                            <div class="field-group">
+                                <label class="field-label">Punishment</label>
+                                <select id="cfg-antinuke-action" onchange="markDirty()">
+                                    <option value="ban">Ban</option>
+                                    <option value="kick">Kick</option>
+                                    <option value="strip">Strip Roles</option>
+                                </select>
+                            </div>
+                            <div class="field-group">
+                                <label class="field-label">Threshold (actions before trigger)</label>
+                                <input type="number" id="cfg-antinuke-threshold" min="1" max="20" oninput="markDirty()">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ── Join Gate ── -->
+            <div id="page-joingate" class="page">
+                <div class="section-header">
+                    <h2>Join Gate</h2>
+                    <p>Require new members to verify before accessing the server.</p>
+                </div>
+                <div class="setting-card">
+                    <div class="setting-card-header">
+                        <i class="fas fa-door-open setting-card-icon"></i>
+                        <span class="setting-card-title">Verification Channel</span>
+                    </div>
+                    <div class="setting-card-body">
+                        <div class="form-grid">
+                            <div class="field-group">
+                                <label class="field-label">Gate Channel</label>
+                                <select id="cfg-joingate-channel" onchange="markDirty()"><option value="">— None —</option></select>
+                                <span class="field-hint">New members will be sent here to verify</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ── Fake Permissions ── -->
+            <div id="page-fakepermissions" class="page">
+                <div class="section-header">
+                    <h2>Fake Permissions</h2>
+                    <p>Grant roles the ability to use specific bot commands as if they had Discord permissions.</p>
+                </div>
+                <div class="setting-card">
+                    <div class="setting-card-body">
+                        <p class="info-block">Configure fake permissions using the bot command <code>,fakepermissions</code> directly in Discord.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ── Roles ── -->
+            <div id="page-roles" class="page">
+                <div class="section-header">
+                    <h2>Roles</h2>
+                    <p>Assign special roles used by the bot for moderation and management.</p>
+                </div>
+                <div class="setting-card">
+                    <div class="setting-card-header">
+                        <i class="fas fa-id-badge setting-card-icon"></i>
+                        <span class="setting-card-title">Moderation Roles</span>
+                    </div>
+                    <div class="setting-card-body">
+                        <div class="form-grid">
+                            <div class="field-group">
+                                <label class="field-label">Mute Role</label>
+                                <select id="cfg-mute-role" onchange="markDirty()"><option value="">— None —</option></select>
+                            </div>
+                            <div class="field-group">
+                                <label class="field-label">Jail Role</label>
+                                <select id="cfg-jail-role" onchange="markDirty()"><option value="">— None —</option></select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ── Messages ── -->
+            <div id="page-messages" class="page">
+                <div class="section-header">
+                    <h2>Messages</h2>
+                    <p>Configure welcome, goodbye, and boost messages.</p>
+                </div>
+                <div class="setting-card">
+                    <div class="setting-card-body">
+                        <p class="info-block">Set up custom messages using the bot commands <code>,welcome</code>, <code>,goodbye</code>, and <code>,boost</code>.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ── Starboard ── -->
+            <div id="page-starboard" class="page">
+                <div class="section-header">
+                    <h2>Starboard</h2>
+                    <p>Highlight popular messages when they reach a reaction threshold.</p>
+                </div>
+                <div class="setting-card">
+                    <div class="setting-card-header">
+                        <i class="fas fa-star setting-card-icon"></i>
+                        <span class="setting-card-title">Starboard Settings</span>
+                    </div>
+                    <div class="setting-card-body">
+                        <div class="form-grid">
+                            <div class="field-group">
+                                <label class="field-label">Starboard Channel</label>
+                                <select id="cfg-sb-channel" onchange="markDirty()"><option value="">— None —</option></select>
+                            </div>
+                            <div class="field-group">
+                                <label class="field-label">Reaction Threshold</label>
+                                <input type="number" id="cfg-sb-threshold" min="1" max="100" oninput="markDirty()">
+                            </div>
+                            <div class="field-group">
+                                <label class="field-label">Emoji</label>
+                                <input type="text" id="cfg-sb-emoji" maxlength="8" oninput="markDirty()">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ── VoiceMaster ── -->
+            <div id="page-voicemaster" class="page">
+                <div class="section-header">
+                    <h2>VoiceMaster</h2>
+                    <p>Automatically create personal voice channels when members join a hub channel.</p>
+                </div>
+                <div class="setting-card">
+                    <div class="setting-card-header">
+                        <i class="fas fa-microphone setting-card-icon"></i>
+                        <span class="setting-card-title">VoiceMaster</span>
+                    </div>
+                    <div class="setting-card-body">
+                        <div class="setting-row">
+                            <div class="setting-row-info">
+                                <div class="setting-row-label">Enable VoiceMaster</div>
+                                <div class="setting-row-desc">Members joining the hub channel get their own private voice channel.</div>
+                            </div>
+                            <label class="switch">
+                                <input type="checkbox" id="cfg-vm-enabled" onchange="markDirty()">
+                                <span class="switch-track"></span>
+                            </label>
+                        </div>
+                        <div class="form-grid" style="margin-top:18px">
+                            <div class="field-group">
+                                <label class="field-label">Hub Channel</label>
+                                <select id="cfg-vm-channel" onchange="markDirty()"><option value="">— None —</option></select>
+                                <span class="field-hint">Must be a voice channel</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ── Level Rewards ── -->
+            <div id="page-levelrewards" class="page">
+                <div class="section-header">
+                    <h2>Level Rewards</h2>
+                    <p>Reward members for staying active in your server.</p>
+                </div>
+                <div class="setting-card">
+                    <div class="setting-card-header">
+                        <i class="fas fa-award setting-card-icon"></i>
+                        <span class="setting-card-title">Leveling System</span>
+                    </div>
+                    <div class="setting-card-body">
+                        <div class="setting-row">
+                            <div class="setting-row-info">
+                                <div class="setting-row-label">Enable Leveling</div>
+                                <div class="setting-row-desc">Members earn XP for sending messages in the server.</div>
+                            </div>
+                            <label class="switch">
+                                <input type="checkbox" id="cfg-lvl-enabled" onchange="markDirty()">
+                                <span class="switch-track"></span>
+                            </label>
+                        </div>
+                        <div class="form-grid" style="margin-top:18px">
+                            <div class="field-group">
+                                <label class="field-label">Level-Up Channel</label>
+                                <select id="cfg-lvl-channel" onchange="markDirty()"><option value="">— None —</option></select>
+                                <span class="field-hint">Where level-up announcements are sent</span>
+                            </div>
+                            <div class="field-group">
+                                <label class="field-label">Level-Up Message</label>
+                                <input type="text" id="cfg-lvl-message" placeholder="{user} reached level {level}!" oninput="markDirty()">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ── Bump Reminder ── -->
+            <div id="page-bumpreward" class="page">
+                <div class="section-header">
+                    <h2>Bump Reminder</h2>
+                    <p>Automatically remind members to bump the server on Disboard every 2 hours.</p>
+                </div>
+                <div class="setting-card">
+                    <div class="setting-card-body">
+                        <p class="info-block">Enable and configure bump reminders with <code>,bumpreminder on</code> and <code>,bumpreminder channel #channel</code> in Discord.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ── Reaction Triggers ── -->
+            <div id="page-reactiontriggers" class="page">
+                <div class="section-header">
+                    <h2>Reaction Triggers</h2>
+                    <p>Automatically react to messages matching specific keywords.</p>
+                </div>
+                <div class="setting-card">
+                    <div class="setting-card-body">
+                        <p class="info-block">Add and manage triggers with <code>,reactiontrigger add [trigger] [emoji]</code> in Discord.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ── Command Aliases ── -->
+            <div id="page-aliases" class="page">
+                <div class="section-header">
+                    <h2>Command Aliases</h2>
+                    <p>Create custom shortcuts for any bot command.</p>
+                </div>
+                <div class="setting-card">
+                    <div class="setting-card-body">
+                        <p class="info-block">Create aliases with <code>,alias add [name] [command]</code> in Discord.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ── Automod ── -->
+            <div id="page-automod" class="page">
+                <div class="section-header">
+                    <h2>Automod</h2>
+                    <p>Automatically moderate message content in your server.</p>
+                </div>
+                <div class="setting-card">
+                    <div class="setting-card-header">
+                        <i class="fas fa-ban setting-card-icon"></i>
+                        <span class="setting-card-title">Invite Filter</span>
+                    </div>
+                    <div class="setting-card-body">
+                        <div class="setting-row">
+                            <div class="setting-row-info">
+                                <div class="setting-row-label">Filter Discord Invites</div>
+                                <div class="setting-row-desc">Delete messages that contain Discord server invite links.</div>
+                            </div>
+                            <label class="switch">
+                                <input type="checkbox" id="cfg-filter-invites" onchange="markDirty()">
+                                <span class="switch-track"></span>
+                            </label>
+                        </div>
+                        <div class="form-grid" style="margin-top:14px">
+                            <div class="field-group">
+                                <label class="field-label">Action</label>
+                                <select id="cfg-filter-invites-action" onchange="markDirty()">
+                                    <option value="kick">Kick</option>
+                                    <option value="ban">Ban</option>
+                                    <option value="warn">Warn</option>
+                                    <option value="delete">Delete Only</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="setting-card">
+                    <div class="setting-card-header">
+                        <i class="fas fa-comment-slash setting-card-icon"></i>
+                        <span class="setting-card-title">Spam Filter</span>
+                    </div>
+                    <div class="setting-card-body">
+                        <div class="setting-row">
+                            <div class="setting-row-info">
+                                <div class="setting-row-label">Filter Spam</div>
+                                <div class="setting-row-desc">Detect and act on rapid message spam from a single user.</div>
+                            </div>
+                            <label class="switch">
+                                <input type="checkbox" id="cfg-filter-spam" onchange="markDirty()">
+                                <span class="switch-track"></span>
+                            </label>
+                        </div>
+                        <div class="form-grid" style="margin-top:14px">
+                            <div class="field-group">
+                                <label class="field-label">Action</label>
+                                <select id="cfg-filter-spam-action" onchange="markDirty()">
+                                    <option value="kick">Kick</option>
+                                    <option value="ban">Ban</option>
+                                    <option value="warn">Warn</option>
+                                    <option value="mute">Mute</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="setting-card">
+                    <div class="setting-card-header">
+                        <i class="fas fa-filter setting-card-icon"></i>
+                        <span class="setting-card-title">Word Filter</span>
+                    </div>
+                    <div class="setting-card-body">
+                        <div class="setting-row">
+                            <div class="setting-row-info">
+                                <div class="setting-row-label">Enable Word Filter</div>
+                                <div class="setting-row-desc">Delete messages containing words on the filtered list.</div>
+                            </div>
+                            <label class="switch">
+                                <input type="checkbox" id="cfg-filter-words" onchange="markDirty()">
+                                <span class="switch-track"></span>
+                            </label>
+                        </div>
+                        <div class="form-grid" style="margin-top:14px">
+                            <div class="field-group">
+                                <label class="field-label">Action</label>
+                                <select id="cfg-filter-words-action" onchange="markDirty()">
+                                    <option value="kick">Kick</option>
+                                    <option value="ban">Ban</option>
+                                    <option value="warn">Warn</option>
+                                    <option value="delete">Delete Only</option>
+                                </select>
+                            </div>
+                        </div>
+                        <p class="info-block" style="margin-top:14px">Manage the word list with <code>,filter add [word]</code> and <code>,filter remove [word]</code> in Discord.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ── Logging ── -->
+            <div id="page-logging" class="page">
+                <div class="section-header">
+                    <h2>Logging</h2>
+                    <p>Send moderation and server event logs to a dedicated channel.</p>
+                </div>
+                <div class="setting-card">
+                    <div class="setting-card-header">
+                        <i class="fas fa-clipboard-list setting-card-icon"></i>
+                        <span class="setting-card-title">Modlog Channel</span>
+                    </div>
+                    <div class="setting-card-body">
+                        <div class="form-grid">
+                            <div class="field-group">
+                                <label class="field-label">Log Channel</label>
+                                <select id="cfg-modlog-channel" onchange="markDirty()"><option value="">— None —</option></select>
+                                <span class="field-hint">Bans, kicks, warns, and mutes will appear here</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div><!-- .main-content -->
+    </div><!-- .main -->
+</div><!-- #appShell -->
+
+<!-- Save bar -->
+<div class="save-bar" id="saveBar">
+    <span>Unsaved changes</span>
+    <button class="btn-discard" onclick="discardChanges()">Discard</button>
+    <button class="btn-save" onclick="saveSettings()">Save Changes</button>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="/js/dashboard.js?v=20260331a"></script>
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Wock</title>
+    <link rel="icon" type="image/png" id="favicon" href="/avatar.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/main.css?v=20260331a">
+</head>
+<body>
+
+<div class="shell">
+    <div class="menu-panel">
+        <div class="menu-list" id="menuList">
+            <div class="menu-header">
+                <div class="icon-box"><i class="fas fa-terminal"></i></div>
+                <span class="label">Commands</span>
+                <span class="arrow"><i class="fas fa-arrow-right"></i></span>
+            </div>
+
+            <a href="/commands"   class="menu-item" data-index="0">
+                <div class="icon-box"><i class="fas fa-bolt"></i></div>
+                <span class="item-label">Commands</span>
+            </a>
+            <a href="/status"     class="menu-item" data-index="1">
+                <div class="icon-box"><i class="fas fa-signal"></i></div>
+                <span class="item-label">Status</span>
+            </a>
+            <a href="/api"        class="menu-item" data-index="4">
+                <div class="icon-box"><i class="fas fa-code"></i></div>
+                <span class="item-label">API</span>
+            </a>
+            <a href="/docs"       class="menu-item" data-index="5">
+                <div class="icon-box"><i class="fas fa-book"></i></div>
+                <span class="item-label">Docs</span>
+            </a>
+            <a href="https://discord.com/api/oauth2/authorize?client_id=1466693823508775099&permissions=8&scope=bot"
+               class="menu-item" data-index="7">
+                <div class="icon-box"><i class="fab fa-discord"></i></div>
+                <span class="item-label">Invite</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="node-card">
+        <div class="node-avatar-wrap">
+            <div class="node-avatar-ring">
+                <img id="nodeAvatar" src="/avatar.png" alt="">
+            </div>
+        </div>
+        <div class="node-body">
+            <div class="node-id-row">
+                <span class="node-id-label">Node ID</span>
+                <span class="node-id-value" id="nodeName">Wock</span>
+            </div>
+            <div class="node-divider"></div>
+            <div class="node-stat-row">
+                <span class="node-stat-key">Status</span>
+                <span class="node-stat-val online"><span class="dot"></span> Online</span>
+            </div>
+            <div class="node-stat-row">
+                <span class="node-stat-key">Ping</span>
+                <span class="node-stat-val" id="nodePing">—</span>
+            </div>
+            <div class="node-stat-row">
+                <span class="node-stat-key">Guilds</span>
+                <span class="node-stat-val" id="nodeGuilds">—</span>
+            </div>
+            <div class="node-stat-row">
+                <span class="node-stat-key">Users</span>
+                <span class="node-stat-val" id="nodeUsers">—</span>
+            </div>
+        </div>
+        <div class="node-chart">
+            <div class="chart-label">Activity</div>
+            <div class="bars" id="nodeBars">
+                <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+                <div class="bar"></div><div class="bar"></div><div class="bar"></div>
+                <div class="bar"></div><div class="bar"></div><div class="bar active"></div>
+                <div class="bar active"></div><div class="bar active"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="hint">
+    Navigate with <kbd>↑</kbd><kbd>↓</kbd> arrow keys &nbsp;|&nbsp; <kbd>Enter</kbd> to select
+</div>
+
+<div class="signal" id="signalBars">
+    <div class="sig-bar lit"></div>
+    <div class="sig-bar lit"></div>
+    <div class="sig-bar lit"></div>
+    <div class="sig-bar"></div>
+</div>
+
+<script src="/js/main.js?v=20260330" defer></script>
+</body>
+</html>

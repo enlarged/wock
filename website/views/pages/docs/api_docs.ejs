@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wock | API Reference</title>
+    <link rel="icon" type="image/png" href="/avatar.png" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/css/api_docs.css?v=20260331a" />
+</head>
+<body>
+    <header class="topbar">
+        <div class="topbar-inner">
+            <a class="brand" href="/">
+                <img src="/avatar.png" alt="Wock" />
+                <span>Wock</span>
+            </a>
+
+            <nav class="site-nav" aria-label="Main navigation">
+                <a href="/">Home</a>
+                <a href="/commands">Commands</a>
+                <a href="/api" class="active">API</a>
+                <a href="/docs">Docs</a>
+                <a href="/status">Status</a>
+                <a href="/updates">Updates</a>
+                <a href="/gallery">Gallery</a>
+            </nav>
+
+            <div class="page-pill">
+                <i class="fas fa-code"></i>
+                API Explorer
+            </div>
+        </div>
+    </header>
+
+    <main class="api-wrap">
+        <section class="api-hero">
+            <h1>API Reference</h1>
+            <p>Browse available endpoints and test them directly from this page.</p>
+        </section>
+
+        <section class="auth-panel">
+            <label for="globalApiKey">Global API Key (used for protected endpoints)</label>
+            <input id="globalApiKey" type="password" placeholder="wock_..." autocomplete="off" />
+        </section>
+
+        <section id="endpointSections"></section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <a href="/" class="footer-logo">
+                    <img src="/avatar.png" alt="Wock" />
+                    <span>Wock</span>
+                </a>
+                <p>The all-in-one Discord bot for moderation, utility, and more.</p>
+            </div>
+
+            <div class="footer-col">
+                <h4>Support</h4>
+                <a href="/docs">Documentation</a>
+                <a href="https://discord.gg/wockbot" target="_blank" rel="noopener">Support Server</a>
+                <a href="/privacy">Privacy Policy</a>
+                <a href="/terms">Terms of Service</a>
+            </div>
+
+            <div class="footer-col">
+                <h4>Community</h4>
+                <div class="footer-socials">
+                    <a href="https://discord.gg/wockbot" target="_blank" rel="noopener" aria-label="Discord"><i class="fab fa-discord"></i></a>
+                    <a href="https://github.com/enlarged" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <span>© 2026 wock.best. All rights reserved.</span>
+        </div>
+    </footer>
+
+    <script src="/js/api_docs.js?v=20260331a" defer></script>
+</body>
+</html>

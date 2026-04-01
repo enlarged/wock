@@ -1,0 +1,28 @@
+{
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/.DS_Store": true,
+        "**/Thumbs.db": true,
+        "wock-music": true,
+        "venv": true,
+        ".vscode": true,
+        ".venv": true,
+        ".cache": true,
+        "docs": true,
+        "node_modules": true,
+        "events": true
+    },
+    "hide-files.files": [
+        "wock-music",
+        "venv",
+        ".vscode",
+        ".venv",
+        ".cache",
+        "docs",
+        "node_modules",
+        "events",
+        "commands"
+    ]
+}

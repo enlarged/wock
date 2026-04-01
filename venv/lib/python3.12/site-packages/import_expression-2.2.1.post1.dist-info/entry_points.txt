@@ -1,0 +1,3 @@
+[console_scripts]
+import-expression = import_expression.__main__:main
+import_expression = import_expression.__main__:main

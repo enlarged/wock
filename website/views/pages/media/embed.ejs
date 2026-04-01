@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Wock | Builder</title>
+    <link rel="icon" type="image/png" id="favicon" href="/avatar.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-deep: #030303;
+            --sidebar-glass: rgba(10, 10, 12, 0.9);
+            --card-bg: rgba(10, 10, 10, 0.6);
+            --border: rgba(255, 255, 255, 0.05);
+            --accent: #ffffff;
+            --text-main: #eeeeee;
+            --text-dim: #666666;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-font-smoothing: antialiased; }
+        body { background-color: var(--bg-deep); font-family: 'Inter', sans-serif; color: var(--text-main); display: flex; height: 100vh; overflow: hidden; position: relative; }
+
+        /* --- Swirl Background --- */
+        body::before {
+            content: ""; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+            background: radial-gradient(circle at center, #0e0e15 0%, #050508 40%, #030303 100%);
+            z-index: -1; animation: swirl 30s linear infinite;
+        }
+        @keyframes swirl { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+        /* --- Nav Pill --- */
+        .nav-wrapper { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); z-index: 4000; }
+        .dropdown { position: relative; }
+        .dropbtn {
+            background: rgba(10, 10, 10, 0.95); backdrop-filter: blur(12px); border: 1px solid var(--border);
+            padding: 10px 18px; border-radius: 100px; color: #fff; display: flex; align-items: center; gap: 12px; cursor: pointer;
+        }
+        .dropbtn img { width: 20px; height: 20px; border-radius: 50%; }
+        .dropdown-content {
+            display: none; position: absolute; top: 50px; left: 50%; transform: translateX(-50%);
+            background: #0a0a0a; border: 1px solid var(--border); min-width: 220px; border-radius: 14px; padding: 8px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.8);
+        }
+        .dropdown:hover .dropdown-content { display: block; }
+        .dropdown-content a { 
+            color: var(--text-dim); padding: 12px 14px; text-decoration: none; display: flex; 
+            align-items: center; gap: 12px; font-size: 13px; border-radius: 10px; transition: 0.2s;
+        }
+        .dropdown-content a:hover, .dropdown-content a.active { background: rgba(255,255,255,0.04); color: #fff; }
+
+        /* --- Panel --- */
+        .panel {
+            width: 440px; background: var(--sidebar-glass); border-right: 1px solid var(--border);
+            display: flex; flex-direction: column; padding: 100px 24px 40px; overflow-y: auto;
+            backdrop-filter: blur(20px); flex-shrink: 0;
+        }
+        .panel::-webkit-scrollbar { width: 4px; }
+        .panel::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
+
+        .panel-header h1 { font-size: 1.8rem; font-weight: 800; letter-spacing: -1.5px; }
+        .panel-header p { color: var(--text-dim); font-size: 13.5px; margin-top: 5px; margin-bottom: 30px; }
+
+        .section-label { 
+            font-size: 10px; font-weight: 800; color: var(--text-dim); text-transform: uppercase;
+            letter-spacing: 1.5px; margin: 30px 0 12px 4px; display: flex; align-items: center; gap: 10px;
+        }
+        .section-label::after { content: ""; flex: 1; height: 1px; background: var(--border); }
+
+        .input-group label { display: block; font-size: 10px; font-weight: 700; color: var(--text-dim); margin-bottom: 8px; text-transform: uppercase; }
+        input, textarea, select {
+            width: 100%; background: rgba(0, 0, 0, 0.3); border: 1px solid var(--border);
+            border-radius: 12px; padding: 14px; color: #fff; font-size: 13px; outline: none; margin-bottom: 16px;
+            font-family: var(--font-mono); transition: 0.2s;
+        }
+        input:focus, textarea:focus { border-color: rgba(255,255,255,0.2); background: rgba(0,0,0,0.5); }
+
+        .module-item {
+            background: rgba(255,255,255,0.02); border: 1px solid var(--border);
+            padding: 16px; border-radius: 16px; margin-bottom: 12px; position: relative;
+        }
+
+        .btn-add {
+            width: 100%; padding: 12px; background: transparent; border: 1px dashed var(--border);
+            color: var(--text-dim); border-radius: 12px; font-size: 12px; font-weight: 600; cursor: pointer; transition: 0.2s;
+        }
+        .btn-add:hover { background: rgba(255,255,255,0.03); color: #fff; }
+
+        .btn-copy {
+            width: 100%; padding: 16px; background: #fff; color: #000; border: none;
+            border-radius: 14px; font-weight: 800; font-size: 14px; cursor: pointer;
+            margin-top: 40px; transition: 0.2s; display: flex; align-items: center; justify-content: center; gap: 10px;
+        }
+
+        /* --- Preview Area --- */
+        .preview-area { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px; position: relative; }
+        .preview-label { font-size: 10px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 2px; font-weight: 800; margin-bottom: 30px; }
+
+        /* --- Discord Mockup --- */
+        .discord-mockup {
+            max-width: 520px; width: 100%; background: #313338; padding: 20px; border-radius: 12px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+        }
+        .d-content { font-size: 15px; color: #dbdee1; margin-bottom: 10px; font-family: 'Inter', sans-serif; }
+        .d-embed {
+            background: #2b2d31; border-left: 4px solid #1e1f22;
+            padding: 12px 16px; border-radius: 4px; display: flex; flex-direction: column; position: relative;
+        }
+        .d-title { font-weight: 700; font-size: 16px; color: #fff; margin-bottom: 8px; cursor: pointer; }
+        .d-title:hover { text-decoration: underline; }
+        .d-desc { font-size: 14px; color: #dbdee1; line-height: 1.4; }
+        .d-footer { font-size: 12px; color: #949ba4; margin-top: 12px; font-weight: 500; }
+        .d-thumb { width: 80px; height: 80px; border-radius: 6px; object-fit: cover; position: absolute; top: 12px; right: 16px; }
+        
+        .d-fields { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 12px; }
+        .d-field-inline { grid-column: span 1; }
+        .d-field-block { grid-column: span 3; }
+        .d-field-name { font-weight: 700; font-size: 13px; color: #fff; margin-bottom: 2px; }
+        .d-field-val { font-size: 13px; color: #dbdee1; }
+
+        .d-btns { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 16px; }
+        .d-btn { padding: 6px 16px; border-radius: 3px; font-size: 14px; font-weight: 500; color: #fff; cursor: pointer; }
+        .d-btn.primary { background: #5865f2; }
+        .d-btn.primary:hover { background: #4752c4; }
+        .d-btn.secondary { background: #4e5058; }
+        .d-btn.secondary:hover { background: #6d6f78; }
+        .d-btn.success { background: #248046; }
+        .d-btn.danger { background: #da373c; }
+    </style>
+</head>
+<body>
+
+    <div class="nav-wrapper">
+        <div class="dropdown">
+            <button class="dropbtn">
+                <img id="navAvatar" src="/logo.png" alt="">
+                <span>Embed Builder</span>
+                <i class="fas fa-chevron-down" style="font-size: 10px; opacity: 0.5;"></i>
+            </button>
+            <div class="dropdown-content">
+                <a href="/"><i class="fas fa-home"></i> Home</a>
+                <a href="/commands"><i class="fas fa-bolt"></i> Commands</a>
+                <a href="/avatars"><i class="fas fa-id-card"></i> Directory</a>
+                <a href="/profiles"><i class="fas fa-user-circle"></i> Profiles</a>
+                <a href="/embed" class="active"><i class="fas fa-code"></i> Builder</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="wrapper" style="display:flex; width:100%">
+        <aside class="panel">
+            <div class="panel-header">
+                <h1>Message Builder</h1>
+                <p>Interactive JSON & Parser generator.</p>
+            </div>
+
+            <div class="section-label">General</div>
+            <div class="input-group">
+                <label>Plain Text Content</label>
+                <textarea id="message" rows="2" placeholder="Text above the embed..."></textarea>
+            </div>
+
+            <div class="section-label">Embed Details</div>
+            <div class="input-group">
+                <label>Embed Title</label>
+                <input id="title" placeholder="Title text">
+            </div>
+            <div class="input-group">
+                <label>Main Description</label>
+                <textarea id="description" rows="4" placeholder="Body text..."></textarea>
+            </div>
+            <div class="input-group">
+                <label>Hex Accent</label>
+                <input id="color" placeholder="ffffff">
+            </div>
+            <div class="input-group">
+                <label>Footer Text</label>
+                <input id="footer" placeholder="Footer text">
+            </div>
+
+            <div class="section-label">Imagery</div>
+            <div class="input-group">
+                <label>Thumbnail URL</label>
+                <input id="thumbnail" placeholder="Small icon link">
+            </div>
+            <div class="input-group">
+                <label>Main Image URL</label>
+                <input id="image" placeholder="Large image link">
+            </div>
+
+            <div class="section-label">Structure</div>
+            <div id="fieldsContainer"></div>
+            <button class="btn-add" onclick="addField()"><i class="fas fa-plus"></i> Add Embed Field</button>
+
+            <div class="section-label">Interactivity</div>
+            <div id="buttonsContainer"></div>
+            <button class="btn-add" onclick="addButton()"><i class="fas fa-mouse-pointer"></i> Add Action Button</button>
+
+            <button class="btn-copy" onclick="copyParser()">
+                <i class="fas fa-copy"></i> Copy Parser Code
+            </button>
+        </aside>
+
+        <main class="preview-area">
+            <div class="preview-label">Real-time Mockup</div>
+            <div class="discord-mockup">
+                <div class="d-content" id="pre-content"></div>
+                <div class="d-embed" id="pre-embed">
+                    <img id="pre-thumb" class="d-thumb" style="display:none;">
+                    <div class="d-title" id="pre-title"></div>
+                    <div class="d-desc" id="pre-desc"></div>
+                    <div class="d-fields" id="pre-fields"></div>
+                    <img id="pre-img" style="width:100%; border-radius:4px; margin-top:12px; display:none;">
+                    <div class="d-footer" id="pre-footer"></div>
+                </div>
+                <div class="d-btns" id="pre-btns"></div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        function addField(){
+            const div = document.createElement('div');
+            div.className = "module-item";
+            div.innerHTML = `
+                <input placeholder="Field Name" class="f-name" style="margin-bottom:8px">
+                <input placeholder="Field Value" class="f-value" style="margin-bottom:8px">
+                <select class="f-inline" style="margin-bottom:0">
+                    <option value="false">Stacked (Block)</option>
+                    <option value="true">Side-by-side (Inline)</option>
+                </select>
+                <i class="fas fa-times" style="position:absolute; top:15px; right:15px; font-size:12px; cursor:pointer; opacity:0.3" onclick="this.parentElement.remove(); updatePreview();"></i>`;
+            document.getElementById("fieldsContainer").appendChild(div);
+            updatePreview();
+        }
+
+        function addButton(){
+            const div = document.createElement('div');
+            div.className = "module-item";
+            div.innerHTML = `
+                <input placeholder="Button Label" class="b-label" style="margin-bottom:8px">
+                <select class="b-style" style="margin-bottom:8px">
+                    <option value="primary">Blurple</option>
+                    <option value="secondary">Grey</option>
+                    <option value="success">Green</option>
+                    <option value="danger">Red</option>
+                </select>
+                <input placeholder="URL / Custom ID" class="b-action" style="margin-bottom:0">
+                <i class="fas fa-times" style="position:absolute; top:15px; right:15px; font-size:12px; cursor:pointer; opacity:0.3" onclick="this.parentElement.remove(); updatePreview();"></i>`;
+            document.getElementById("buttonsContainer").appendChild(div);
+            updatePreview();
+        }
+
+        function updatePreview(){
+            const msg = document.getElementById("message").value;
+            const title = document.getElementById("title").value;
+            const desc = document.getElementById("description").value;
+            const footer = document.getElementById("footer").value;
+            const color = document.getElementById("color").value.replace("#", "");
+
+            document.getElementById("pre-content").innerText = msg;
+            document.getElementById("pre-content").style.display = msg ? "block" : "none";
+            document.getElementById("pre-title").innerText = title;
+            document.getElementById("pre-title").style.display = title ? "block" : "none";
+            document.getElementById("pre-desc").innerText = desc;
+            document.getElementById("pre-desc").style.display = desc ? "block" : "none";
+            document.getElementById("pre-footer").innerText = footer;
+            document.getElementById("pre-footer").style.display = footer ? "block" : "none";
+
+            const embed = document.getElementById("pre-embed");
+            embed.style.borderColor = color ? "#" + color : "#1e1f22";
+            embed.style.display = (title || desc || footer) ? "flex" : "none";
+
+            const thumb = document.getElementById("thumbnail").value;
+            const thumbEl = document.getElementById("pre-thumb");
+            thumbEl.src = thumb; thumbEl.style.display = thumb ? "block" : "none";
+
+            const img = document.getElementById("image").value;
+            const imgEl = document.getElementById("pre-img");
+            imgEl.src = img; imgEl.style.display = img ? "block" : "none";
+
+            const fieldWrap = document.getElementById("pre-fields");
+            fieldWrap.innerHTML = "";
+            document.querySelectorAll("#fieldsContainer .module-item").forEach(item => {
+                const name = item.querySelector(".f-name").value;
+                const val = item.querySelector(".f-value").value;
+                const inline = item.querySelector(".f-inline").value === "true";
+                if(name || val) {
+                    fieldWrap.innerHTML += `<div class="${inline ? 'd-field-inline' : 'd-field-block'}"><div class="d-field-name">${name}</div><div class="d-field-val">${val}</div></div>`;
+                }
+            });
+
+            const btnWrap = document.getElementById("pre-btns");
+            btnWrap.innerHTML = "";
+            document.querySelectorAll("#buttonsContainer .module-item").forEach(item => {
+                const label = item.querySelector(".b-label").value;
+                const style = item.querySelector(".b-style").value;
+                if(label) btnWrap.innerHTML += `<div class="d-btn ${style}">${label}</div>`;
+            });
+        }
+
+        function copyParser(){
+            let str = "{embed}";
+            const map = { message: 'content', title: 'title', description: 'description', color: 'color', thumbnail: 'thumbnail', footer: 'footer', image: 'image' };
+            Object.keys(map).forEach(id => {
+                const val = document.getElementById(id).value;
+                if(val) str += `{${map[id]}: ${val}}`;
+            });
+
+            document.querySelectorAll("#fieldsContainer .module-item").forEach(item => {
+                const n = item.querySelector(".f-name").value;
+                const v = item.querySelector(".f-value").value;
+                const i = item.querySelector(".f-inline").value;
+                if(n || v) str += `{field: ${n} | ${v} | ${i}}`;
+            });
+
+            document.querySelectorAll("#buttonsContainer .module-item").forEach(item => {
+                const l = item.querySelector(".b-label").value;
+                const s = item.querySelector(".b-style").value;
+                const a = item.querySelector(".b-action").value;
+                if(l) str += `{button: ${l} | ${s} | ${a}}`;
+            });
+
+            navigator.clipboard.writeText(str);
+            const btn = document.querySelector(".btn-copy");
+            btn.innerHTML = '<i class="fas fa-check"></i> Code Copied!';
+            setTimeout(() => { btn.innerHTML = '<i class="fas fa-copy"></i> Copy Parser Code'; }, 2000);
+        }
+
+        document.addEventListener("input", updatePreview);
+        window.onload = updatePreview;
+    </script>
+</body>
+</html>

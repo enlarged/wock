@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Wock | <%= gallery.title %></title>
+    <link rel="icon" type="image/png" id="favicon" href="/avatar.png" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/css/gallery.css?v=20260331a" />
+</head>
+<body>
+    <header class="topbar">
+        <div class="topbar-inner">
+            <a class="brand" href="/">
+                <img id="brandAvatar" src="/avatar.png" alt="Wock" />
+                <span>Wock</span>
+            </a>
+
+            <nav class="site-nav" aria-label="Main navigation">
+                <a href="/">Home</a>
+                <a href="/commands">Commands</a>
+                <a href="/api">API</a>
+                <a href="/docs">Docs</a>
+                <a href="/status">Status</a>
+                <a href="/updates">Updates</a>
+                <a href="/gallery" class="active">Gallery</a>
+            </nav>
+
+            <div class="page-pill">
+                <i class="fas fa-images"></i>
+                Asset Gallery
+            </div>
+        </div>
+    </header>
+
+    <main class="gallery-wrap">
+        <div class="gallery-header">
+            <div>
+                <h1>Asset <span>Gallery</span></h1>
+                <p>Decentralized file hosting powered by Discord.</p>
+            </div>
+            <a href="https://discord.gg/wock" target="_blank" rel="noopener" class="btn-discord">
+                <i class="fab fa-discord"></i> Host via Discord
+            </a>
+        </div>
+
+        <div class="gallery-grid"><%- gallery.cards %></div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <a href="/" class="footer-logo">
+                    <img id="footerAvatar" src="/avatar.png" alt="Wock" />
+                    <span>Wock</span>
+                </a>
+                <p>The all-in-one Discord bot for moderation, utility, and more.</p>
+            </div>
+
+            <div class="footer-col">
+                <h4>Support</h4>
+                <a href="/docs">Documentation</a>
+                <a href="https://discord.gg/wockbot" target="_blank" rel="noopener">Support Server</a>
+            </div>
+
+            <div class="footer-col">
+                <h4>Community</h4>
+                <div class="footer-socials">
+                    <a href="https://discord.gg/wockbot" target="_blank" rel="noopener" aria-label="Discord"><i class="fab fa-discord"></i></a>
+                    <a href="https://github.com/enlarged" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <span>© 2026 wock.best. All rights reserved.</span>
+        </div>
+    </footer>
+
+    <script src="/js/gallery.js?v=20260331a" defer></script>
+</body>
+</html>
