@@ -12,7 +12,8 @@
         ".cache": true,
         "docs": true,
         "node_modules": true,
-        "events": true
+        "events": true,
+        "commands": true
     },
     "hide-files.files": [
         "wock-music",
@@ -20,7 +21,6 @@
         ".vscode",
         ".venv",
         ".cache",
-        "docs",
         "node_modules",
         "events",
         "commands"
