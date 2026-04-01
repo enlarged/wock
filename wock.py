@@ -38,13 +38,13 @@ from models.upload import Upload
 load_dotenv()
 TOKEN = os.getenv('WOCK_TOKEN')
 OWNER_ID = os.getenv('OWNER_ID')
-MONGO_URI = os.getenv('MONGO_URI', 'mongodb://localhost:27017')
+MONGO_URI = os.getenv('MONGO_URI', '')
 DEFAULT_PREFIX = os.getenv('WOCK_PREFIX', ';')
 AUTO_START_TUNNEL = os.getenv('WOCK_AUTOSTART_TUNNEL', 'true').lower() in {'1', 'true', 'yes', 'on'}
 WEB_HOST = os.getenv('WOCK_WEB_HOST', '127.0.0.1')
 WEB_PORT = int(os.getenv('WOCK_WEB_PORT', '3000'))
-DISCORD_CLIENT_ID = '1466693823508775099'
-DISCORD_CLIENT_SECRET = '4RiBLler1hgzOTzuvKei1LWelYsLTP3S'
+DISCORD_CLIENT_ID = ''
+DISCORD_CLIENT_SECRET = ''
 DISCORD_REDIRECT_URI = 'https://wock.best/api/auth/callback'
 WEB_SESSION_SECRET = os.getenv('WOCK_WEB_SESSION_SECRET') or TOKEN or 'wock-web-session-secret'
 
@@ -87,8 +87,8 @@ class WockBot(commands.Bot):
         )
         
         self.config = {
-            "lastfm": "02c1cf78a77ec37e8d271b0c9d440ac1",
-            "wock_api": "wock_df3800608cb404b6ad8606e19bcdb0c2",
+            "lastfm": "",
+            "wock_api": "",
             "color": 0x242429
         }
         self.startup_time = discord.utils.utcnow()
